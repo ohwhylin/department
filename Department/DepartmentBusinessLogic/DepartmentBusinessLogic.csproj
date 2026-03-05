@@ -11,4 +11,8 @@
     <Folder Include="OfficePackage\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DepartmentContracts\DepartmentContracts.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -7,26 +7,34 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Update="CodeGen\GenerateBindingModels.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>GenerateBindingModels.generated.cs</LastGenOutput>
+    </None>
+    <None Update="CodeGen\GenerateBusinessLogicContracts.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>GenerateBusinessLogicContracts.generated.cs</LastGenOutput>
+    </None>
     <None Update="CodeGen\GenerateDataModels.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>GenerateDataModels.generated.cs</LastGenOutput>
+    </None>
+    <None Update="CodeGen\GenerateSearchModels.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>GenerateSearchModels.generated.cs</LastGenOutput>
+    </None>
+    <None Update="CodeGen\GenerateStoragesContracts.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>GenerateStoragesContracts.generated.cs</LastGenOutput>
+    </None>
+    <None Update="CodeGen\GenerateViewModels.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>GenerateViewModels.generated.cs</LastGenOutput>
     </None>
   </ItemGroup>
 
   <ItemGroup>
     <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="CodeGen\GenerateDataModels.generated.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>GenerateDataModels.tt</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="AutoGen\" />
   </ItemGroup>
 
 </Project>

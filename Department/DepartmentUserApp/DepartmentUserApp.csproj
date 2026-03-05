@@ -6,4 +6,10 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DepartmentBusinessLogic\DepartmentBusinessLogic.csproj" />
+    <ProjectReference Include="..\DepartmentContracts\DepartmentContracts.csproj" />
+    <ProjectReference Include="..\DepartmentDatabaseImplement\DepartmentDatabaseImplement.csproj" />
+  </ItemGroup>
+
 </Project>

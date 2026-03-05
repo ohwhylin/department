@@ -11,4 +11,9 @@
     <Folder Include="Models\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DepartmentContracts\DepartmentContracts.csproj" />
+    <ProjectReference Include="..\DepartmentDataModels\DepartmentDataModels.csproj" />
+  </ItemGroup>
+
 </Project>
