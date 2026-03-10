@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Update="CodeGen\GenerateApiControllers.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>GenerateApiControllers.generated.cs</LastGenOutput>
+    </None>
     <None Update="CodeGen\GenerateBindingModels.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>GenerateBindingModels.generated.cs</LastGenOutput>
@@ -27,9 +31,17 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>GenerateSearchModels.generated.cs</LastGenOutput>
     </None>
+    <None Update="CodeGen\GenerateStorageModels.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>GenerateStorageModels.generated.cs</LastGenOutput>
+    </None>
     <None Update="CodeGen\GenerateStoragesContracts.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>GenerateStoragesContracts.generated.cs</LastGenOutput>
+    </None>
+    <None Update="CodeGen\GenerateStoragesImplements.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>GenerateStoragesImplements.generated.cs</LastGenOutput>
     </None>
     <None Update="CodeGen\GenerateViewModels.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

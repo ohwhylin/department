@@ -17,7 +17,7 @@ namespace DepartmentContracts.ViewModels
         [Column(visible: false)]
         public int? CuratorId { get; set; }
         [Column(title: "", width: 100)]
-        public string Lecturer { get; set; } = string.Empty;
+        public string Curator { get; set; } = string.Empty;
         [Column(title: "", width: 100)]
         public string GroupName { get; set; } = string.Empty;
         [Column(title: "", width: 100)]

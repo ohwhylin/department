@@ -1,5 +1,5 @@
 ﻿entity:
-  name: DisciplineBlock
+  name: Discipline
   keyType: int
 
 properties:

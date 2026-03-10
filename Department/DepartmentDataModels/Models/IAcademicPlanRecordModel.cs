@@ -13,7 +13,7 @@ namespace DepartmentDataModels.Models
         int? AcademicPlanRecordParentId { get; }
         bool InDepartment { get; }
         Semesters Semester { get; }
-        int Zet { get; }
+        int Zet { get; } // зетки для расчета часов
         bool IsParent { get; }
         bool IsChild { get; }
         bool IsFacultative { get; }
