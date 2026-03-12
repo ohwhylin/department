@@ -1,0 +1,94 @@
+@model DepartmentContracts.BindingModels.StudentGroupBindingModel
+@using DepartmentDataModels.Enums
+@{
+    ViewData["Title"] = "StudentGroupCreate";
+}
+<div class="text-center">
+    <h2 class="display-4">Добавление StudentGroup</h2>
+</div>
+<style>
+    .row { margin-top: 10px; }
+    .validation-summary-errors { color: #dc3545; margin-bottom: 15px; }
+    .field-validation-error { color: #dc3545; font-size: 0.875em; }
+    .input-validation-error { border-color: #dc3545; }
+    .alert-danger { color: #721c24; background-color: #f8d7da; border-color: #f5c6cb; padding: .75rem 1.25rem; margin-bottom: 1rem; border: 1px solid transparent; border-radius: .25rem; }
+</style>
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Error"]
+    </div>
+}
+
+@functions {
+    public string GetDisplayText(object item)
+    {
+        var type = item.GetType();
+        var idProp = type.GetProperty("Id");
+        var firstName = type.GetProperty("FirstName")?.GetValue(item)?.ToString();
+        var lastName = type.GetProperty("LastName")?.GetValue(item)?.ToString();
+        if (!string.IsNullOrWhiteSpace(firstName) || !string.IsNullOrWhiteSpace(lastName))
+            return ($"{lastName} {firstName}").Trim();
+        foreach (var propName in new[] { "Name", "Title", "Number", "ShortName", "Cipher", "OrderNumber", "DepartmentPostTitle", "StudyPostTitle", "GroupName", "DisciplineName" })
+        {
+            var prop = type.GetProperty(propName);
+            var value = prop?.GetValue(item)?.ToString();
+            if (!string.IsNullOrWhiteSpace(value)) return value;
+        }
+        return idProp?.GetValue(item)?.ToString() ?? string.Empty;
+    }
+}
+
+<form method="post">
+    <div class="row">
+        <div class="col-4">Education Direction Id:</div>
+        <div class="col-8">
+            <select asp-for="EducationDirectionId" class="form-control">
+                <option value="">-- Выберите значение --</option>
+                @foreach (var item in ViewBag.EducationDirectionsList)
+                {
+                    <option value="@item.Id">@GetDisplayText(item)</option>
+                }
+            </select>
+            <span asp-validation-for="EducationDirectionId" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Curator Id:</div>
+        <div class="col-8">
+            <select asp-for="CuratorId" class="form-control">
+                <option value="">-- Выберите значение --</option>
+                @foreach (var item in ViewBag.LecturersList)
+                {
+                    <option value="@item.Id">@GetDisplayText(item)</option>
+                }
+            </select>
+            <span asp-validation-for="CuratorId" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Group Name:</div>
+        <div class="col-8">
+            <input asp-for="GroupName" class="form-control" />
+            <span asp-validation-for="GroupName" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Course:</div>
+        <div class="col-8">
+            <select asp-for="Course" class="form-control" asp-items="Html.GetEnumSelectList<AcademicCourse>()"></select>
+            <span asp-validation-for="Course" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-8"></div>
+        <div class="col-4">
+            <input type="submit" value="Добавить" class="btn btn-primary" />
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

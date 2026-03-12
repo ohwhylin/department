@@ -1,0 +1,104 @@
+@model DepartmentContracts.BindingModels.EducationDirectionBindingModel
+@using DepartmentDataModels.Enums
+@using Newtonsoft.Json;
+@{
+    ViewData["Title"] = "EducationDirectionUpdate";
+}
+<header>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</header>
+<style>
+    .validation-summary-errors { color: #dc3545; margin-bottom: 15px; }
+    .field-validation-error { color: #dc3545; font-size: 0.875em; }
+    .input-validation-error { border-color: #dc3545; }
+    .alert-danger { color: #721c24; background-color: #f8d7da; border-color: #f5c6cb; padding: .75rem 1.25rem; margin-bottom: 1rem; border: 1px solid transparent; border-radius: .25rem; }
+</style>
+
+<div class="text-center">
+    <h2 class="display-4">Данные EducationDirection</h2>
+</div>
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Error"]
+    </div>
+}
+
+<form method="post">
+    <div class="row">
+        <div class="col-4">EducationDirection:</div>
+        <div class="col-8">
+            <select asp-for="Id" class="form-control" asp-items="@(new SelectList(@ViewBag.EducationDirectionsList, "Id", "Id"))"></select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Cipher:</div>
+        <div class="col-8">
+            <input asp-for="Cipher" class="form-control" />
+            <span asp-validation-for="Cipher" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Short Name:</div>
+        <div class="col-8">
+            <input asp-for="ShortName" class="form-control" />
+            <span asp-validation-for="ShortName" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Title:</div>
+        <div class="col-8">
+            <input asp-for="Title" class="form-control" />
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Qualification:</div>
+        <div class="col-8">
+            <select asp-for="Qualification" class="form-control" asp-items="Html.GetEnumSelectList<EducationDirectionQualification>()"></select>
+            <span asp-validation-for="Qualification" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Profile:</div>
+        <div class="col-8">
+            <input asp-for="Profile" class="form-control" />
+            <span asp-validation-for="Profile" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Description:</div>
+        <div class="col-8">
+            <input asp-for="Description" class="form-control" />
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-8"></div>
+        <div class="col-4"><input type="submit" value="Сохранить" class="btn btn-primary" /></div>
+    </div>
+</form>
+
+<script>
+    $(document).ready(function () {
+        $('#Id').change(function () {
+            var selectedId = $(this).val();
+            var entities = @Html.Raw(JsonConvert.SerializeObject(ViewBag.EducationDirectionsList));
+            var selected = entities.find(d => d.Id == selectedId);
+            if (selected) {
+                $('#Cipher').val(selected.Cipher);
+                $('#ShortName').val(selected.ShortName);
+                $('#Title').val(selected.Title);
+                $('#Qualification').val(selected.Qualification);
+                $('#Profile').val(selected.Profile);
+                $('#Description').val(selected.Description);
+            }
+        });
+        $('#Id').trigger('change');
+    });
+</script>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

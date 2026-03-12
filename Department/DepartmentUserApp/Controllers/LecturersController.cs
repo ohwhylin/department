@@ -1,0 +1,159 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using DepartmentContracts.BindingModels;
+using DepartmentContracts.ViewModels;
+
+namespace DepartmentUserApp.Controllers
+{
+    public class LecturersController : Controller
+    {
+        [HttpGet]
+        public IActionResult List()
+        {
+            try
+            {
+                ViewBag.LecturersList = APIClient.GetRequest<List<LecturerViewModel>>("api/Lecturers/GetLecturerList");
+                ViewBag.LecturerStudyPostsList = APIClient.GetRequest<List<LecturerStudyPostViewModel>>("api/LecturerStudyPosts/GetLecturerStudyPostList");
+                ViewBag.LecturerDepartmentPostsList = APIClient.GetRequest<List<LecturerDepartmentPostViewModel>>("api/LecturerDepartmentPosts/GetLecturerDepartmentPostList");
+                return View();
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message;
+                ViewBag.LecturersList = new List<LecturerViewModel>();
+                ViewBag.LecturerStudyPostsList = new List<LecturerStudyPostViewModel>();
+                ViewBag.LecturerDepartmentPostsList = new List<LecturerDepartmentPostViewModel>();
+                return View();
+            }
+        }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            try
+            {
+                ViewBag.LecturerStudyPostsList = APIClient.GetRequest<List<LecturerStudyPostViewModel>>("api/LecturerStudyPosts/GetLecturerStudyPostList");
+                ViewBag.LecturerDepartmentPostsList = APIClient.GetRequest<List<LecturerDepartmentPostViewModel>>("api/LecturerDepartmentPosts/GetLecturerDepartmentPostList");
+                return View();
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message;
+                ViewBag.LecturerStudyPostsList = new List<LecturerStudyPostViewModel>();
+                ViewBag.LecturerDepartmentPostsList = new List<LecturerDepartmentPostViewModel>();
+                return View();
+            }
+        }
+
+        [HttpPost]
+        public IActionResult Create(LecturerBindingModel model)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    ViewBag.LecturerStudyPostsList = APIClient.GetRequest<List<LecturerStudyPostViewModel>>("api/LecturerStudyPosts/GetLecturerStudyPostList");
+                    ViewBag.LecturerDepartmentPostsList = APIClient.GetRequest<List<LecturerDepartmentPostViewModel>>("api/LecturerDepartmentPosts/GetLecturerDepartmentPostList");
+                    return View(model);
+                }
+
+                APIClient.PostRequest("api/Lecturers/LecturerCreate", model);
+                return RedirectToAction("List");
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message;
+                ViewBag.LecturerStudyPostsList = APIClient.GetRequest<List<LecturerStudyPostViewModel>>("api/LecturerStudyPosts/GetLecturerStudyPostList");
+                ViewBag.LecturerDepartmentPostsList = APIClient.GetRequest<List<LecturerDepartmentPostViewModel>>("api/LecturerDepartmentPosts/GetLecturerDepartmentPostList");
+                return View(model);
+            }
+        }
+
+        [HttpGet]
+        public IActionResult Delete()
+        {
+            try
+            {
+                ViewBag.LecturersList = APIClient.GetRequest<List<LecturerViewModel>>("api/Lecturers/GetLecturerList");
+                return View();
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message;
+                ViewBag.LecturersList = new List<LecturerViewModel>();
+                return View();
+            }
+        }
+
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            try
+            {
+                if (id <= 0)
+                {
+                    TempData["Error"] = "Некорректный идентификатор";
+                    return RedirectToAction("Delete");
+                }
+
+                APIClient.PostRequest("api/Lecturers/LecturerDelete", new LecturerBindingModel
+                {
+                    Id = id
+                });
+
+                return RedirectToAction("List");
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message;
+                return RedirectToAction("Delete");
+            }
+        }
+
+        [HttpGet]
+        public IActionResult Update()
+        {
+            try
+            {
+                ViewBag.LecturersList = APIClient.GetRequest<List<LecturerViewModel>>("api/Lecturers/GetLecturerList");
+                ViewBag.LecturerStudyPostsList = APIClient.GetRequest<List<LecturerStudyPostViewModel>>("api/LecturerStudyPosts/GetLecturerStudyPostList");
+                ViewBag.LecturerDepartmentPostsList = APIClient.GetRequest<List<LecturerDepartmentPostViewModel>>("api/LecturerDepartmentPosts/GetLecturerDepartmentPostList");
+                return View();
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message;
+                ViewBag.LecturersList = new List<LecturerViewModel>();
+                ViewBag.LecturerStudyPostsList = new List<LecturerStudyPostViewModel>();
+                ViewBag.LecturerDepartmentPostsList = new List<LecturerDepartmentPostViewModel>();
+                return View();
+            }
+        }
+
+        [HttpPost]
+        public IActionResult Update(LecturerBindingModel model)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    ViewBag.LecturersList = APIClient.GetRequest<List<LecturerViewModel>>("api/Lecturers/GetLecturerList");
+                    ViewBag.LecturerStudyPostsList = APIClient.GetRequest<List<LecturerStudyPostViewModel>>("api/LecturerStudyPosts/GetLecturerStudyPostList");
+                    ViewBag.LecturerDepartmentPostsList = APIClient.GetRequest<List<LecturerDepartmentPostViewModel>>("api/LecturerDepartmentPosts/GetLecturerDepartmentPostList");
+                    return View(model);
+                }
+
+                APIClient.PostRequest("api/Lecturers/LecturerUpdate", model);
+                return RedirectToAction("List");
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message;
+                ViewBag.LecturersList = APIClient.GetRequest<List<LecturerViewModel>>("api/Lecturers/GetLecturerList");
+                ViewBag.LecturerStudyPostsList = APIClient.GetRequest<List<LecturerStudyPostViewModel>>("api/LecturerStudyPosts/GetLecturerStudyPostList");
+                ViewBag.LecturerDepartmentPostsList = APIClient.GetRequest<List<LecturerDepartmentPostViewModel>>("api/LecturerDepartmentPosts/GetLecturerDepartmentPostList");
+                return View(model);
+            }
+        }
+    }
+}

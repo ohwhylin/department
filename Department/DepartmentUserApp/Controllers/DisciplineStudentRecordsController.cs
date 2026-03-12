@@ -1,0 +1,159 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using DepartmentContracts.BindingModels;
+using DepartmentContracts.ViewModels;
+
+namespace DepartmentUserApp.Controllers
+{
+    public class DisciplineStudentRecordsController : Controller
+    {
+        [HttpGet]
+        public IActionResult List()
+        {
+            try
+            {
+                ViewBag.DisciplineStudentRecordsList = APIClient.GetRequest<List<DisciplineStudentRecordViewModel>>("api/DisciplineStudentRecords/GetDisciplineStudentRecordList");
+                ViewBag.DisciplinesList = APIClient.GetRequest<List<DisciplineViewModel>>("api/Disciplines/GetDisciplineList");
+                ViewBag.StudentsList = APIClient.GetRequest<List<StudentViewModel>>("api/Students/GetStudentList");
+                return View();
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message;
+                ViewBag.DisciplineStudentRecordsList = new List<DisciplineStudentRecordViewModel>();
+                ViewBag.DisciplinesList = new List<DisciplineViewModel>();
+                ViewBag.StudentsList = new List<StudentViewModel>();
+                return View();
+            }
+        }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            try
+            {
+                ViewBag.DisciplinesList = APIClient.GetRequest<List<DisciplineViewModel>>("api/Disciplines/GetDisciplineList");
+                ViewBag.StudentsList = APIClient.GetRequest<List<StudentViewModel>>("api/Students/GetStudentList");
+                return View();
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message;
+                ViewBag.DisciplinesList = new List<DisciplineViewModel>();
+                ViewBag.StudentsList = new List<StudentViewModel>();
+                return View();
+            }
+        }
+
+        [HttpPost]
+        public IActionResult Create(DisciplineStudentRecordBindingModel model)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    ViewBag.DisciplinesList = APIClient.GetRequest<List<DisciplineViewModel>>("api/Disciplines/GetDisciplineList");
+                    ViewBag.StudentsList = APIClient.GetRequest<List<StudentViewModel>>("api/Students/GetStudentList");
+                    return View(model);
+                }
+
+                APIClient.PostRequest("api/DisciplineStudentRecords/DisciplineStudentRecordCreate", model);
+                return RedirectToAction("List");
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message;
+                ViewBag.DisciplinesList = APIClient.GetRequest<List<DisciplineViewModel>>("api/Disciplines/GetDisciplineList");
+                ViewBag.StudentsList = APIClient.GetRequest<List<StudentViewModel>>("api/Students/GetStudentList");
+                return View(model);
+            }
+        }
+
+        [HttpGet]
+        public IActionResult Delete()
+        {
+            try
+            {
+                ViewBag.DisciplineStudentRecordsList = APIClient.GetRequest<List<DisciplineStudentRecordViewModel>>("api/DisciplineStudentRecords/GetDisciplineStudentRecordList");
+                return View();
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message;
+                ViewBag.DisciplineStudentRecordsList = new List<DisciplineStudentRecordViewModel>();
+                return View();
+            }
+        }
+
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            try
+            {
+                if (id <= 0)
+                {
+                    TempData["Error"] = "Некорректный идентификатор";
+                    return RedirectToAction("Delete");
+                }
+
+                APIClient.PostRequest("api/DisciplineStudentRecords/DisciplineStudentRecordDelete", new DisciplineStudentRecordBindingModel
+                {
+                    Id = id
+                });
+
+                return RedirectToAction("List");
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message;
+                return RedirectToAction("Delete");
+            }
+        }
+
+        [HttpGet]
+        public IActionResult Update()
+        {
+            try
+            {
+                ViewBag.DisciplineStudentRecordsList = APIClient.GetRequest<List<DisciplineStudentRecordViewModel>>("api/DisciplineStudentRecords/GetDisciplineStudentRecordList");
+                ViewBag.DisciplinesList = APIClient.GetRequest<List<DisciplineViewModel>>("api/Disciplines/GetDisciplineList");
+                ViewBag.StudentsList = APIClient.GetRequest<List<StudentViewModel>>("api/Students/GetStudentList");
+                return View();
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message;
+                ViewBag.DisciplineStudentRecordsList = new List<DisciplineStudentRecordViewModel>();
+                ViewBag.DisciplinesList = new List<DisciplineViewModel>();
+                ViewBag.StudentsList = new List<StudentViewModel>();
+                return View();
+            }
+        }
+
+        [HttpPost]
+        public IActionResult Update(DisciplineStudentRecordBindingModel model)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    ViewBag.DisciplineStudentRecordsList = APIClient.GetRequest<List<DisciplineStudentRecordViewModel>>("api/DisciplineStudentRecords/GetDisciplineStudentRecordList");
+                    ViewBag.DisciplinesList = APIClient.GetRequest<List<DisciplineViewModel>>("api/Disciplines/GetDisciplineList");
+                    ViewBag.StudentsList = APIClient.GetRequest<List<StudentViewModel>>("api/Students/GetStudentList");
+                    return View(model);
+                }
+
+                APIClient.PostRequest("api/DisciplineStudentRecords/DisciplineStudentRecordUpdate", model);
+                return RedirectToAction("List");
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message;
+                ViewBag.DisciplineStudentRecordsList = APIClient.GetRequest<List<DisciplineStudentRecordViewModel>>("api/DisciplineStudentRecords/GetDisciplineStudentRecordList");
+                ViewBag.DisciplinesList = APIClient.GetRequest<List<DisciplineViewModel>>("api/Disciplines/GetDisciplineList");
+                ViewBag.StudentsList = APIClient.GetRequest<List<StudentViewModel>>("api/Students/GetStudentList");
+                return View(model);
+            }
+        }
+    }
+}

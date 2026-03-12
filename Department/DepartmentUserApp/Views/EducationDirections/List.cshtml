@@ -1,0 +1,112 @@
+@using DepartmentContracts.ViewModels;
+@using DepartmentDataModels.Enums
+@{
+    ViewData["Title"] = "EducationDirectionList";
+}
+<body>
+    <div class="container">
+        <h2>Список EducationDirections</h2>
+
+        <a type="button" class="btn btn-info" href="/EducationDirections/Create">Добавить</a>
+        <a type="button" class="btn btn-info" href="/EducationDirections/Delete">Удалить</a>
+        <a type="button" class="btn btn-info" href="/EducationDirections/Update">Обновить</a>
+
+        <div class="mb-3">
+            <label for="entitySearch" class="form-label">Поиск:</label>
+            <input type="text" class="form-control" id="entitySearch" placeholder="Введите значение">
+        </div>
+
+        <div class="mb-3">
+            <label for="pageSizeSelect" class="form-label">Записей на странице:</label>
+            <select id="pageSizeSelect" class="form-select" style="width: auto;">
+                <option value="5">5</option>
+                <option value="10" selected>10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+            </select>
+        </div>
+
+        <table class="table" id="entityTable">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Cipher</th>
+                    <th>Short Name</th>
+                    <th>Title</th>
+                    <th>Qualification</th>
+                    <th>Profile</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                @foreach (var item in ViewBag.EducationDirectionsList)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.Cipher</td>
+                        <td>@item.ShortName</td>
+                        <td>@item.Title</td>
+                        <td>@item.Qualification</td>
+                        <td>@item.Profile</td>
+                        <td>@item.Description</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <nav aria-label="Page navigation">
+            <ul class="pagination" id="pagination"></ul>
+        </nav>
+    </div>
+
+    <script>
+        let currentPage = 1;
+        let pageSize = 10;
+        let filterText = '';
+
+        function renderTable() {
+            const rows = Array.from(document.querySelectorAll('#tableBody tr'));
+            const filtered = rows.filter(r => r.innerText.toLowerCase().includes(filterText));
+            const totalPages = Math.ceil(filtered.length / pageSize) || 1;
+            rows.forEach(r => r.style.display = 'none');
+            filtered.slice((currentPage - 1) * pageSize, currentPage * pageSize).forEach(r => r.style.display = '');
+
+            const pagination = document.getElementById('pagination');
+            pagination.innerHTML = '';
+
+            const prevLi = document.createElement('li');
+            prevLi.className = 'page-item' + (currentPage === 1 ? ' disabled' : '');
+            prevLi.innerHTML = `<a class="page-link" href="#">Предыдущая</a>`;
+            prevLi.onclick = e => { e.preventDefault(); if (currentPage > 1) { currentPage--; renderTable(); } };
+            pagination.appendChild(prevLi);
+
+            for (let i = 1; i <= totalPages; i++) {
+                const li = document.createElement('li');
+                li.className = 'page-item' + (i === currentPage ? ' active' : '');
+                li.innerHTML = `<a class="page-link" href="#">${i}</a>`;
+                li.onclick = e => { e.preventDefault(); currentPage = i; renderTable(); };
+                pagination.appendChild(li);
+            }
+
+            const nextLi = document.createElement('li');
+            nextLi.className = 'page-item' + (currentPage === totalPages ? ' disabled' : '');
+            nextLi.innerHTML = `<a class="page-link" href="#">Следующая</a>`;
+            nextLi.onclick = e => { e.preventDefault(); if (currentPage < totalPages) { currentPage++; renderTable(); } };
+            pagination.appendChild(nextLi);
+        }
+
+        document.getElementById('entitySearch').addEventListener('input', function () {
+            filterText = this.value.toLowerCase();
+            currentPage = 1;
+            renderTable();
+        });
+
+        document.getElementById('pageSizeSelect').addEventListener('change', function () {
+            pageSize = parseInt(this.value);
+            currentPage = 1;
+            renderTable();
+        });
+
+        renderTable();
+    </script>
+</body>

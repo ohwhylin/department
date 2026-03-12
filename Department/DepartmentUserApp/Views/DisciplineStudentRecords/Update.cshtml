@@ -1,0 +1,106 @@
+@model DepartmentContracts.BindingModels.DisciplineStudentRecordBindingModel
+@using DepartmentDataModels.Enums
+@using Newtonsoft.Json;
+@{
+    ViewData["Title"] = "DisciplineStudentRecordUpdate";
+}
+<header>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</header>
+<style>
+    .validation-summary-errors { color: #dc3545; margin-bottom: 15px; }
+    .field-validation-error { color: #dc3545; font-size: 0.875em; }
+    .input-validation-error { border-color: #dc3545; }
+    .alert-danger { color: #721c24; background-color: #f8d7da; border-color: #f5c6cb; padding: .75rem 1.25rem; margin-bottom: 1rem; border: 1px solid transparent; border-radius: .25rem; }
+</style>
+
+<div class="text-center">
+    <h2 class="display-4">Данные DisciplineStudentRecord</h2>
+</div>
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Error"]
+    </div>
+}
+
+<form method="post">
+    <div class="row">
+        <div class="col-4">DisciplineStudentRecord:</div>
+        <div class="col-8">
+            <select asp-for="Id" class="form-control" asp-items="@(new SelectList(@ViewBag.DisciplineStudentRecordsList, "Id", "Id"))"></select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Discipline Id:</div>
+        <div class="col-8">
+            <select asp-for="DisciplineId" class="form-control">
+                @foreach (var item in ViewBag.DisciplinesList)
+                {
+                    <option value="@item.Id">@item.Id</option>
+                }
+            </select>
+            <span asp-validation-for="DisciplineId" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Student Id:</div>
+        <div class="col-8">
+            <select asp-for="StudentId" class="form-control">
+                @foreach (var item in ViewBag.StudentsList)
+                {
+                    <option value="@item.Id">@item.Id</option>
+                }
+            </select>
+            <span asp-validation-for="StudentId" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Semester:</div>
+        <div class="col-8">
+            <select asp-for="Semester" class="form-control" asp-items="Html.GetEnumSelectList<Semesters>()"></select>
+            <span asp-validation-for="Semester" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Variant:</div>
+        <div class="col-8">
+            <input asp-for="Variant" class="form-control" />
+            <span asp-validation-for="Variant" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Sub Group:</div>
+        <div class="col-8">
+            <input asp-for="SubGroup" class="form-control" />
+            <span asp-validation-for="SubGroup" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-8"></div>
+        <div class="col-4"><input type="submit" value="Сохранить" class="btn btn-primary" /></div>
+    </div>
+</form>
+
+<script>
+    $(document).ready(function () {
+        $('#Id').change(function () {
+            var selectedId = $(this).val();
+            var entities = @Html.Raw(JsonConvert.SerializeObject(ViewBag.DisciplineStudentRecordsList));
+            var selected = entities.find(d => d.Id == selectedId);
+            if (selected) {
+                $('#DisciplineId').val(selected.DisciplineId);
+                $('#StudentId').val(selected.StudentId);
+                $('#Semester').val(selected.Semester);
+                $('#Variant').val(selected.Variant);
+                $('#SubGroup').val(selected.SubGroup);
+            }
+        });
+        $('#Id').trigger('change');
+    });
+</script>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

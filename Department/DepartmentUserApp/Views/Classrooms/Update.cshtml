@@ -1,0 +1,90 @@
+@model DepartmentContracts.BindingModels.ClassroomBindingModel
+@using DepartmentDataModels.Enums
+@using Newtonsoft.Json;
+@{
+    ViewData["Title"] = "ClassroomUpdate";
+}
+<header>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</header>
+<style>
+    .validation-summary-errors { color: #dc3545; margin-bottom: 15px; }
+    .field-validation-error { color: #dc3545; font-size: 0.875em; }
+    .input-validation-error { border-color: #dc3545; }
+    .alert-danger { color: #721c24; background-color: #f8d7da; border-color: #f5c6cb; padding: .75rem 1.25rem; margin-bottom: 1rem; border: 1px solid transparent; border-radius: .25rem; }
+</style>
+
+<div class="text-center">
+    <h2 class="display-4">Данные Classroom</h2>
+</div>
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Error"]
+    </div>
+}
+
+<form method="post">
+    <div class="row">
+        <div class="col-4">Classroom:</div>
+        <div class="col-8">
+            <select asp-for="Id" class="form-control" asp-items="@(new SelectList(@ViewBag.ClassroomsList, "Id", "Id"))"></select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Number:</div>
+        <div class="col-8">
+            <input asp-for="Number" class="form-control" />
+            <span asp-validation-for="Number" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Classroom Type:</div>
+        <div class="col-8">
+            <select asp-for="ClassroomType" class="form-control" asp-items="Html.GetEnumSelectList<ClassroomTypes>()"></select>
+            <span asp-validation-for="ClassroomType" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Capacity:</div>
+        <div class="col-8">
+            <input asp-for="Capacity" class="form-control" />
+            <span asp-validation-for="Capacity" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Not Use In Schedule:</div>
+        <div class="col-8">
+            <div class="form-check">
+                <input asp-for="NotUseInSchedule" class="form-check-input" />
+            </div>
+            <span asp-validation-for="NotUseInSchedule" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-8"></div>
+        <div class="col-4"><input type="submit" value="Сохранить" class="btn btn-primary" /></div>
+    </div>
+</form>
+
+<script>
+    $(document).ready(function () {
+        $('#Id').change(function () {
+            var selectedId = $(this).val();
+            var entities = @Html.Raw(JsonConvert.SerializeObject(ViewBag.ClassroomsList));
+            var selected = entities.find(d => d.Id == selectedId);
+            if (selected) {
+                $('#Number').val(selected.Number);
+                $('#ClassroomType').val(selected.ClassroomType);
+                $('#Capacity').val(selected.Capacity);
+                $('#NotUseInSchedule').val(selected.NotUseInSchedule);
+            }
+        });
+        $('#Id').trigger('change');
+    });
+</script>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

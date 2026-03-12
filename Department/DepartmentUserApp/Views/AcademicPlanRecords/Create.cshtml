@@ -1,0 +1,161 @@
+@model DepartmentContracts.BindingModels.AcademicPlanRecordBindingModel
+@using DepartmentDataModels.Enums
+@{
+    ViewData["Title"] = "AcademicPlanRecordCreate";
+}
+<div class="text-center">
+    <h2 class="display-4">Добавление AcademicPlanRecord</h2>
+</div>
+<style>
+    .row { margin-top: 10px; }
+    .validation-summary-errors { color: #dc3545; margin-bottom: 15px; }
+    .field-validation-error { color: #dc3545; font-size: 0.875em; }
+    .input-validation-error { border-color: #dc3545; }
+    .alert-danger { color: #721c24; background-color: #f8d7da; border-color: #f5c6cb; padding: .75rem 1.25rem; margin-bottom: 1rem; border: 1px solid transparent; border-radius: .25rem; }
+</style>
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Error"]
+    </div>
+}
+
+@functions {
+    public string GetDisplayText(object item)
+    {
+        var type = item.GetType();
+        var idProp = type.GetProperty("Id");
+        var firstName = type.GetProperty("FirstName")?.GetValue(item)?.ToString();
+        var lastName = type.GetProperty("LastName")?.GetValue(item)?.ToString();
+        if (!string.IsNullOrWhiteSpace(firstName) || !string.IsNullOrWhiteSpace(lastName))
+            return ($"{lastName} {firstName}").Trim();
+        foreach (var propName in new[] { "Name", "Title", "Number", "ShortName", "Cipher", "OrderNumber", "DepartmentPostTitle", "StudyPostTitle", "GroupName", "DisciplineName" })
+        {
+            var prop = type.GetProperty(propName);
+            var value = prop?.GetValue(item)?.ToString();
+            if (!string.IsNullOrWhiteSpace(value)) return value;
+        }
+        return idProp?.GetValue(item)?.ToString() ?? string.Empty;
+    }
+}
+
+<form method="post">
+    <div class="row">
+        <div class="col-4">Academic Plan Id:</div>
+        <div class="col-8">
+            <select asp-for="AcademicPlanId" class="form-control">
+                <option value="">-- Выберите значение --</option>
+                @foreach (var item in ViewBag.AcademicPlansList)
+                {
+                    <option value="@item.Id">@GetDisplayText(item)</option>
+                }
+            </select>
+            <span asp-validation-for="AcademicPlanId" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Discipline Id:</div>
+        <div class="col-8">
+            <select asp-for="DisciplineId" class="form-control">
+                <option value="">-- Выберите значение --</option>
+                @foreach (var item in ViewBag.DisciplinesList)
+                {
+                    <option value="@item.Id">@GetDisplayText(item)</option>
+                }
+            </select>
+            <span asp-validation-for="DisciplineId" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Academic Plan Record Parent Id:</div>
+        <div class="col-8">
+            <select asp-for="AcademicPlanRecordParentId" class="form-control">
+                <option value="">-- Выберите значение --</option>
+                @foreach (var item in ViewBag.AcademicPlanRecordsList)
+                {
+                    <option value="@item.Id">@GetDisplayText(item)</option>
+                }
+            </select>
+            <span asp-validation-for="AcademicPlanRecordParentId" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">In Department:</div>
+        <div class="col-8">
+            <div class="form-check">
+                <input asp-for="InDepartment" class="form-check-input" />
+            </div>
+            <span asp-validation-for="InDepartment" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Semester:</div>
+        <div class="col-8">
+            <select asp-for="Semester" class="form-control" asp-items="Html.GetEnumSelectList<Semesters>()"></select>
+            <span asp-validation-for="Semester" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Zet:</div>
+        <div class="col-8">
+            <input asp-for="Zet" class="form-control" />
+            <span asp-validation-for="Zet" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Is Parent:</div>
+        <div class="col-8">
+            <div class="form-check">
+                <input asp-for="IsParent" class="form-check-input" />
+            </div>
+            <span asp-validation-for="IsParent" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Is Child:</div>
+        <div class="col-8">
+            <div class="form-check">
+                <input asp-for="IsChild" class="form-check-input" />
+            </div>
+            <span asp-validation-for="IsChild" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Is Facultative:</div>
+        <div class="col-8">
+            <div class="form-check">
+                <input asp-for="IsFacultative" class="form-check-input" />
+            </div>
+            <span asp-validation-for="IsFacultative" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Is Use In Workload:</div>
+        <div class="col-8">
+            <div class="form-check">
+                <input asp-for="IsUseInWorkload" class="form-check-input" />
+            </div>
+            <span asp-validation-for="IsUseInWorkload" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Is Active Semester:</div>
+        <div class="col-8">
+            <div class="form-check">
+                <input asp-for="IsActiveSemester" class="form-check-input" />
+            </div>
+            <span asp-validation-for="IsActiveSemester" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-8"></div>
+        <div class="col-4">
+            <input type="submit" value="Добавить" class="btn btn-primary" />
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

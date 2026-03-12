@@ -27,6 +27,14 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>GenerateDataModels.generated.cs</LastGenOutput>
     </None>
+    <None Update="CodeGen\GenerateMvcControllers.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>GenerateMvcControllers.generated.cs</LastGenOutput>
+    </None>
+    <None Update="CodeGen\GenerateMvcViews.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>GenerateMvcViews.generated.cs</LastGenOutput>
+    </None>
     <None Update="CodeGen\GenerateSearchModels.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>GenerateSearchModels.generated.cs</LastGenOutput>

@@ -1,0 +1,25 @@
+@using DepartmentContracts.ViewModels;
+@using DepartmentDataModels.Enums
+@{
+    ViewData["Title"] = "DeleteStudentGroup";
+}
+<div class="text-center">
+    <h2 class="display-4">Удаление StudentGroup</h2>
+</div>
+<style>
+    .row { margin-top: 10px; }
+</style>
+<form method="post">
+    <div class="row">
+        <div class="col-4">Выберите StudentGroup</div>
+        <div class="col-8">
+            <select id="id" name="id" class="form-control" asp-items="@(new SelectList(@ViewBag.StudentGroupsList, "Id", "Id"))"></select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-8"></div>
+        <div class="col-4">
+            <input type="submit" value="Удалить" class="btn btn-primary" />
+        </div>
+    </div>
+</form>

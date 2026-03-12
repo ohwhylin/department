@@ -1,0 +1,188 @@
+@model DepartmentContracts.BindingModels.LecturerBindingModel
+@using DepartmentDataModels.Enums
+@using Newtonsoft.Json;
+@{
+    ViewData["Title"] = "LecturerUpdate";
+}
+<header>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</header>
+<style>
+    .validation-summary-errors { color: #dc3545; margin-bottom: 15px; }
+    .field-validation-error { color: #dc3545; font-size: 0.875em; }
+    .input-validation-error { border-color: #dc3545; }
+    .alert-danger { color: #721c24; background-color: #f8d7da; border-color: #f5c6cb; padding: .75rem 1.25rem; margin-bottom: 1rem; border: 1px solid transparent; border-radius: .25rem; }
+</style>
+
+<div class="text-center">
+    <h2 class="display-4">Данные Lecturer</h2>
+</div>
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Error"]
+    </div>
+}
+
+<form method="post">
+    <div class="row">
+        <div class="col-4">Lecturer:</div>
+        <div class="col-8">
+            <select asp-for="Id" class="form-control" asp-items="@(new SelectList(@ViewBag.LecturersList, "Id", "Id"))"></select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Lecturer Study Post Id:</div>
+        <div class="col-8">
+            <select asp-for="LecturerStudyPostId" class="form-control">
+                @foreach (var item in ViewBag.LecturerStudyPostsList)
+                {
+                    <option value="@item.Id">@item.Id</option>
+                }
+            </select>
+            <span asp-validation-for="LecturerStudyPostId" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Lecturer Department Post Id:</div>
+        <div class="col-8">
+            <select asp-for="LecturerDepartmentPostId" class="form-control">
+                @foreach (var item in ViewBag.LecturerDepartmentPostsList)
+                {
+                    <option value="@item.Id">@item.Id</option>
+                }
+            </select>
+            <span asp-validation-for="LecturerDepartmentPostId" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">First Name:</div>
+        <div class="col-8">
+            <input asp-for="FirstName" class="form-control" />
+            <span asp-validation-for="FirstName" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Last Name:</div>
+        <div class="col-8">
+            <input asp-for="LastName" class="form-control" />
+            <span asp-validation-for="LastName" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Patronymic:</div>
+        <div class="col-8">
+            <input asp-for="Patronymic" class="form-control" />
+            <span asp-validation-for="Patronymic" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Abbreviation:</div>
+        <div class="col-8">
+            <input asp-for="Abbreviation" class="form-control" />
+            <span asp-validation-for="Abbreviation" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Date Birth:</div>
+        <div class="col-8">
+            <input asp-for="DateBirth" class="form-control" />
+            <span asp-validation-for="DateBirth" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Address:</div>
+        <div class="col-8">
+            <input asp-for="Address" class="form-control" />
+            <span asp-validation-for="Address" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Email:</div>
+        <div class="col-8">
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Mobile Number:</div>
+        <div class="col-8">
+            <input asp-for="MobileNumber" class="form-control" />
+            <span asp-validation-for="MobileNumber" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Home Number:</div>
+        <div class="col-8">
+            <input asp-for="HomeNumber" class="form-control" />
+            <span asp-validation-for="HomeNumber" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Rank:</div>
+        <div class="col-8">
+            <select asp-for="Rank" class="form-control" asp-items="Html.GetEnumSelectList<Rank>()"></select>
+            <span asp-validation-for="Rank" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Rank2:</div>
+        <div class="col-8">
+            <select asp-for="Rank2" class="form-control" asp-items="Html.GetEnumSelectList<Rank2>()"></select>
+            <span asp-validation-for="Rank2" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Description:</div>
+        <div class="col-8">
+            <input asp-for="Description" class="form-control" />
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Only For Private:</div>
+        <div class="col-8">
+            <div class="form-check">
+                <input asp-for="OnlyForPrivate" class="form-check-input" />
+            </div>
+            <span asp-validation-for="OnlyForPrivate" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-8"></div>
+        <div class="col-4"><input type="submit" value="Сохранить" class="btn btn-primary" /></div>
+    </div>
+</form>
+
+<script>
+    $(document).ready(function () {
+        $('#Id').change(function () {
+            var selectedId = $(this).val();
+            var entities = @Html.Raw(JsonConvert.SerializeObject(ViewBag.LecturersList));
+            var selected = entities.find(d => d.Id == selectedId);
+            if (selected) {
+                $('#LecturerStudyPostId').val(selected.LecturerStudyPostId);
+                $('#LecturerDepartmentPostId').val(selected.LecturerDepartmentPostId);
+                $('#FirstName').val(selected.FirstName);
+                $('#LastName').val(selected.LastName);
+                $('#Patronymic').val(selected.Patronymic);
+                $('#Abbreviation').val(selected.Abbreviation);
+                $('#DateBirth').val(selected.DateBirth);
+                $('#Address').val(selected.Address);
+                $('#Email').val(selected.Email);
+                $('#MobileNumber').val(selected.MobileNumber);
+                $('#HomeNumber').val(selected.HomeNumber);
+                $('#Rank').val(selected.Rank);
+                $('#Rank2').val(selected.Rank2);
+                $('#Description').val(selected.Description);
+                $('#OnlyForPrivate').val(selected.OnlyForPrivate);
+            }
+        });
+        $('#Id').trigger('change');
+    });
+</script>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,90 @@
+@model DepartmentContracts.BindingModels.DisciplineBlockBindingModel
+@using DepartmentDataModels.Enums
+@using Newtonsoft.Json;
+@{
+    ViewData["Title"] = "DisciplineBlockUpdate";
+}
+<header>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</header>
+<style>
+    .validation-summary-errors { color: #dc3545; margin-bottom: 15px; }
+    .field-validation-error { color: #dc3545; font-size: 0.875em; }
+    .input-validation-error { border-color: #dc3545; }
+    .alert-danger { color: #721c24; background-color: #f8d7da; border-color: #f5c6cb; padding: .75rem 1.25rem; margin-bottom: 1rem; border: 1px solid transparent; border-radius: .25rem; }
+</style>
+
+<div class="text-center">
+    <h2 class="display-4">Данные DisciplineBlock</h2>
+</div>
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Error"]
+    </div>
+}
+
+<form method="post">
+    <div class="row">
+        <div class="col-4">DisciplineBlock:</div>
+        <div class="col-8">
+            <select asp-for="Id" class="form-control" asp-items="@(new SelectList(@ViewBag.DisciplineBlocksList, "Id", "Id"))"></select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Title:</div>
+        <div class="col-8">
+            <input asp-for="Title" class="form-control" />
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Discipline Block Blue Asterisk Name:</div>
+        <div class="col-8">
+            <input asp-for="DisciplineBlockBlueAsteriskName" class="form-control" />
+            <span asp-validation-for="DisciplineBlockBlueAsteriskName" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Discipline Block Use For Grouping:</div>
+        <div class="col-8">
+            <div class="form-check">
+                <input asp-for="DisciplineBlockUseForGrouping" class="form-check-input" />
+            </div>
+            <span asp-validation-for="DisciplineBlockUseForGrouping" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Discipline Block Order:</div>
+        <div class="col-8">
+            <input asp-for="DisciplineBlockOrder" class="form-control" />
+            <span asp-validation-for="DisciplineBlockOrder" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-8"></div>
+        <div class="col-4"><input type="submit" value="Сохранить" class="btn btn-primary" /></div>
+    </div>
+</form>
+
+<script>
+    $(document).ready(function () {
+        $('#Id').change(function () {
+            var selectedId = $(this).val();
+            var entities = @Html.Raw(JsonConvert.SerializeObject(ViewBag.DisciplineBlocksList));
+            var selected = entities.find(d => d.Id == selectedId);
+            if (selected) {
+                $('#Title').val(selected.Title);
+                $('#DisciplineBlockBlueAsteriskName').val(selected.DisciplineBlockBlueAsteriskName);
+                $('#DisciplineBlockUseForGrouping').val(selected.DisciplineBlockUseForGrouping);
+                $('#DisciplineBlockOrder').val(selected.DisciplineBlockOrder);
+            }
+        });
+        $('#Id').trigger('change');
+    });
+</script>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
