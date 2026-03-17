@@ -1,0 +1,43 @@
+@model DepartmentContracts.ViewModels.StudentOrderBlockViewModel
+@using DepartmentDataModels.Enums
+@{
+    ViewData["Title"] = "Подробнее о StudentOrderBlock";
+}
+
+<div class="app-card">
+    <div class="app-card-header">
+        <h2 class="app-card-title">Подробнее о StudentOrderBlock</h2>
+        <div class="d-flex gap-2">
+            <a class="btn btn-sm btn-light" asp-controller="StudentOrderBlocks" asp-action="Update">Изменить</a>
+            <a class="btn btn-sm btn-light" asp-controller="StudentOrderBlocks" asp-action="List">К списку</a>
+        </div>
+    </div>
+    <div class="p-3">
+        <dl class="row mb-0">
+            <dt class="col-sm-4 text-muted">
+                Id
+            </dt>
+            <dd class="col-sm-8">
+                @Model.Id
+            </dd>
+            <dt class="col-sm-4 text-muted">
+                StudentOrder
+            </dt>
+            <dd class="col-sm-8">
+                @Model.StudentOrder
+            </dd>
+            <dt class="col-sm-4 text-muted">
+                EducationDirection
+            </dt>
+            <dd class="col-sm-8">
+                @Model.EducationDirection
+            </dd>
+            <dt class="col-sm-4 text-muted">
+                Student Order Type
+            </dt>
+            <dd class="col-sm-8">
+                @Model.StudentOrderType
+            </dd>
+        </dl>
+    </div>
+</div>

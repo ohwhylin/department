@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using DepartmentContracts.BindingModels;
 using DepartmentContracts.ViewModels;
@@ -22,6 +23,33 @@ namespace DepartmentUserApp.Controllers
                 ViewBag.StudentsList = new List<StudentViewModel>();
                 ViewBag.StudentGroupsList = new List<StudentGroupViewModel>();
                 return View();
+            }
+        }
+
+        [HttpGet]
+        public IActionResult Details(int id)
+        {
+            try
+            {
+                if (id <= 0)
+                {
+                    TempData["Error"] = "Некорректный идентификатор";
+                    return RedirectToAction("List");
+                }
+
+                var item = APIClient.GetRequest<StudentViewModel>($"api/Students/GetStudent?id={id}");
+                if (item == null)
+                {
+                    TempData["Error"] = "Запись не найдена";
+                    return RedirectToAction("List");
+                }
+
+                return View(item);
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message;
+                return RedirectToAction("List");
             }
         }
 
@@ -58,6 +86,48 @@ namespace DepartmentUserApp.Controllers
             catch (Exception ex)
             {
                 TempData["Error"] = ex.Message;
+                ViewBag.StudentGroupsList = APIClient.GetRequest<List<StudentGroupViewModel>>("api/StudentGroups/GetStudentGroupList");
+                return View(model);
+            }
+        }
+
+        [HttpGet]
+        public IActionResult Update()
+        {
+            try
+            {
+                ViewBag.StudentsList = APIClient.GetRequest<List<StudentViewModel>>("api/Students/GetStudentList");
+                ViewBag.StudentGroupsList = APIClient.GetRequest<List<StudentGroupViewModel>>("api/StudentGroups/GetStudentGroupList");
+                return View();
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message;
+                ViewBag.StudentsList = new List<StudentViewModel>();
+                ViewBag.StudentGroupsList = new List<StudentGroupViewModel>();
+                return View();
+            }
+        }
+
+        [HttpPost]
+        public IActionResult Update(StudentBindingModel model)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    ViewBag.StudentsList = APIClient.GetRequest<List<StudentViewModel>>("api/Students/GetStudentList");
+                    ViewBag.StudentGroupsList = APIClient.GetRequest<List<StudentGroupViewModel>>("api/StudentGroups/GetStudentGroupList");
+                    return View(model);
+                }
+
+                APIClient.PostRequest("api/Students/StudentUpdate", model);
+                return RedirectToAction("List");
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message;
+                ViewBag.StudentsList = APIClient.GetRequest<List<StudentViewModel>>("api/Students/GetStudentList");
                 ViewBag.StudentGroupsList = APIClient.GetRequest<List<StudentGroupViewModel>>("api/StudentGroups/GetStudentGroupList");
                 return View(model);
             }
@@ -101,48 +171,6 @@ namespace DepartmentUserApp.Controllers
             {
                 TempData["Error"] = ex.Message;
                 return RedirectToAction("Delete");
-            }
-        }
-
-        [HttpGet]
-        public IActionResult Update()
-        {
-            try
-            {
-                ViewBag.StudentsList = APIClient.GetRequest<List<StudentViewModel>>("api/Students/GetStudentList");
-                ViewBag.StudentGroupsList = APIClient.GetRequest<List<StudentGroupViewModel>>("api/StudentGroups/GetStudentGroupList");
-                return View();
-            }
-            catch (Exception ex)
-            {
-                TempData["Error"] = ex.Message;
-                ViewBag.StudentsList = new List<StudentViewModel>();
-                ViewBag.StudentGroupsList = new List<StudentGroupViewModel>();
-                return View();
-            }
-        }
-
-        [HttpPost]
-        public IActionResult Update(StudentBindingModel model)
-        {
-            try
-            {
-                if (!ModelState.IsValid)
-                {
-                    ViewBag.StudentsList = APIClient.GetRequest<List<StudentViewModel>>("api/Students/GetStudentList");
-                    ViewBag.StudentGroupsList = APIClient.GetRequest<List<StudentGroupViewModel>>("api/StudentGroups/GetStudentGroupList");
-                    return View(model);
-                }
-
-                APIClient.PostRequest("api/Students/StudentUpdate", model);
-                return RedirectToAction("List");
-            }
-            catch (Exception ex)
-            {
-                TempData["Error"] = ex.Message;
-                ViewBag.StudentsList = APIClient.GetRequest<List<StudentViewModel>>("api/Students/GetStudentList");
-                ViewBag.StudentGroupsList = APIClient.GetRequest<List<StudentGroupViewModel>>("api/StudentGroups/GetStudentGroupList");
-                return View(model);
             }
         }
     }

@@ -1,104 +1,42 @@
-@using DepartmentContracts.ViewModels;
-@using DepartmentDataModels.Enums
 @{
-    ViewData["Title"] = "LecturerStudyPostList";
+    ViewData["Title"] = "LecturerStudyPosts";
 }
-<body>
-    <div class="container">
-        <h2>Список LecturerStudyPosts</h2>
 
-        <a type="button" class="btn btn-info" href="/LecturerStudyPosts/Create">Добавить</a>
-        <a type="button" class="btn btn-info" href="/LecturerStudyPosts/Delete">Удалить</a>
-        <a type="button" class="btn btn-info" href="/LecturerStudyPosts/Update">Обновить</a>
-
-        <div class="mb-3">
-            <label for="entitySearch" class="form-label">Поиск:</label>
-            <input type="text" class="form-control" id="entitySearch" placeholder="Введите значение">
+<div class="list-shell">
+    <div class="list-head">
+        <div>
+            <h2 class="list-title">Список LecturerStudyPosts</h2>
+            <div class="list-sub">Управление сущностью LecturerStudyPost</div>
         </div>
-
-        <div class="mb-3">
-            <label for="pageSizeSelect" class="form-label">Записей на странице:</label>
-            <select id="pageSizeSelect" class="form-select" style="width: auto;">
-                <option value="5">5</option>
-                <option value="10" selected>10</option>
-                <option value="25">25</option>
-                <option value="50">50</option>
-            </select>
+        <div class="d-flex gap-2">
+            <a class="btn btn-app-primary" asp-controller="LecturerStudyPosts" asp-action="Create">Добавить</a>
         </div>
-
-        <table class="table" id="entityTable">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Study Post Title</th>
-                    <th>Hours</th>
-                </tr>
-            </thead>
-            <tbody id="tableBody">
-                @foreach (var item in ViewBag.LecturerStudyPostsList)
-                {
-                    <tr>
-                        <td>@item.Id</td>
-                        <td>@item.StudyPostTitle</td>
-                        <td>@item.Hours</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-
-        <nav aria-label="Page navigation">
-            <ul class="pagination" id="pagination"></ul>
-        </nav>
     </div>
 
-    <script>
-        let currentPage = 1;
-        let pageSize = 10;
-        let filterText = '';
-
-        function renderTable() {
-            const rows = Array.from(document.querySelectorAll('#tableBody tr'));
-            const filtered = rows.filter(r => r.innerText.toLowerCase().includes(filterText));
-            const totalPages = Math.ceil(filtered.length / pageSize) || 1;
-            rows.forEach(r => r.style.display = 'none');
-            filtered.slice((currentPage - 1) * pageSize, currentPage * pageSize).forEach(r => r.style.display = '');
-
-            const pagination = document.getElementById('pagination');
-            pagination.innerHTML = '';
-
-            const prevLi = document.createElement('li');
-            prevLi.className = 'page-item' + (currentPage === 1 ? ' disabled' : '');
-            prevLi.innerHTML = `<a class="page-link" href="#">Предыдущая</a>`;
-            prevLi.onclick = e => { e.preventDefault(); if (currentPage > 1) { currentPage--; renderTable(); } };
-            pagination.appendChild(prevLi);
-
-            for (let i = 1; i <= totalPages; i++) {
-                const li = document.createElement('li');
-                li.className = 'page-item' + (i === currentPage ? ' active' : '');
-                li.innerHTML = `<a class="page-link" href="#">${i}</a>`;
-                li.onclick = e => { e.preventDefault(); currentPage = i; renderTable(); };
-                pagination.appendChild(li);
-            }
-
-            const nextLi = document.createElement('li');
-            nextLi.className = 'page-item' + (currentPage === totalPages ? ' disabled' : '');
-            nextLi.innerHTML = `<a class="page-link" href="#">Следующая</a>`;
-            nextLi.onclick = e => { e.preventDefault(); if (currentPage < totalPages) { currentPage++; renderTable(); } };
-            pagination.appendChild(nextLi);
+    @if (ViewBag.LecturerStudyPostsList != null)
+    {
+        @foreach (var item in ViewBag.LecturerStudyPostsList)
+        {
+            <div class="entity-row">
+                <div class="entity-accent"></div>
+                <div class="entity-content">
+                    <div class="entity-main">
+                        <h5 class="entity-title">@item.StudyPostTitle</h5>
+                        <div class="entity-meta">
+                            <span class="meta-chip">Id: @item.Id</span>
+                            <span class="meta-chip">@item.StudyPostTitle</span>
+                            <span class="meta-chip">@item.Hours</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="entity-actions">
+                    <div class="actions-stack">
+                        <a class="btn btn-sm btn-app-outline" asp-controller="LecturerStudyPosts" asp-action="Details" asp-route-id="@item.Id">Подробнее</a>
+                        <a class="btn btn-sm btn-app-outline" asp-controller="LecturerStudyPosts" asp-action="Update">Изменить</a>
+                        <a class="btn btn-sm btn-app-outline" asp-controller="LecturerStudyPosts" asp-action="Delete">Удалить</a>
+                    </div>
+                </div>
+            </div>
         }
-
-        document.getElementById('entitySearch').addEventListener('input', function () {
-            filterText = this.value.toLowerCase();
-            currentPage = 1;
-            renderTable();
-        });
-
-        document.getElementById('pageSizeSelect').addEventListener('change', function () {
-            pageSize = parseInt(this.value);
-            currentPage = 1;
-            renderTable();
-        });
-
-        renderTable();
-    </script>
-</body>
+    }
+</div>

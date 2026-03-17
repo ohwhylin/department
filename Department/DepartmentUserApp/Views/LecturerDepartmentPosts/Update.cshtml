@@ -1,72 +1,80 @@
 @model DepartmentContracts.BindingModels.LecturerDepartmentPostBindingModel
+@using Microsoft.AspNetCore.Mvc.Rendering
 @using DepartmentDataModels.Enums
-@using Newtonsoft.Json;
+@using Newtonsoft.Json
 @{
-    ViewData["Title"] = "LecturerDepartmentPostUpdate";
+    ViewData["Title"] = "Изменение LecturerDepartmentPost";
 }
-<header>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-</header>
-<style>
-    .validation-summary-errors { color: #dc3545; margin-bottom: 15px; }
-    .field-validation-error { color: #dc3545; font-size: 0.875em; }
-    .input-validation-error { border-color: #dc3545; }
-    .alert-danger { color: #721c24; background-color: #f8d7da; border-color: #f5c6cb; padding: .75rem 1.25rem; margin-bottom: 1rem; border: 1px solid transparent; border-radius: .25rem; }
-</style>
 
-<div class="text-center">
-    <h2 class="display-4">Данные LecturerDepartmentPost</h2>
+<div class="form-shell">
+    <div class="form-shell__header">
+        <h2 class="form-shell__title">Изменение LecturerDepartmentPost</h2>
+        <a class="btn btn-sm btn-light" asp-controller="LecturerDepartmentPosts" asp-action="List">К списку</a>
+    </div>
+
+    <div class="p-3">
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert-danger">@TempData["Error"]</div>
+        }
+
+        <form method="post">
+            <div class="mb-3">
+                <label asp-for="Id" class="form-label">Запись</label>
+                <select asp-for="Id" class="form-select" asp-items='@(new SelectList(ViewBag.LecturerDepartmentPostsList, "Id", "Id"))'></select>
+            </div>
+            <div class="mb-3">
+                <label asp-for="DepartmentPostTitle" class="form-label">Department Post Title</label>
+                <input asp-for="DepartmentPostTitle" class="form-control" />
+                <span asp-validation-for="DepartmentPostTitle" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Order" class="form-label">Order</label>
+                <input asp-for="Order" class="form-control" />
+                <span asp-validation-for="Order" class="text-danger"></span>
+            </div>
+            <div class="mt-3 d-flex gap-2">
+                <button type="submit" class="btn btn-app-primary">Сохранить</button>
+                <a class="btn btn-app-outline" asp-controller="LecturerDepartmentPosts" asp-action="List">Отмена</a>
+            </div>
+        </form>
+    </div>
 </div>
 
-@if (TempData["Error"] != null)
-{
-    <div class="alert alert-danger">
-        @TempData["Error"]
-    </div>
-}
-
-<form method="post">
-    <div class="row">
-        <div class="col-4">LecturerDepartmentPost:</div>
-        <div class="col-8">
-            <select asp-for="Id" class="form-control" asp-items="@(new SelectList(@ViewBag.LecturerDepartmentPostsList, "Id", "Id"))"></select>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-4">Department Post Title:</div>
-        <div class="col-8">
-            <input asp-for="DepartmentPostTitle" class="form-control" />
-            <span asp-validation-for="DepartmentPostTitle" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-4">Order:</div>
-        <div class="col-8">
-            <input asp-for="Order" class="form-control" />
-            <span asp-validation-for="Order" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-8"></div>
-        <div class="col-4"><input type="submit" value="Сохранить" class="btn btn-primary" /></div>
-    </div>
-</form>
-
 <script>
-    $(document).ready(function () {
-        $('#Id').change(function () {
-            var selectedId = $(this).val();
-            var entities = @Html.Raw(JsonConvert.SerializeObject(ViewBag.LecturerDepartmentPostsList));
-            var selected = entities.find(d => d.Id == selectedId);
-            if (selected) {
-                $('#DepartmentPostTitle').val(selected.DepartmentPostTitle);
-                $('#Order').val(selected.Order);
-            }
-        });
-        $('#Id').trigger('change');
+    document.addEventListener('DOMContentLoaded', function () {
+        const entities = @Html.Raw(JsonConvert.SerializeObject(ViewBag.LecturerDepartmentPostsList));
+        const idSelect = document.getElementById('Id');
+        function fillFields() {
+            const selected = entities.find(x => x.Id == idSelect.value);
+            if (!selected) return;
+            const elDepartmentPostTitle = document.getElementById('DepartmentPostTitle');
+            if (elDepartmentPostTitle) elDepartmentPostTitle.value = selected.DepartmentPostTitle ?? '';
+            const elOrder = document.getElementById('Order');
+            if (elOrder) elOrder.value = selected.Order ?? '';
+        }
+        if (idSelect) {
+            idSelect.addEventListener('change', fillFields);
+            fillFields();
+        }
     });
 </script>
 
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
+@functions {
+    public string GetDisplayValue(object item)
+    {
+        var type = item.GetType();
+        foreach (var propName in new[] { "Name", "Title", "GroupName", "DisciplineName", "OrderNumber", "DepartmentPostTitle", "StudyPostTitle", "Cipher", "ShortName" })
+        {
+            var prop = type.GetProperty(propName);
+            var value = prop?.GetValue(item)?.ToString();
+            if (!string.IsNullOrWhiteSpace(value)) return value;
+        }
+        var firstName = type.GetProperty("FirstName")?.GetValue(item)?.ToString();
+        var lastName = type.GetProperty("LastName")?.GetValue(item)?.ToString();
+        if (!string.IsNullOrWhiteSpace(firstName) || !string.IsNullOrWhiteSpace(lastName))
+            return ($"{lastName} {firstName}").Trim();
+        return type.GetProperty("Id")?.GetValue(item)?.ToString() ?? string.Empty;
+    }
 }
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

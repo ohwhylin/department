@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using DepartmentContracts.BindingModels;
 using DepartmentContracts.ViewModels;
@@ -10,20 +11,50 @@ namespace DepartmentUserApp.Controllers
         [HttpGet]
         public IActionResult List()
         {
+            try
+            {
                 ViewBag.AcademicPlanRecordsList = APIClient.GetRequest<List<AcademicPlanRecordViewModel>>("api/AcademicPlanRecords/GetAcademicPlanRecordList");
                 ViewBag.AcademicPlansList = APIClient.GetRequest<List<AcademicPlanViewModel>>("api/AcademicPlans/GetAcademicPlanList");
                 ViewBag.DisciplinesList = APIClient.GetRequest<List<DisciplineViewModel>>("api/Disciplines/GetDisciplineList");
                 ViewBag.AcademicPlanRecordsList = APIClient.GetRequest<List<AcademicPlanRecordViewModel>>("api/AcademicPlanRecords/GetAcademicPlanRecordList");
                 return View();
-            //catch (Exception ex)
-            //{
-            //    TempData["Error"] = ex.Message;
-            //    ViewBag.AcademicPlanRecordsList = new List<AcademicPlanRecordViewModel>();
-            //    ViewBag.AcademicPlansList = new List<AcademicPlanViewModel>();
-            //    ViewBag.DisciplinesList = new List<DisciplineViewModel>();
-            //    ViewBag.AcademicPlanRecordsList = new List<AcademicPlanRecordViewModel>();
-            //    return View();
-            //}
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message;
+                ViewBag.AcademicPlanRecordsList = new List<AcademicPlanRecordViewModel>();
+                ViewBag.AcademicPlansList = new List<AcademicPlanViewModel>();
+                ViewBag.DisciplinesList = new List<DisciplineViewModel>();
+                ViewBag.AcademicPlanRecordsList = new List<AcademicPlanRecordViewModel>();
+                return View();
+            }
+        }
+
+        [HttpGet]
+        public IActionResult Details(int id)
+        {
+            try
+            {
+                if (id <= 0)
+                {
+                    TempData["Error"] = "Некорректный идентификатор";
+                    return RedirectToAction("List");
+                }
+
+                var item = APIClient.GetRequest<AcademicPlanRecordViewModel>($"api/AcademicPlanRecords/GetAcademicPlanRecord?id={id}");
+                if (item == null)
+                {
+                    TempData["Error"] = "Запись не найдена";
+                    return RedirectToAction("List");
+                }
+
+                return View(item);
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message;
+                return RedirectToAction("List");
+            }
         }
 
         [HttpGet]
@@ -69,47 +100,6 @@ namespace DepartmentUserApp.Controllers
                 ViewBag.DisciplinesList = APIClient.GetRequest<List<DisciplineViewModel>>("api/Disciplines/GetDisciplineList");
                 ViewBag.AcademicPlanRecordsList = APIClient.GetRequest<List<AcademicPlanRecordViewModel>>("api/AcademicPlanRecords/GetAcademicPlanRecordList");
                 return View(model);
-            }
-        }
-
-        [HttpGet]
-        public IActionResult Delete()
-        {
-            try
-            {
-                ViewBag.AcademicPlanRecordsList = APIClient.GetRequest<List<AcademicPlanRecordViewModel>>("api/AcademicPlanRecords/GetAcademicPlanRecordList");
-                return View();
-            }
-            catch (Exception ex)
-            {
-                TempData["Error"] = ex.Message;
-                ViewBag.AcademicPlanRecordsList = new List<AcademicPlanRecordViewModel>();
-                return View();
-            }
-        }
-
-        [HttpPost]
-        public IActionResult Delete(int id)
-        {
-            try
-            {
-                if (id <= 0)
-                {
-                    TempData["Error"] = "Некорректный идентификатор";
-                    return RedirectToAction("Delete");
-                }
-
-                APIClient.PostRequest("api/AcademicPlanRecords/AcademicPlanRecordDelete", new AcademicPlanRecordBindingModel
-                {
-                    Id = id
-                });
-
-                return RedirectToAction("List");
-            }
-            catch (Exception ex)
-            {
-                TempData["Error"] = ex.Message;
-                return RedirectToAction("Delete");
             }
         }
 
@@ -160,6 +150,47 @@ namespace DepartmentUserApp.Controllers
                 ViewBag.DisciplinesList = APIClient.GetRequest<List<DisciplineViewModel>>("api/Disciplines/GetDisciplineList");
                 ViewBag.AcademicPlanRecordsList = APIClient.GetRequest<List<AcademicPlanRecordViewModel>>("api/AcademicPlanRecords/GetAcademicPlanRecordList");
                 return View(model);
+            }
+        }
+
+        [HttpGet]
+        public IActionResult Delete()
+        {
+            try
+            {
+                ViewBag.AcademicPlanRecordsList = APIClient.GetRequest<List<AcademicPlanRecordViewModel>>("api/AcademicPlanRecords/GetAcademicPlanRecordList");
+                return View();
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message;
+                ViewBag.AcademicPlanRecordsList = new List<AcademicPlanRecordViewModel>();
+                return View();
+            }
+        }
+
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            try
+            {
+                if (id <= 0)
+                {
+                    TempData["Error"] = "Некорректный идентификатор";
+                    return RedirectToAction("Delete");
+                }
+
+                APIClient.PostRequest("api/AcademicPlanRecords/AcademicPlanRecordDelete", new AcademicPlanRecordBindingModel
+                {
+                    Id = id
+                });
+
+                return RedirectToAction("List");
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message;
+                return RedirectToAction("Delete");
             }
         }
     }

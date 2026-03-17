@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using DepartmentContracts.BindingModels;
 using DepartmentContracts.ViewModels;
@@ -26,6 +27,33 @@ namespace DepartmentUserApp.Controllers
                 ViewBag.StudentsList = new List<StudentViewModel>();
                 ViewBag.StudentGroupsList = new List<StudentGroupViewModel>();
                 return View();
+            }
+        }
+
+        [HttpGet]
+        public IActionResult Details(int id)
+        {
+            try
+            {
+                if (id <= 0)
+                {
+                    TempData["Error"] = "Некорректный идентификатор";
+                    return RedirectToAction("List");
+                }
+
+                var item = APIClient.GetRequest<StudentOrderBlockStudentViewModel>($"api/StudentOrderBlockStudents/GetStudentOrderBlockStudent?id={id}");
+                if (item == null)
+                {
+                    TempData["Error"] = "Запись не найдена";
+                    return RedirectToAction("List");
+                }
+
+                return View(item);
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message;
+                return RedirectToAction("List");
             }
         }
 
@@ -76,47 +104,6 @@ namespace DepartmentUserApp.Controllers
         }
 
         [HttpGet]
-        public IActionResult Delete()
-        {
-            try
-            {
-                ViewBag.StudentOrderBlockStudentsList = APIClient.GetRequest<List<StudentOrderBlockStudentViewModel>>("api/StudentOrderBlockStudents/GetStudentOrderBlockStudentList");
-                return View();
-            }
-            catch (Exception ex)
-            {
-                TempData["Error"] = ex.Message;
-                ViewBag.StudentOrderBlockStudentsList = new List<StudentOrderBlockStudentViewModel>();
-                return View();
-            }
-        }
-
-        [HttpPost]
-        public IActionResult Delete(int id)
-        {
-            try
-            {
-                if (id <= 0)
-                {
-                    TempData["Error"] = "Некорректный идентификатор";
-                    return RedirectToAction("Delete");
-                }
-
-                APIClient.PostRequest("api/StudentOrderBlockStudents/StudentOrderBlockStudentDelete", new StudentOrderBlockStudentBindingModel
-                {
-                    Id = id
-                });
-
-                return RedirectToAction("List");
-            }
-            catch (Exception ex)
-            {
-                TempData["Error"] = ex.Message;
-                return RedirectToAction("Delete");
-            }
-        }
-
-        [HttpGet]
         public IActionResult Update()
         {
             try
@@ -163,6 +150,47 @@ namespace DepartmentUserApp.Controllers
                 ViewBag.StudentsList = APIClient.GetRequest<List<StudentViewModel>>("api/Students/GetStudentList");
                 ViewBag.StudentGroupsList = APIClient.GetRequest<List<StudentGroupViewModel>>("api/StudentGroups/GetStudentGroupList");
                 return View(model);
+            }
+        }
+
+        [HttpGet]
+        public IActionResult Delete()
+        {
+            try
+            {
+                ViewBag.StudentOrderBlockStudentsList = APIClient.GetRequest<List<StudentOrderBlockStudentViewModel>>("api/StudentOrderBlockStudents/GetStudentOrderBlockStudentList");
+                return View();
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message;
+                ViewBag.StudentOrderBlockStudentsList = new List<StudentOrderBlockStudentViewModel>();
+                return View();
+            }
+        }
+
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            try
+            {
+                if (id <= 0)
+                {
+                    TempData["Error"] = "Некорректный идентификатор";
+                    return RedirectToAction("Delete");
+                }
+
+                APIClient.PostRequest("api/StudentOrderBlockStudents/StudentOrderBlockStudentDelete", new StudentOrderBlockStudentBindingModel
+                {
+                    Id = id
+                });
+
+                return RedirectToAction("List");
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message;
+                return RedirectToAction("Delete");
             }
         }
     }

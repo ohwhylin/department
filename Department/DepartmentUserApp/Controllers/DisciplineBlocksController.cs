@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using DepartmentContracts.BindingModels;
 using DepartmentContracts.ViewModels;
@@ -20,6 +21,33 @@ namespace DepartmentUserApp.Controllers
                 TempData["Error"] = ex.Message;
                 ViewBag.DisciplineBlocksList = new List<DisciplineBlockViewModel>();
                 return View();
+            }
+        }
+
+        [HttpGet]
+        public IActionResult Details(int id)
+        {
+            try
+            {
+                if (id <= 0)
+                {
+                    TempData["Error"] = "Некорректный идентификатор";
+                    return RedirectToAction("List");
+                }
+
+                var item = APIClient.GetRequest<DisciplineBlockViewModel>($"api/DisciplineBlocks/GetDisciplineBlock?id={id}");
+                if (item == null)
+                {
+                    TempData["Error"] = "Запись не найдена";
+                    return RedirectToAction("List");
+                }
+
+                return View(item);
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message;
+                return RedirectToAction("List");
             }
         }
 
@@ -53,6 +81,44 @@ namespace DepartmentUserApp.Controllers
             catch (Exception ex)
             {
                 TempData["Error"] = ex.Message;
+                return View(model);
+            }
+        }
+
+        [HttpGet]
+        public IActionResult Update()
+        {
+            try
+            {
+                ViewBag.DisciplineBlocksList = APIClient.GetRequest<List<DisciplineBlockViewModel>>("api/DisciplineBlocks/GetDisciplineBlockList");
+                return View();
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message;
+                ViewBag.DisciplineBlocksList = new List<DisciplineBlockViewModel>();
+                return View();
+            }
+        }
+
+        [HttpPost]
+        public IActionResult Update(DisciplineBlockBindingModel model)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    ViewBag.DisciplineBlocksList = APIClient.GetRequest<List<DisciplineBlockViewModel>>("api/DisciplineBlocks/GetDisciplineBlockList");
+                    return View(model);
+                }
+
+                APIClient.PostRequest("api/DisciplineBlocks/DisciplineBlockUpdate", model);
+                return RedirectToAction("List");
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message;
+                ViewBag.DisciplineBlocksList = APIClient.GetRequest<List<DisciplineBlockViewModel>>("api/DisciplineBlocks/GetDisciplineBlockList");
                 return View(model);
             }
         }
@@ -95,44 +161,6 @@ namespace DepartmentUserApp.Controllers
             {
                 TempData["Error"] = ex.Message;
                 return RedirectToAction("Delete");
-            }
-        }
-
-        [HttpGet]
-        public IActionResult Update()
-        {
-            try
-            {
-                ViewBag.DisciplineBlocksList = APIClient.GetRequest<List<DisciplineBlockViewModel>>("api/DisciplineBlocks/GetDisciplineBlockList");
-                return View();
-            }
-            catch (Exception ex)
-            {
-                TempData["Error"] = ex.Message;
-                ViewBag.DisciplineBlocksList = new List<DisciplineBlockViewModel>();
-                return View();
-            }
-        }
-
-        [HttpPost]
-        public IActionResult Update(DisciplineBlockBindingModel model)
-        {
-            try
-            {
-                if (!ModelState.IsValid)
-                {
-                    ViewBag.DisciplineBlocksList = APIClient.GetRequest<List<DisciplineBlockViewModel>>("api/DisciplineBlocks/GetDisciplineBlockList");
-                    return View(model);
-                }
-
-                APIClient.PostRequest("api/DisciplineBlocks/DisciplineBlockUpdate", model);
-                return RedirectToAction("List");
-            }
-            catch (Exception ex)
-            {
-                TempData["Error"] = ex.Message;
-                ViewBag.DisciplineBlocksList = APIClient.GetRequest<List<DisciplineBlockViewModel>>("api/DisciplineBlocks/GetDisciplineBlockList");
-                return View(model);
             }
         }
     }

@@ -1,0 +1,49 @@
+@model DepartmentContracts.ViewModels.StudentGroupViewModel
+@using DepartmentDataModels.Enums
+@{
+    ViewData["Title"] = "Подробнее о StudentGroup";
+}
+
+<div class="app-card">
+    <div class="app-card-header">
+        <h2 class="app-card-title">Подробнее о StudentGroup</h2>
+        <div class="d-flex gap-2">
+            <a class="btn btn-sm btn-light" asp-controller="StudentGroups" asp-action="Update">Изменить</a>
+            <a class="btn btn-sm btn-light" asp-controller="StudentGroups" asp-action="List">К списку</a>
+        </div>
+    </div>
+    <div class="p-3">
+        <dl class="row mb-0">
+            <dt class="col-sm-4 text-muted">
+                Id
+            </dt>
+            <dd class="col-sm-8">
+                @Model.Id
+            </dd>
+            <dt class="col-sm-4 text-muted">
+                EducationDirection
+            </dt>
+            <dd class="col-sm-8">
+                @Model.EducationDirection
+            </dd>
+            <dt class="col-sm-4 text-muted">
+                Lecturer
+            </dt>
+            <dd class="col-sm-8">
+                @Model.Curator
+            </dd>
+            <dt class="col-sm-4 text-muted">
+                Group Name
+            </dt>
+            <dd class="col-sm-8">
+                @Model.GroupName
+            </dd>
+            <dt class="col-sm-4 text-muted">
+                Course
+            </dt>
+            <dd class="col-sm-8">
+                @Model.Course
+            </dd>
+        </dl>
+    </div>
+</div>

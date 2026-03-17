@@ -1,0 +1,91 @@
+@model DepartmentContracts.ViewModels.AcademicPlanRecordViewModel
+@using DepartmentDataModels.Enums
+@{
+    ViewData["Title"] = "Подробнее о AcademicPlanRecord";
+}
+
+<div class="app-card">
+    <div class="app-card-header">
+        <h2 class="app-card-title">Подробнее о AcademicPlanRecord</h2>
+        <div class="d-flex gap-2">
+            <a class="btn btn-sm btn-light" asp-controller="AcademicPlanRecords" asp-action="Update">Изменить</a>
+            <a class="btn btn-sm btn-light" asp-controller="AcademicPlanRecords" asp-action="List">К списку</a>
+        </div>
+    </div>
+    <div class="p-3">
+        <dl class="row mb-0">
+            <dt class="col-sm-4 text-muted">
+                Id
+            </dt>
+            <dd class="col-sm-8">
+                @Model.Id
+            </dd>
+            <dt class="col-sm-4 text-muted">
+                AcademicPlan
+            </dt>
+            <dd class="col-sm-8">
+                @Model.AcademicPlan
+            </dd>
+            <dt class="col-sm-4 text-muted">
+                Discipline
+            </dt>
+            <dd class="col-sm-8">
+                @Model.Discipline
+            </dd>
+            <dt class="col-sm-4 text-muted">
+                AcademicPlanRecord
+            </dt>
+            <dd class="col-sm-8">
+                @Model.AcademicPlanRecord
+            </dd>
+            <dt class="col-sm-4 text-muted">
+                In Department
+            </dt>
+            <dd class="col-sm-8">
+                @Model.InDepartment
+            </dd>
+            <dt class="col-sm-4 text-muted">
+                Semester
+            </dt>
+            <dd class="col-sm-8">
+                @Model.Semester
+            </dd>
+            <dt class="col-sm-4 text-muted">
+                Zet
+            </dt>
+            <dd class="col-sm-8">
+                @Model.Zet
+            </dd>
+            <dt class="col-sm-4 text-muted">
+                Is Parent
+            </dt>
+            <dd class="col-sm-8">
+                @Model.IsParent
+            </dd>
+            <dt class="col-sm-4 text-muted">
+                Is Child
+            </dt>
+            <dd class="col-sm-8">
+                @Model.IsChild
+            </dd>
+            <dt class="col-sm-4 text-muted">
+                Is Facultative
+            </dt>
+            <dd class="col-sm-8">
+                @Model.IsFacultative
+            </dd>
+            <dt class="col-sm-4 text-muted">
+                Is Use In Workload
+            </dt>
+            <dd class="col-sm-8">
+                @Model.IsUseInWorkload
+            </dd>
+            <dt class="col-sm-4 text-muted">
+                Is Active Semester
+            </dt>
+            <dd class="col-sm-8">
+                @Model.IsActiveSemester
+            </dd>
+        </dl>
+    </div>
+</div>

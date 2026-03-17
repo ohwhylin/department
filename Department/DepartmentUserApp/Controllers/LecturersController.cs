@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using DepartmentContracts.BindingModels;
 using DepartmentContracts.ViewModels;
@@ -24,6 +25,33 @@ namespace DepartmentUserApp.Controllers
                 ViewBag.LecturerStudyPostsList = new List<LecturerStudyPostViewModel>();
                 ViewBag.LecturerDepartmentPostsList = new List<LecturerDepartmentPostViewModel>();
                 return View();
+            }
+        }
+
+        [HttpGet]
+        public IActionResult Details(int id)
+        {
+            try
+            {
+                if (id <= 0)
+                {
+                    TempData["Error"] = "Некорректный идентификатор";
+                    return RedirectToAction("List");
+                }
+
+                var item = APIClient.GetRequest<LecturerViewModel>($"api/Lecturers/GetLecturer?id={id}");
+                if (item == null)
+                {
+                    TempData["Error"] = "Запись не найдена";
+                    return RedirectToAction("List");
+                }
+
+                return View(item);
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message;
+                return RedirectToAction("List");
             }
         }
 
@@ -70,47 +98,6 @@ namespace DepartmentUserApp.Controllers
         }
 
         [HttpGet]
-        public IActionResult Delete()
-        {
-            try
-            {
-                ViewBag.LecturersList = APIClient.GetRequest<List<LecturerViewModel>>("api/Lecturers/GetLecturerList");
-                return View();
-            }
-            catch (Exception ex)
-            {
-                TempData["Error"] = ex.Message;
-                ViewBag.LecturersList = new List<LecturerViewModel>();
-                return View();
-            }
-        }
-
-        [HttpPost]
-        public IActionResult Delete(int id)
-        {
-            try
-            {
-                if (id <= 0)
-                {
-                    TempData["Error"] = "Некорректный идентификатор";
-                    return RedirectToAction("Delete");
-                }
-
-                APIClient.PostRequest("api/Lecturers/LecturerDelete", new LecturerBindingModel
-                {
-                    Id = id
-                });
-
-                return RedirectToAction("List");
-            }
-            catch (Exception ex)
-            {
-                TempData["Error"] = ex.Message;
-                return RedirectToAction("Delete");
-            }
-        }
-
-        [HttpGet]
         public IActionResult Update()
         {
             try
@@ -153,6 +140,47 @@ namespace DepartmentUserApp.Controllers
                 ViewBag.LecturerStudyPostsList = APIClient.GetRequest<List<LecturerStudyPostViewModel>>("api/LecturerStudyPosts/GetLecturerStudyPostList");
                 ViewBag.LecturerDepartmentPostsList = APIClient.GetRequest<List<LecturerDepartmentPostViewModel>>("api/LecturerDepartmentPosts/GetLecturerDepartmentPostList");
                 return View(model);
+            }
+        }
+
+        [HttpGet]
+        public IActionResult Delete()
+        {
+            try
+            {
+                ViewBag.LecturersList = APIClient.GetRequest<List<LecturerViewModel>>("api/Lecturers/GetLecturerList");
+                return View();
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message;
+                ViewBag.LecturersList = new List<LecturerViewModel>();
+                return View();
+            }
+        }
+
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            try
+            {
+                if (id <= 0)
+                {
+                    TempData["Error"] = "Некорректный идентификатор";
+                    return RedirectToAction("Delete");
+                }
+
+                APIClient.PostRequest("api/Lecturers/LecturerDelete", new LecturerBindingModel
+                {
+                    Id = id
+                });
+
+                return RedirectToAction("List");
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message;
+                return RedirectToAction("Delete");
             }
         }
     }

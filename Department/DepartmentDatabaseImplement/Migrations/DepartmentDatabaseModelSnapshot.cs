@@ -404,7 +404,6 @@ namespace DepartmentDatabaseImplement.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<byte[]>("Photo")
-                        .IsRequired()
                         .HasColumnType("varbinary(max)");
 
                     b.Property<int?>("StudentGroupId")

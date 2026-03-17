@@ -1,171 +1,173 @@
 @model DepartmentContracts.BindingModels.AcademicPlanRecordBindingModel
+@using Microsoft.AspNetCore.Mvc.Rendering
 @using DepartmentDataModels.Enums
-@using Newtonsoft.Json;
+@using Newtonsoft.Json
 @{
-    ViewData["Title"] = "AcademicPlanRecordUpdate";
+    ViewData["Title"] = "Изменение AcademicPlanRecord";
 }
-<header>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-</header>
-<style>
-    .validation-summary-errors { color: #dc3545; margin-bottom: 15px; }
-    .field-validation-error { color: #dc3545; font-size: 0.875em; }
-    .input-validation-error { border-color: #dc3545; }
-    .alert-danger { color: #721c24; background-color: #f8d7da; border-color: #f5c6cb; padding: .75rem 1.25rem; margin-bottom: 1rem; border: 1px solid transparent; border-radius: .25rem; }
-</style>
 
-<div class="text-center">
-    <h2 class="display-4">Данные AcademicPlanRecord</h2>
+<div class="form-shell">
+    <div class="form-shell__header">
+        <h2 class="form-shell__title">Изменение AcademicPlanRecord</h2>
+        <a class="btn btn-sm btn-light" asp-controller="AcademicPlanRecords" asp-action="List">К списку</a>
+    </div>
+
+    <div class="p-3">
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert-danger">@TempData["Error"]</div>
+        }
+
+        <form method="post">
+            <div class="mb-3">
+                <label asp-for="Id" class="form-label">Запись</label>
+                <select asp-for="Id" class="form-select" asp-items='@(new SelectList(ViewBag.AcademicPlanRecordsList, "Id", "Id"))'></select>
+            </div>
+            <div class="mb-3">
+                <label asp-for="AcademicPlanId" class="form-label">Academic Plan Id</label>
+                <select asp-for="AcademicPlanId" class="form-select">
+                    <option value="">Выберите значение</option>
+                    @foreach (var item in ViewBag.AcademicPlansList)
+                    {
+                        <option value="@item.Id">@GetDisplayValue(item)</option>
+                    }
+                </select>
+                <span asp-validation-for="AcademicPlanId" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="DisciplineId" class="form-label">Discipline Id</label>
+                <select asp-for="DisciplineId" class="form-select">
+                    <option value="">Выберите значение</option>
+                    @foreach (var item in ViewBag.DisciplinesList)
+                    {
+                        <option value="@item.Id">@GetDisplayValue(item)</option>
+                    }
+                </select>
+                <span asp-validation-for="DisciplineId" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="AcademicPlanRecordParentId" class="form-label">Academic Plan Record Parent Id</label>
+                <select asp-for="AcademicPlanRecordParentId" class="form-select">
+                    <option value="">Выберите значение</option>
+                    @foreach (var item in ViewBag.AcademicPlanRecordsList)
+                    {
+                        <option value="@item.Id">@GetDisplayValue(item)</option>
+                    }
+                </select>
+                <span asp-validation-for="AcademicPlanRecordParentId" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="InDepartment" class="form-label">In Department</label>
+                <div class="form-check">
+                    <input asp-for="InDepartment" class="form-check-input" />
+                </div>
+                <span asp-validation-for="InDepartment" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Semester" class="form-label">Semester</label>
+                <select asp-for="Semester" class="form-select" asp-items="Html.GetEnumSelectList<Semesters>()"></select>
+                <span asp-validation-for="Semester" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Zet" class="form-label">Zet</label>
+                <input asp-for="Zet" class="form-control" />
+                <span asp-validation-for="Zet" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="IsParent" class="form-label">Is Parent</label>
+                <div class="form-check">
+                    <input asp-for="IsParent" class="form-check-input" />
+                </div>
+                <span asp-validation-for="IsParent" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="IsChild" class="form-label">Is Child</label>
+                <div class="form-check">
+                    <input asp-for="IsChild" class="form-check-input" />
+                </div>
+                <span asp-validation-for="IsChild" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="IsFacultative" class="form-label">Is Facultative</label>
+                <div class="form-check">
+                    <input asp-for="IsFacultative" class="form-check-input" />
+                </div>
+                <span asp-validation-for="IsFacultative" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="IsUseInWorkload" class="form-label">Is Use In Workload</label>
+                <div class="form-check">
+                    <input asp-for="IsUseInWorkload" class="form-check-input" />
+                </div>
+                <span asp-validation-for="IsUseInWorkload" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="IsActiveSemester" class="form-label">Is Active Semester</label>
+                <div class="form-check">
+                    <input asp-for="IsActiveSemester" class="form-check-input" />
+                </div>
+                <span asp-validation-for="IsActiveSemester" class="text-danger"></span>
+            </div>
+            <div class="mt-3 d-flex gap-2">
+                <button type="submit" class="btn btn-app-primary">Сохранить</button>
+                <a class="btn btn-app-outline" asp-controller="AcademicPlanRecords" asp-action="List">Отмена</a>
+            </div>
+        </form>
+    </div>
 </div>
 
-@if (TempData["Error"] != null)
-{
-    <div class="alert alert-danger">
-        @TempData["Error"]
-    </div>
-}
-
-<form method="post">
-    <div class="row">
-        <div class="col-4">AcademicPlanRecord:</div>
-        <div class="col-8">
-            <select asp-for="Id" class="form-control" asp-items="@(new SelectList(@ViewBag.AcademicPlanRecordsList, "Id", "Id"))"></select>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-4">Academic Plan Id:</div>
-        <div class="col-8">
-            <select asp-for="AcademicPlanId" class="form-control">
-                @foreach (var item in ViewBag.AcademicPlansList)
-                {
-                    <option value="@item.Id">@item.Id</option>
-                }
-            </select>
-            <span asp-validation-for="AcademicPlanId" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-4">Discipline Id:</div>
-        <div class="col-8">
-            <select asp-for="DisciplineId" class="form-control">
-                @foreach (var item in ViewBag.DisciplinesList)
-                {
-                    <option value="@item.Id">@item.Id</option>
-                }
-            </select>
-            <span asp-validation-for="DisciplineId" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-4">Academic Plan Record Parent Id:</div>
-        <div class="col-8">
-            <select asp-for="AcademicPlanRecordParentId" class="form-control">
-                @foreach (var item in ViewBag.AcademicPlanRecordsList)
-                {
-                    <option value="@item.Id">@item.Id</option>
-                }
-            </select>
-            <span asp-validation-for="AcademicPlanRecordParentId" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-4">In Department:</div>
-        <div class="col-8">
-            <div class="form-check">
-                <input asp-for="InDepartment" class="form-check-input" />
-            </div>
-            <span asp-validation-for="InDepartment" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-4">Semester:</div>
-        <div class="col-8">
-            <select asp-for="Semester" class="form-control" asp-items="Html.GetEnumSelectList<Semesters>()"></select>
-            <span asp-validation-for="Semester" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-4">Zet:</div>
-        <div class="col-8">
-            <input asp-for="Zet" class="form-control" />
-            <span asp-validation-for="Zet" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-4">Is Parent:</div>
-        <div class="col-8">
-            <div class="form-check">
-                <input asp-for="IsParent" class="form-check-input" />
-            </div>
-            <span asp-validation-for="IsParent" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-4">Is Child:</div>
-        <div class="col-8">
-            <div class="form-check">
-                <input asp-for="IsChild" class="form-check-input" />
-            </div>
-            <span asp-validation-for="IsChild" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-4">Is Facultative:</div>
-        <div class="col-8">
-            <div class="form-check">
-                <input asp-for="IsFacultative" class="form-check-input" />
-            </div>
-            <span asp-validation-for="IsFacultative" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-4">Is Use In Workload:</div>
-        <div class="col-8">
-            <div class="form-check">
-                <input asp-for="IsUseInWorkload" class="form-check-input" />
-            </div>
-            <span asp-validation-for="IsUseInWorkload" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-4">Is Active Semester:</div>
-        <div class="col-8">
-            <div class="form-check">
-                <input asp-for="IsActiveSemester" class="form-check-input" />
-            </div>
-            <span asp-validation-for="IsActiveSemester" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-8"></div>
-        <div class="col-4"><input type="submit" value="Сохранить" class="btn btn-primary" /></div>
-    </div>
-</form>
-
 <script>
-    $(document).ready(function () {
-        $('#Id').change(function () {
-            var selectedId = $(this).val();
-            var entities = @Html.Raw(JsonConvert.SerializeObject(ViewBag.AcademicPlanRecordsList));
-            var selected = entities.find(d => d.Id == selectedId);
-            if (selected) {
-                $('#AcademicPlanId').val(selected.AcademicPlanId);
-                $('#DisciplineId').val(selected.DisciplineId);
-                $('#AcademicPlanRecordParentId').val(selected.AcademicPlanRecordParentId);
-                $('#InDepartment').val(selected.InDepartment);
-                $('#Semester').val(selected.Semester);
-                $('#Zet').val(selected.Zet);
-                $('#IsParent').val(selected.IsParent);
-                $('#IsChild').val(selected.IsChild);
-                $('#IsFacultative').val(selected.IsFacultative);
-                $('#IsUseInWorkload').val(selected.IsUseInWorkload);
-                $('#IsActiveSemester').val(selected.IsActiveSemester);
-            }
-        });
-        $('#Id').trigger('change');
+    document.addEventListener('DOMContentLoaded', function () {
+        const entities = @Html.Raw(JsonConvert.SerializeObject(ViewBag.AcademicPlanRecordsList));
+        const idSelect = document.getElementById('Id');
+        function fillFields() {
+            const selected = entities.find(x => x.Id == idSelect.value);
+            if (!selected) return;
+            const elAcademicPlanId = document.getElementById('AcademicPlanId');
+            if (elAcademicPlanId) elAcademicPlanId.value = selected.AcademicPlanId ?? '';
+            const elDisciplineId = document.getElementById('DisciplineId');
+            if (elDisciplineId) elDisciplineId.value = selected.DisciplineId ?? '';
+            const elAcademicPlanRecordParentId = document.getElementById('AcademicPlanRecordParentId');
+            if (elAcademicPlanRecordParentId) elAcademicPlanRecordParentId.value = selected.AcademicPlanRecordParentId ?? '';
+            const elInDepartment = document.getElementById('InDepartment');
+            if (elInDepartment) elInDepartment.value = selected.InDepartment ?? '';
+            const elSemester = document.getElementById('Semester');
+            if (elSemester) elSemester.value = selected.Semester ?? '';
+            const elZet = document.getElementById('Zet');
+            if (elZet) elZet.value = selected.Zet ?? '';
+            const elIsParent = document.getElementById('IsParent');
+            if (elIsParent) elIsParent.value = selected.IsParent ?? '';
+            const elIsChild = document.getElementById('IsChild');
+            if (elIsChild) elIsChild.value = selected.IsChild ?? '';
+            const elIsFacultative = document.getElementById('IsFacultative');
+            if (elIsFacultative) elIsFacultative.value = selected.IsFacultative ?? '';
+            const elIsUseInWorkload = document.getElementById('IsUseInWorkload');
+            if (elIsUseInWorkload) elIsUseInWorkload.value = selected.IsUseInWorkload ?? '';
+            const elIsActiveSemester = document.getElementById('IsActiveSemester');
+            if (elIsActiveSemester) elIsActiveSemester.value = selected.IsActiveSemester ?? '';
+        }
+        if (idSelect) {
+            idSelect.addEventListener('change', fillFields);
+            fillFields();
+        }
     });
 </script>
 
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
+@functions {
+    public string GetDisplayValue(object item)
+    {
+        var type = item.GetType();
+        foreach (var propName in new[] { "Name", "Title", "GroupName", "DisciplineName", "OrderNumber", "DepartmentPostTitle", "StudyPostTitle", "Cipher", "ShortName" })
+        {
+            var prop = type.GetProperty(propName);
+            var value = prop?.GetValue(item)?.ToString();
+            if (!string.IsNullOrWhiteSpace(value)) return value;
+        }
+        var firstName = type.GetProperty("FirstName")?.GetValue(item)?.ToString();
+        var lastName = type.GetProperty("LastName")?.GetValue(item)?.ToString();
+        if (!string.IsNullOrWhiteSpace(firstName) || !string.IsNullOrWhiteSpace(lastName))
+            return ($"{lastName} {firstName}").Trim();
+        return type.GetProperty("Id")?.GetValue(item)?.ToString() ?? string.Empty;
+    }
 }
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

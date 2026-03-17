@@ -1,0 +1,49 @@
+@model DepartmentContracts.ViewModels.DisciplineBlockViewModel
+@using DepartmentDataModels.Enums
+@{
+    ViewData["Title"] = "Подробнее о DisciplineBlock";
+}
+
+<div class="app-card">
+    <div class="app-card-header">
+        <h2 class="app-card-title">Подробнее о DisciplineBlock</h2>
+        <div class="d-flex gap-2">
+            <a class="btn btn-sm btn-light" asp-controller="DisciplineBlocks" asp-action="Update">Изменить</a>
+            <a class="btn btn-sm btn-light" asp-controller="DisciplineBlocks" asp-action="List">К списку</a>
+        </div>
+    </div>
+    <div class="p-3">
+        <dl class="row mb-0">
+            <dt class="col-sm-4 text-muted">
+                Id
+            </dt>
+            <dd class="col-sm-8">
+                @Model.Id
+            </dd>
+            <dt class="col-sm-4 text-muted">
+                Title
+            </dt>
+            <dd class="col-sm-8">
+                @Model.Title
+            </dd>
+            <dt class="col-sm-4 text-muted">
+                Discipline Block Blue Asterisk Name
+            </dt>
+            <dd class="col-sm-8">
+                @Model.DisciplineBlockBlueAsteriskName
+            </dd>
+            <dt class="col-sm-4 text-muted">
+                Discipline Block Use For Grouping
+            </dt>
+            <dd class="col-sm-8">
+                @Model.DisciplineBlockUseForGrouping
+            </dd>
+            <dt class="col-sm-4 text-muted">
+                Discipline Block Order
+            </dt>
+            <dd class="col-sm-8">
+                @Model.DisciplineBlockOrder
+            </dd>
+        </dl>
+    </div>
+</div>

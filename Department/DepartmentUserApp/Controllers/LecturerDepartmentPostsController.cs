@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using DepartmentContracts.BindingModels;
 using DepartmentContracts.ViewModels;
@@ -20,6 +21,33 @@ namespace DepartmentUserApp.Controllers
                 TempData["Error"] = ex.Message;
                 ViewBag.LecturerDepartmentPostsList = new List<LecturerDepartmentPostViewModel>();
                 return View();
+            }
+        }
+
+        [HttpGet]
+        public IActionResult Details(int id)
+        {
+            try
+            {
+                if (id <= 0)
+                {
+                    TempData["Error"] = "Некорректный идентификатор";
+                    return RedirectToAction("List");
+                }
+
+                var item = APIClient.GetRequest<LecturerDepartmentPostViewModel>($"api/LecturerDepartmentPosts/GetLecturerDepartmentPost?id={id}");
+                if (item == null)
+                {
+                    TempData["Error"] = "Запись не найдена";
+                    return RedirectToAction("List");
+                }
+
+                return View(item);
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message;
+                return RedirectToAction("List");
             }
         }
 
@@ -53,6 +81,44 @@ namespace DepartmentUserApp.Controllers
             catch (Exception ex)
             {
                 TempData["Error"] = ex.Message;
+                return View(model);
+            }
+        }
+
+        [HttpGet]
+        public IActionResult Update()
+        {
+            try
+            {
+                ViewBag.LecturerDepartmentPostsList = APIClient.GetRequest<List<LecturerDepartmentPostViewModel>>("api/LecturerDepartmentPosts/GetLecturerDepartmentPostList");
+                return View();
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message;
+                ViewBag.LecturerDepartmentPostsList = new List<LecturerDepartmentPostViewModel>();
+                return View();
+            }
+        }
+
+        [HttpPost]
+        public IActionResult Update(LecturerDepartmentPostBindingModel model)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    ViewBag.LecturerDepartmentPostsList = APIClient.GetRequest<List<LecturerDepartmentPostViewModel>>("api/LecturerDepartmentPosts/GetLecturerDepartmentPostList");
+                    return View(model);
+                }
+
+                APIClient.PostRequest("api/LecturerDepartmentPosts/LecturerDepartmentPostUpdate", model);
+                return RedirectToAction("List");
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message;
+                ViewBag.LecturerDepartmentPostsList = APIClient.GetRequest<List<LecturerDepartmentPostViewModel>>("api/LecturerDepartmentPosts/GetLecturerDepartmentPostList");
                 return View(model);
             }
         }
@@ -95,44 +161,6 @@ namespace DepartmentUserApp.Controllers
             {
                 TempData["Error"] = ex.Message;
                 return RedirectToAction("Delete");
-            }
-        }
-
-        [HttpGet]
-        public IActionResult Update()
-        {
-            try
-            {
-                ViewBag.LecturerDepartmentPostsList = APIClient.GetRequest<List<LecturerDepartmentPostViewModel>>("api/LecturerDepartmentPosts/GetLecturerDepartmentPostList");
-                return View();
-            }
-            catch (Exception ex)
-            {
-                TempData["Error"] = ex.Message;
-                ViewBag.LecturerDepartmentPostsList = new List<LecturerDepartmentPostViewModel>();
-                return View();
-            }
-        }
-
-        [HttpPost]
-        public IActionResult Update(LecturerDepartmentPostBindingModel model)
-        {
-            try
-            {
-                if (!ModelState.IsValid)
-                {
-                    ViewBag.LecturerDepartmentPostsList = APIClient.GetRequest<List<LecturerDepartmentPostViewModel>>("api/LecturerDepartmentPosts/GetLecturerDepartmentPostList");
-                    return View(model);
-                }
-
-                APIClient.PostRequest("api/LecturerDepartmentPosts/LecturerDepartmentPostUpdate", model);
-                return RedirectToAction("List");
-            }
-            catch (Exception ex)
-            {
-                TempData["Error"] = ex.Message;
-                ViewBag.LecturerDepartmentPostsList = APIClient.GetRequest<List<LecturerDepartmentPostViewModel>>("api/LecturerDepartmentPosts/GetLecturerDepartmentPostList");
-                return View(model);
             }
         }
     }

@@ -47,8 +47,7 @@ namespace DepartmentDatabaseImplement.Models
         public string Description { get; private set; } = string.Empty;
 
         [DataMember]
-        [Required]
-        public byte[] Photo { get; private set; }
+        public byte[]? Photo { get; private set; }
 
         [DataMember]
         [Required]

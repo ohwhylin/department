@@ -1,173 +1,149 @@
 @model DepartmentContracts.BindingModels.LecturerBindingModel
+@using Microsoft.AspNetCore.Mvc.Rendering
 @using DepartmentDataModels.Enums
 @{
-    ViewData["Title"] = "LecturerCreate";
+    ViewData["Title"] = "Создание Lecturer";
 }
-<div class="text-center">
-    <h2 class="display-4">Добавление Lecturer</h2>
-</div>
-<style>
-    .row { margin-top: 10px; }
-    .validation-summary-errors { color: #dc3545; margin-bottom: 15px; }
-    .field-validation-error { color: #dc3545; font-size: 0.875em; }
-    .input-validation-error { border-color: #dc3545; }
-    .alert-danger { color: #721c24; background-color: #f8d7da; border-color: #f5c6cb; padding: .75rem 1.25rem; margin-bottom: 1rem; border: 1px solid transparent; border-radius: .25rem; }
-</style>
 
-@if (TempData["Error"] != null)
-{
-    <div class="alert alert-danger">
-        @TempData["Error"]
+<div class="form-shell">
+    <div class="form-shell__header">
+        <h2 class="form-shell__title">Добавление Lecturer</h2>
+        <a class="btn btn-sm btn-light" asp-controller="Lecturers" asp-action="List">К списку</a>
     </div>
-}
+
+    <div class="p-3">
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert-danger">@TempData["Error"]</div>
+        }
+
+        <form method="post">
+            <div class="accordion" id="createAccordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#createMainBlock">
+                            Основные данные
+                        </button>
+                    </h2>
+                    <div id="createMainBlock" class="accordion-collapse collapse show">
+                        <div class="accordion-body">
+                            <div class="mb-3">
+                                <label asp-for="LecturerStudyPostId" class="form-label">Lecturer Study Post Id</label>
+                                <select asp-for="LecturerStudyPostId" class="form-select">
+                                    <option value="">Выберите значение</option>
+                                    @foreach (var item in ViewBag.LecturerStudyPostsList)
+                                    {
+                                        <option value="@item.Id">@GetDisplayValue(item)</option>
+                                    }
+                                </select>
+                                <span asp-validation-for="LecturerStudyPostId" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="LecturerDepartmentPostId" class="form-label">Lecturer Department Post Id</label>
+                                <select asp-for="LecturerDepartmentPostId" class="form-select">
+                                    <option value="">Выберите значение</option>
+                                    @foreach (var item in ViewBag.LecturerDepartmentPostsList)
+                                    {
+                                        <option value="@item.Id">@GetDisplayValue(item)</option>
+                                    }
+                                </select>
+                                <span asp-validation-for="LecturerDepartmentPostId" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="FirstName" class="form-label">First Name</label>
+                                <input asp-for="FirstName" class="form-control" />
+                                <span asp-validation-for="FirstName" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="LastName" class="form-label">Last Name</label>
+                                <input asp-for="LastName" class="form-control" />
+                                <span asp-validation-for="LastName" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="Patronymic" class="form-label">Patronymic</label>
+                                <input asp-for="Patronymic" class="form-control" />
+                                <span asp-validation-for="Patronymic" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="Abbreviation" class="form-label">Abbreviation</label>
+                                <input asp-for="Abbreviation" class="form-control" />
+                                <span asp-validation-for="Abbreviation" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="DateBirth" class="form-label">Date Birth</label>
+                                <input asp-for="DateBirth" class="form-control" />
+                                <span asp-validation-for="DateBirth" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="Address" class="form-label">Address</label>
+                                <input asp-for="Address" class="form-control" />
+                                <span asp-validation-for="Address" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="Email" class="form-label">Email</label>
+                                <input asp-for="Email" class="form-control" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="MobileNumber" class="form-label">Mobile Number</label>
+                                <input asp-for="MobileNumber" class="form-control" />
+                                <span asp-validation-for="MobileNumber" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="HomeNumber" class="form-label">Home Number</label>
+                                <input asp-for="HomeNumber" class="form-control" />
+                                <span asp-validation-for="HomeNumber" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="Rank" class="form-label">Rank</label>
+                                <select asp-for="Rank" class="form-select" asp-items="Html.GetEnumSelectList<Rank>()"></select>
+                                <span asp-validation-for="Rank" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="Rank2" class="form-label">Rank2</label>
+                                <select asp-for="Rank2" class="form-select" asp-items="Html.GetEnumSelectList<Rank2>()"></select>
+                                <span asp-validation-for="Rank2" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="Description" class="form-label">Description</label>
+                                <input asp-for="Description" class="form-control" />
+                                <span asp-validation-for="Description" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="OnlyForPrivate" class="form-label">Only For Private</label>
+                                <div class="form-check">
+                                    <input asp-for="OnlyForPrivate" class="form-check-input" />
+                                </div>
+                                <span asp-validation-for="OnlyForPrivate" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-3 d-flex gap-2">
+                <button type="submit" class="btn btn-app-primary">Сохранить</button>
+                <a class="btn btn-app-outline" asp-controller="Lecturers" asp-action="List">Отмена</a>
+            </div>
+        </form>
+    </div>
+</div>
 
 @functions {
-    public string GetDisplayText(object item)
+    public string GetDisplayValue(object item)
     {
         var type = item.GetType();
-        var idProp = type.GetProperty("Id");
-        var firstName = type.GetProperty("FirstName")?.GetValue(item)?.ToString();
-        var lastName = type.GetProperty("LastName")?.GetValue(item)?.ToString();
-        if (!string.IsNullOrWhiteSpace(firstName) || !string.IsNullOrWhiteSpace(lastName))
-            return ($"{lastName} {firstName}").Trim();
-        foreach (var propName in new[] { "Name", "Title", "Number", "ShortName", "Cipher", "OrderNumber", "DepartmentPostTitle", "StudyPostTitle", "GroupName", "DisciplineName" })
+        foreach (var propName in new[] { "Name", "Title", "GroupName", "DisciplineName", "OrderNumber", "DepartmentPostTitle", "StudyPostTitle", "Cipher", "ShortName" })
         {
             var prop = type.GetProperty(propName);
             var value = prop?.GetValue(item)?.ToString();
             if (!string.IsNullOrWhiteSpace(value)) return value;
         }
-        return idProp?.GetValue(item)?.ToString() ?? string.Empty;
+        var firstName = type.GetProperty("FirstName")?.GetValue(item)?.ToString();
+        var lastName = type.GetProperty("LastName")?.GetValue(item)?.ToString();
+        if (!string.IsNullOrWhiteSpace(firstName) || !string.IsNullOrWhiteSpace(lastName))
+            return ($"{lastName} {firstName}").Trim();
+        return type.GetProperty("Id")?.GetValue(item)?.ToString() ?? string.Empty;
     }
 }
-
-<form method="post">
-    <div class="row">
-        <div class="col-4">Lecturer Study Post Id:</div>
-        <div class="col-8">
-            <select asp-for="LecturerStudyPostId" class="form-control">
-                <option value="">-- Выберите значение --</option>
-                @foreach (var item in ViewBag.LecturerStudyPostsList)
-                {
-                    <option value="@item.Id">@GetDisplayText(item)</option>
-                }
-            </select>
-            <span asp-validation-for="LecturerStudyPostId" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-4">Lecturer Department Post Id:</div>
-        <div class="col-8">
-            <select asp-for="LecturerDepartmentPostId" class="form-control">
-                <option value="">-- Выберите значение --</option>
-                @foreach (var item in ViewBag.LecturerDepartmentPostsList)
-                {
-                    <option value="@item.Id">@GetDisplayText(item)</option>
-                }
-            </select>
-            <span asp-validation-for="LecturerDepartmentPostId" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-4">First Name:</div>
-        <div class="col-8">
-            <input asp-for="FirstName" class="form-control" />
-            <span asp-validation-for="FirstName" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-4">Last Name:</div>
-        <div class="col-8">
-            <input asp-for="LastName" class="form-control" />
-            <span asp-validation-for="LastName" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-4">Patronymic:</div>
-        <div class="col-8">
-            <input asp-for="Patronymic" class="form-control" />
-            <span asp-validation-for="Patronymic" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-4">Abbreviation:</div>
-        <div class="col-8">
-            <input asp-for="Abbreviation" class="form-control" />
-            <span asp-validation-for="Abbreviation" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-4">Date Birth:</div>
-        <div class="col-8">
-            <input asp-for="DateBirth" class="form-control" />
-            <span asp-validation-for="DateBirth" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-4">Address:</div>
-        <div class="col-8">
-            <input asp-for="Address" class="form-control" />
-            <span asp-validation-for="Address" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-4">Email:</div>
-        <div class="col-8">
-            <input asp-for="Email" class="form-control" />
-            <span asp-validation-for="Email" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-4">Mobile Number:</div>
-        <div class="col-8">
-            <input asp-for="MobileNumber" class="form-control" />
-            <span asp-validation-for="MobileNumber" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-4">Home Number:</div>
-        <div class="col-8">
-            <input asp-for="HomeNumber" class="form-control" />
-            <span asp-validation-for="HomeNumber" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-4">Rank:</div>
-        <div class="col-8">
-            <select asp-for="Rank" class="form-control" asp-items="Html.GetEnumSelectList<Rank>()"></select>
-            <span asp-validation-for="Rank" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-4">Rank2:</div>
-        <div class="col-8">
-            <select asp-for="Rank2" class="form-control" asp-items="Html.GetEnumSelectList<Rank2>()"></select>
-            <span asp-validation-for="Rank2" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-4">Description:</div>
-        <div class="col-8">
-            <input asp-for="Description" class="form-control" />
-            <span asp-validation-for="Description" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-4">Only For Private:</div>
-        <div class="col-8">
-            <div class="form-check">
-                <input asp-for="OnlyForPrivate" class="form-check-input" />
-            </div>
-            <span asp-validation-for="OnlyForPrivate" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-8"></div>
-        <div class="col-4">
-            <input type="submit" value="Добавить" class="btn btn-primary" />
-        </div>
-    </div>
-</form>
-
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-}
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }
