@@ -13,8 +13,8 @@ namespace DepartmentUserApp.Controllers
         {
             try
             {
-                ViewBag.StudentsList = APIClient.GetRequest<List<StudentViewModel>>("api/Students/GetStudentList");
-                ViewBag.StudentGroupsList = APIClient.GetRequest<List<StudentGroupViewModel>>("api/StudentGroups/GetStudentGroupList");
+                ViewBag.StudentsList = APIClient.GetRequest<List<StudentViewModel>>("api/core/Students/GetStudentList");
+                ViewBag.StudentGroupsList = APIClient.GetRequest<List<StudentGroupViewModel>>("api/core/StudentGroups/GetStudentGroupList");
                 return View();
             }
             catch (Exception ex)
@@ -37,7 +37,7 @@ namespace DepartmentUserApp.Controllers
                     return RedirectToAction("List");
                 }
 
-                var item = APIClient.GetRequest<StudentViewModel>($"api/Students/GetStudent?id={id}");
+                var item = APIClient.GetRequest<StudentViewModel>($"api/core/Students/GetStudent?id={id}");
                 if (item == null)
                 {
                     TempData["Error"] = "Запись не найдена";
@@ -58,7 +58,7 @@ namespace DepartmentUserApp.Controllers
         {
             try
             {
-                ViewBag.StudentGroupsList = APIClient.GetRequest<List<StudentGroupViewModel>>("api/StudentGroups/GetStudentGroupList");
+                ViewBag.StudentGroupsList = APIClient.GetRequest<List<StudentGroupViewModel>>("api/core/StudentGroups/GetStudentGroupList");
                 return View();
             }
             catch (Exception ex)
@@ -76,17 +76,17 @@ namespace DepartmentUserApp.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    ViewBag.StudentGroupsList = APIClient.GetRequest<List<StudentGroupViewModel>>("api/StudentGroups/GetStudentGroupList");
+                    ViewBag.StudentGroupsList = APIClient.GetRequest<List<StudentGroupViewModel>>("api/core/StudentGroups/GetStudentGroupList");
                     return View(model);
                 }
 
-                APIClient.PostRequest("api/Students/StudentCreate", model);
+                APIClient.PostRequest("api/core/Students/StudentCreate", model);
                 return RedirectToAction("List");
             }
             catch (Exception ex)
             {
                 TempData["Error"] = ex.Message;
-                ViewBag.StudentGroupsList = APIClient.GetRequest<List<StudentGroupViewModel>>("api/StudentGroups/GetStudentGroupList");
+                ViewBag.StudentGroupsList = APIClient.GetRequest<List<StudentGroupViewModel>>("api/core/StudentGroups/GetStudentGroupList");
                 return View(model);
             }
         }
@@ -96,8 +96,8 @@ namespace DepartmentUserApp.Controllers
         {
             try
             {
-                ViewBag.StudentsList = APIClient.GetRequest<List<StudentViewModel>>("api/Students/GetStudentList");
-                ViewBag.StudentGroupsList = APIClient.GetRequest<List<StudentGroupViewModel>>("api/StudentGroups/GetStudentGroupList");
+                ViewBag.StudentsList = APIClient.GetRequest<List<StudentViewModel>>("api/core/Students/GetStudentList");
+                ViewBag.StudentGroupsList = APIClient.GetRequest<List<StudentGroupViewModel>>("api/core/StudentGroups/GetStudentGroupList");
                 return View();
             }
             catch (Exception ex)
@@ -116,19 +116,19 @@ namespace DepartmentUserApp.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    ViewBag.StudentsList = APIClient.GetRequest<List<StudentViewModel>>("api/Students/GetStudentList");
-                    ViewBag.StudentGroupsList = APIClient.GetRequest<List<StudentGroupViewModel>>("api/StudentGroups/GetStudentGroupList");
+                    ViewBag.StudentsList = APIClient.GetRequest<List<StudentViewModel>>("api/core/Students/GetStudentList");
+                    ViewBag.StudentGroupsList = APIClient.GetRequest<List<StudentGroupViewModel>>("api/core/StudentGroups/GetStudentGroupList");
                     return View(model);
                 }
 
-                APIClient.PostRequest("api/Students/StudentUpdate", model);
+                APIClient.PostRequest("api/core/Students/StudentUpdate", model);
                 return RedirectToAction("List");
             }
             catch (Exception ex)
             {
                 TempData["Error"] = ex.Message;
-                ViewBag.StudentsList = APIClient.GetRequest<List<StudentViewModel>>("api/Students/GetStudentList");
-                ViewBag.StudentGroupsList = APIClient.GetRequest<List<StudentGroupViewModel>>("api/StudentGroups/GetStudentGroupList");
+                ViewBag.StudentsList = APIClient.GetRequest<List<StudentViewModel>>("api/core/Students/GetStudentList");
+                ViewBag.StudentGroupsList = APIClient.GetRequest<List<StudentGroupViewModel>>("api/core/StudentGroups/GetStudentGroupList");
                 return View(model);
             }
         }
@@ -138,7 +138,7 @@ namespace DepartmentUserApp.Controllers
         {
             try
             {
-                ViewBag.StudentsList = APIClient.GetRequest<List<StudentViewModel>>("api/Students/GetStudentList");
+                ViewBag.StudentsList = APIClient.GetRequest<List<StudentViewModel>>("api/core/Students/GetStudentList");
                 return View();
             }
             catch (Exception ex)
@@ -160,7 +160,7 @@ namespace DepartmentUserApp.Controllers
                     return RedirectToAction("Delete");
                 }
 
-                APIClient.PostRequest("api/Students/StudentDelete", new StudentBindingModel
+                APIClient.PostRequest("api/core/Students/StudentDelete", new StudentBindingModel
                 {
                     Id = id
                 });

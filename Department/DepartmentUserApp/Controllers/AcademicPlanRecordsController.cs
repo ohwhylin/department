@@ -13,10 +13,10 @@ namespace DepartmentUserApp.Controllers
         {
             try
             {
-                ViewBag.AcademicPlanRecordsList = APIClient.GetRequest<List<AcademicPlanRecordViewModel>>("api/AcademicPlanRecords/GetAcademicPlanRecordList");
-                ViewBag.AcademicPlansList = APIClient.GetRequest<List<AcademicPlanViewModel>>("api/AcademicPlans/GetAcademicPlanList");
-                ViewBag.DisciplinesList = APIClient.GetRequest<List<DisciplineViewModel>>("api/Disciplines/GetDisciplineList");
-                ViewBag.AcademicPlanRecordsList = APIClient.GetRequest<List<AcademicPlanRecordViewModel>>("api/AcademicPlanRecords/GetAcademicPlanRecordList");
+                ViewBag.AcademicPlanRecordsList = APIClient.GetRequest<List<AcademicPlanRecordViewModel>>("api/core/AcademicPlanRecords/GetAcademicPlanRecordList");
+                ViewBag.AcademicPlansList = APIClient.GetRequest<List<AcademicPlanViewModel>>("api/core/AcademicPlans/GetAcademicPlanList");
+                ViewBag.DisciplinesList = APIClient.GetRequest<List<DisciplineViewModel>>("api/core/Disciplines/GetDisciplineList");
+                ViewBag.AcademicPlanRecordsList = APIClient.GetRequest<List<AcademicPlanRecordViewModel>>("api/core/AcademicPlanRecords/GetAcademicPlanRecordList");
                 return View();
             }
             catch (Exception ex)
@@ -41,7 +41,7 @@ namespace DepartmentUserApp.Controllers
                     return RedirectToAction("List");
                 }
 
-                var item = APIClient.GetRequest<AcademicPlanRecordViewModel>($"api/AcademicPlanRecords/GetAcademicPlanRecord?id={id}");
+                var item = APIClient.GetRequest<AcademicPlanRecordViewModel>($"api/core/AcademicPlanRecords/GetAcademicPlanRecord?id={id}");
                 if (item == null)
                 {
                     TempData["Error"] = "Запись не найдена";
@@ -62,9 +62,9 @@ namespace DepartmentUserApp.Controllers
         {
             try
             {
-                ViewBag.AcademicPlansList = APIClient.GetRequest<List<AcademicPlanViewModel>>("api/AcademicPlans/GetAcademicPlanList");
-                ViewBag.DisciplinesList = APIClient.GetRequest<List<DisciplineViewModel>>("api/Disciplines/GetDisciplineList");
-                ViewBag.AcademicPlanRecordsList = APIClient.GetRequest<List<AcademicPlanRecordViewModel>>("api/AcademicPlanRecords/GetAcademicPlanRecordList");
+                ViewBag.AcademicPlansList = APIClient.GetRequest<List<AcademicPlanViewModel>>("api/core/AcademicPlans/GetAcademicPlanList");
+                ViewBag.DisciplinesList = APIClient.GetRequest<List<DisciplineViewModel>>("api/core/Disciplines/GetDisciplineList");
+                ViewBag.AcademicPlanRecordsList = APIClient.GetRequest<List<AcademicPlanRecordViewModel>>("api/core/AcademicPlanRecords/GetAcademicPlanRecordList");
                 return View();
             }
             catch (Exception ex)
@@ -84,21 +84,21 @@ namespace DepartmentUserApp.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    ViewBag.AcademicPlansList = APIClient.GetRequest<List<AcademicPlanViewModel>>("api/AcademicPlans/GetAcademicPlanList");
-                    ViewBag.DisciplinesList = APIClient.GetRequest<List<DisciplineViewModel>>("api/Disciplines/GetDisciplineList");
-                    ViewBag.AcademicPlanRecordsList = APIClient.GetRequest<List<AcademicPlanRecordViewModel>>("api/AcademicPlanRecords/GetAcademicPlanRecordList");
+                    ViewBag.AcademicPlansList = APIClient.GetRequest<List<AcademicPlanViewModel>>("api/core/AcademicPlans/GetAcademicPlanList");
+                    ViewBag.DisciplinesList = APIClient.GetRequest<List<DisciplineViewModel>>("api/core/Disciplines/GetDisciplineList");
+                    ViewBag.AcademicPlanRecordsList = APIClient.GetRequest<List<AcademicPlanRecordViewModel>>("api/core/AcademicPlanRecords/GetAcademicPlanRecordList");
                     return View(model);
                 }
 
-                APIClient.PostRequest("api/AcademicPlanRecords/AcademicPlanRecordCreate", model);
+                APIClient.PostRequest("api/core/AcademicPlanRecords/AcademicPlanRecordCreate", model);
                 return RedirectToAction("List");
             }
             catch (Exception ex)
             {
                 TempData["Error"] = ex.Message;
-                ViewBag.AcademicPlansList = APIClient.GetRequest<List<AcademicPlanViewModel>>("api/AcademicPlans/GetAcademicPlanList");
-                ViewBag.DisciplinesList = APIClient.GetRequest<List<DisciplineViewModel>>("api/Disciplines/GetDisciplineList");
-                ViewBag.AcademicPlanRecordsList = APIClient.GetRequest<List<AcademicPlanRecordViewModel>>("api/AcademicPlanRecords/GetAcademicPlanRecordList");
+                ViewBag.AcademicPlansList = APIClient.GetRequest<List<AcademicPlanViewModel>>("api/core/AcademicPlans/GetAcademicPlanList");
+                ViewBag.DisciplinesList = APIClient.GetRequest<List<DisciplineViewModel>>("api/core/Disciplines/GetDisciplineList");
+                ViewBag.AcademicPlanRecordsList = APIClient.GetRequest<List<AcademicPlanRecordViewModel>>("api/core/AcademicPlanRecords/GetAcademicPlanRecordList");
                 return View(model);
             }
         }
@@ -108,10 +108,10 @@ namespace DepartmentUserApp.Controllers
         {
             try
             {
-                ViewBag.AcademicPlanRecordsList = APIClient.GetRequest<List<AcademicPlanRecordViewModel>>("api/AcademicPlanRecords/GetAcademicPlanRecordList");
-                ViewBag.AcademicPlansList = APIClient.GetRequest<List<AcademicPlanViewModel>>("api/AcademicPlans/GetAcademicPlanList");
-                ViewBag.DisciplinesList = APIClient.GetRequest<List<DisciplineViewModel>>("api/Disciplines/GetDisciplineList");
-                ViewBag.AcademicPlanRecordsList = APIClient.GetRequest<List<AcademicPlanRecordViewModel>>("api/AcademicPlanRecords/GetAcademicPlanRecordList");
+                ViewBag.AcademicPlanRecordsList = APIClient.GetRequest<List<AcademicPlanRecordViewModel>>("api/core/AcademicPlanRecords/GetAcademicPlanRecordList");
+                ViewBag.AcademicPlansList = APIClient.GetRequest<List<AcademicPlanViewModel>>("api/core/AcademicPlans/GetAcademicPlanList");
+                ViewBag.DisciplinesList = APIClient.GetRequest<List<DisciplineViewModel>>("api/core/Disciplines/GetDisciplineList");
+                ViewBag.AcademicPlanRecordsList = APIClient.GetRequest<List<AcademicPlanRecordViewModel>>("api/core/AcademicPlanRecords/GetAcademicPlanRecordList");
                 return View();
             }
             catch (Exception ex)
@@ -132,23 +132,23 @@ namespace DepartmentUserApp.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    ViewBag.AcademicPlanRecordsList = APIClient.GetRequest<List<AcademicPlanRecordViewModel>>("api/AcademicPlanRecords/GetAcademicPlanRecordList");
-                    ViewBag.AcademicPlansList = APIClient.GetRequest<List<AcademicPlanViewModel>>("api/AcademicPlans/GetAcademicPlanList");
-                    ViewBag.DisciplinesList = APIClient.GetRequest<List<DisciplineViewModel>>("api/Disciplines/GetDisciplineList");
-                    ViewBag.AcademicPlanRecordsList = APIClient.GetRequest<List<AcademicPlanRecordViewModel>>("api/AcademicPlanRecords/GetAcademicPlanRecordList");
+                    ViewBag.AcademicPlanRecordsList = APIClient.GetRequest<List<AcademicPlanRecordViewModel>>("api/core/AcademicPlanRecords/GetAcademicPlanRecordList");
+                    ViewBag.AcademicPlansList = APIClient.GetRequest<List<AcademicPlanViewModel>>("api/core/AcademicPlans/GetAcademicPlanList");
+                    ViewBag.DisciplinesList = APIClient.GetRequest<List<DisciplineViewModel>>("api/core/Disciplines/GetDisciplineList");
+                    ViewBag.AcademicPlanRecordsList = APIClient.GetRequest<List<AcademicPlanRecordViewModel>>("api/core/AcademicPlanRecords/GetAcademicPlanRecordList");
                     return View(model);
                 }
 
-                APIClient.PostRequest("api/AcademicPlanRecords/AcademicPlanRecordUpdate", model);
+                APIClient.PostRequest("api/core/AcademicPlanRecords/AcademicPlanRecordUpdate", model);
                 return RedirectToAction("List");
             }
             catch (Exception ex)
             {
                 TempData["Error"] = ex.Message;
-                ViewBag.AcademicPlanRecordsList = APIClient.GetRequest<List<AcademicPlanRecordViewModel>>("api/AcademicPlanRecords/GetAcademicPlanRecordList");
-                ViewBag.AcademicPlansList = APIClient.GetRequest<List<AcademicPlanViewModel>>("api/AcademicPlans/GetAcademicPlanList");
-                ViewBag.DisciplinesList = APIClient.GetRequest<List<DisciplineViewModel>>("api/Disciplines/GetDisciplineList");
-                ViewBag.AcademicPlanRecordsList = APIClient.GetRequest<List<AcademicPlanRecordViewModel>>("api/AcademicPlanRecords/GetAcademicPlanRecordList");
+                ViewBag.AcademicPlanRecordsList = APIClient.GetRequest<List<AcademicPlanRecordViewModel>>("api/core/AcademicPlanRecords/GetAcademicPlanRecordList");
+                ViewBag.AcademicPlansList = APIClient.GetRequest<List<AcademicPlanViewModel>>("api/core/AcademicPlans/GetAcademicPlanList");
+                ViewBag.DisciplinesList = APIClient.GetRequest<List<DisciplineViewModel>>("api/core/Disciplines/GetDisciplineList");
+                ViewBag.AcademicPlanRecordsList = APIClient.GetRequest<List<AcademicPlanRecordViewModel>>("api/core/AcademicPlanRecords/GetAcademicPlanRecordList");
                 return View(model);
             }
         }
@@ -158,7 +158,7 @@ namespace DepartmentUserApp.Controllers
         {
             try
             {
-                ViewBag.AcademicPlanRecordsList = APIClient.GetRequest<List<AcademicPlanRecordViewModel>>("api/AcademicPlanRecords/GetAcademicPlanRecordList");
+                ViewBag.AcademicPlanRecordsList = APIClient.GetRequest<List<AcademicPlanRecordViewModel>>("api/core/AcademicPlanRecords/GetAcademicPlanRecordList");
                 return View();
             }
             catch (Exception ex)
@@ -180,7 +180,7 @@ namespace DepartmentUserApp.Controllers
                     return RedirectToAction("Delete");
                 }
 
-                APIClient.PostRequest("api/AcademicPlanRecords/AcademicPlanRecordDelete", new AcademicPlanRecordBindingModel
+                APIClient.PostRequest("api/core/AcademicPlanRecords/AcademicPlanRecordDelete", new AcademicPlanRecordBindingModel
                 {
                     Id = id
                 });

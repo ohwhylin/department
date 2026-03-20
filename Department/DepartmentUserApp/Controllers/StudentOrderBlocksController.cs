@@ -13,9 +13,9 @@ namespace DepartmentUserApp.Controllers
         {
             try
             {
-                ViewBag.StudentOrderBlocksList = APIClient.GetRequest<List<StudentOrderBlockViewModel>>("api/StudentOrderBlocks/GetStudentOrderBlockList");
-                ViewBag.StudentOrdersList = APIClient.GetRequest<List<StudentOrderViewModel>>("api/StudentOrders/GetStudentOrderList");
-                ViewBag.EducationDirectionsList = APIClient.GetRequest<List<EducationDirectionViewModel>>("api/EducationDirections/GetEducationDirectionList");
+                ViewBag.StudentOrderBlocksList = APIClient.GetRequest<List<StudentOrderBlockViewModel>>("api/core/StudentOrderBlocks/GetStudentOrderBlockList");
+                ViewBag.StudentOrdersList = APIClient.GetRequest<List<StudentOrderViewModel>>("api/core/StudentOrders/GetStudentOrderList");
+                ViewBag.EducationDirectionsList = APIClient.GetRequest<List<EducationDirectionViewModel>>("api/core/EducationDirections/GetEducationDirectionList");
                 return View();
             }
             catch (Exception ex)
@@ -39,7 +39,7 @@ namespace DepartmentUserApp.Controllers
                     return RedirectToAction("List");
                 }
 
-                var item = APIClient.GetRequest<StudentOrderBlockViewModel>($"api/StudentOrderBlocks/GetStudentOrderBlock?id={id}");
+                var item = APIClient.GetRequest<StudentOrderBlockViewModel>($"api/core/StudentOrderBlocks/GetStudentOrderBlock?id={id}");
                 if (item == null)
                 {
                     TempData["Error"] = "Запись не найдена";
@@ -60,8 +60,8 @@ namespace DepartmentUserApp.Controllers
         {
             try
             {
-                ViewBag.StudentOrdersList = APIClient.GetRequest<List<StudentOrderViewModel>>("api/StudentOrders/GetStudentOrderList");
-                ViewBag.EducationDirectionsList = APIClient.GetRequest<List<EducationDirectionViewModel>>("api/EducationDirections/GetEducationDirectionList");
+                ViewBag.StudentOrdersList = APIClient.GetRequest<List<StudentOrderViewModel>>("api/core/StudentOrders/GetStudentOrderList");
+                ViewBag.EducationDirectionsList = APIClient.GetRequest<List<EducationDirectionViewModel>>("api/core/EducationDirections/GetEducationDirectionList");
                 return View();
             }
             catch (Exception ex)
@@ -80,19 +80,19 @@ namespace DepartmentUserApp.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    ViewBag.StudentOrdersList = APIClient.GetRequest<List<StudentOrderViewModel>>("api/StudentOrders/GetStudentOrderList");
-                    ViewBag.EducationDirectionsList = APIClient.GetRequest<List<EducationDirectionViewModel>>("api/EducationDirections/GetEducationDirectionList");
+                    ViewBag.StudentOrdersList = APIClient.GetRequest<List<StudentOrderViewModel>>("api/core/StudentOrders/GetStudentOrderList");
+                    ViewBag.EducationDirectionsList = APIClient.GetRequest<List<EducationDirectionViewModel>>("api/core/EducationDirections/GetEducationDirectionList");
                     return View(model);
                 }
 
-                APIClient.PostRequest("api/StudentOrderBlocks/StudentOrderBlockCreate", model);
+                APIClient.PostRequest("api/core/StudentOrderBlocks/StudentOrderBlockCreate", model);
                 return RedirectToAction("List");
             }
             catch (Exception ex)
             {
                 TempData["Error"] = ex.Message;
-                ViewBag.StudentOrdersList = APIClient.GetRequest<List<StudentOrderViewModel>>("api/StudentOrders/GetStudentOrderList");
-                ViewBag.EducationDirectionsList = APIClient.GetRequest<List<EducationDirectionViewModel>>("api/EducationDirections/GetEducationDirectionList");
+                ViewBag.StudentOrdersList = APIClient.GetRequest<List<StudentOrderViewModel>>("api/core/StudentOrders/GetStudentOrderList");
+                ViewBag.EducationDirectionsList = APIClient.GetRequest<List<EducationDirectionViewModel>>("api/core/EducationDirections/GetEducationDirectionList");
                 return View(model);
             }
         }
@@ -102,9 +102,9 @@ namespace DepartmentUserApp.Controllers
         {
             try
             {
-                ViewBag.StudentOrderBlocksList = APIClient.GetRequest<List<StudentOrderBlockViewModel>>("api/StudentOrderBlocks/GetStudentOrderBlockList");
-                ViewBag.StudentOrdersList = APIClient.GetRequest<List<StudentOrderViewModel>>("api/StudentOrders/GetStudentOrderList");
-                ViewBag.EducationDirectionsList = APIClient.GetRequest<List<EducationDirectionViewModel>>("api/EducationDirections/GetEducationDirectionList");
+                ViewBag.StudentOrderBlocksList = APIClient.GetRequest<List<StudentOrderBlockViewModel>>("api/core/StudentOrderBlocks/GetStudentOrderBlockList");
+                ViewBag.StudentOrdersList = APIClient.GetRequest<List<StudentOrderViewModel>>("api/core/StudentOrders/GetStudentOrderList");
+                ViewBag.EducationDirectionsList = APIClient.GetRequest<List<EducationDirectionViewModel>>("api/core/EducationDirections/GetEducationDirectionList");
                 return View();
             }
             catch (Exception ex)
@@ -124,21 +124,21 @@ namespace DepartmentUserApp.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    ViewBag.StudentOrderBlocksList = APIClient.GetRequest<List<StudentOrderBlockViewModel>>("api/StudentOrderBlocks/GetStudentOrderBlockList");
-                    ViewBag.StudentOrdersList = APIClient.GetRequest<List<StudentOrderViewModel>>("api/StudentOrders/GetStudentOrderList");
-                    ViewBag.EducationDirectionsList = APIClient.GetRequest<List<EducationDirectionViewModel>>("api/EducationDirections/GetEducationDirectionList");
+                    ViewBag.StudentOrderBlocksList = APIClient.GetRequest<List<StudentOrderBlockViewModel>>("api/core/StudentOrderBlocks/GetStudentOrderBlockList");
+                    ViewBag.StudentOrdersList = APIClient.GetRequest<List<StudentOrderViewModel>>("api/core/StudentOrders/GetStudentOrderList");
+                    ViewBag.EducationDirectionsList = APIClient.GetRequest<List<EducationDirectionViewModel>>("api/core/EducationDirections/GetEducationDirectionList");
                     return View(model);
                 }
 
-                APIClient.PostRequest("api/StudentOrderBlocks/StudentOrderBlockUpdate", model);
+                APIClient.PostRequest("api/core/StudentOrderBlocks/StudentOrderBlockUpdate", model);
                 return RedirectToAction("List");
             }
             catch (Exception ex)
             {
                 TempData["Error"] = ex.Message;
-                ViewBag.StudentOrderBlocksList = APIClient.GetRequest<List<StudentOrderBlockViewModel>>("api/StudentOrderBlocks/GetStudentOrderBlockList");
-                ViewBag.StudentOrdersList = APIClient.GetRequest<List<StudentOrderViewModel>>("api/StudentOrders/GetStudentOrderList");
-                ViewBag.EducationDirectionsList = APIClient.GetRequest<List<EducationDirectionViewModel>>("api/EducationDirections/GetEducationDirectionList");
+                ViewBag.StudentOrderBlocksList = APIClient.GetRequest<List<StudentOrderBlockViewModel>>("api/core/StudentOrderBlocks/GetStudentOrderBlockList");
+                ViewBag.StudentOrdersList = APIClient.GetRequest<List<StudentOrderViewModel>>("api/core/StudentOrders/GetStudentOrderList");
+                ViewBag.EducationDirectionsList = APIClient.GetRequest<List<EducationDirectionViewModel>>("api/core/EducationDirections/GetEducationDirectionList");
                 return View(model);
             }
         }
@@ -148,7 +148,7 @@ namespace DepartmentUserApp.Controllers
         {
             try
             {
-                ViewBag.StudentOrderBlocksList = APIClient.GetRequest<List<StudentOrderBlockViewModel>>("api/StudentOrderBlocks/GetStudentOrderBlockList");
+                ViewBag.StudentOrderBlocksList = APIClient.GetRequest<List<StudentOrderBlockViewModel>>("api/core/StudentOrderBlocks/GetStudentOrderBlockList");
                 return View();
             }
             catch (Exception ex)
@@ -170,7 +170,7 @@ namespace DepartmentUserApp.Controllers
                     return RedirectToAction("Delete");
                 }
 
-                APIClient.PostRequest("api/StudentOrderBlocks/StudentOrderBlockDelete", new StudentOrderBlockBindingModel
+                APIClient.PostRequest("api/core/StudentOrderBlocks/StudentOrderBlockDelete", new StudentOrderBlockBindingModel
                 {
                     Id = id
                 });

@@ -13,7 +13,7 @@ namespace DepartmentUserApp.Controllers
         {
             try
             {
-                ViewBag.LecturerDepartmentPostsList = APIClient.GetRequest<List<LecturerDepartmentPostViewModel>>("api/LecturerDepartmentPosts/GetLecturerDepartmentPostList");
+                ViewBag.LecturerDepartmentPostsList = APIClient.GetRequest<List<LecturerDepartmentPostViewModel>>("api/core/LecturerDepartmentPosts/GetLecturerDepartmentPostList");
                 return View();
             }
             catch (Exception ex)
@@ -35,7 +35,7 @@ namespace DepartmentUserApp.Controllers
                     return RedirectToAction("List");
                 }
 
-                var item = APIClient.GetRequest<LecturerDepartmentPostViewModel>($"api/LecturerDepartmentPosts/GetLecturerDepartmentPost?id={id}");
+                var item = APIClient.GetRequest<LecturerDepartmentPostViewModel>($"api/core/LecturerDepartmentPosts/GetLecturerDepartmentPost?id={id}");
                 if (item == null)
                 {
                     TempData["Error"] = "Запись не найдена";
@@ -75,7 +75,7 @@ namespace DepartmentUserApp.Controllers
                     return View(model);
                 }
 
-                APIClient.PostRequest("api/LecturerDepartmentPosts/LecturerDepartmentPostCreate", model);
+                APIClient.PostRequest("api/core/LecturerDepartmentPosts/LecturerDepartmentPostCreate", model);
                 return RedirectToAction("List");
             }
             catch (Exception ex)
@@ -90,7 +90,7 @@ namespace DepartmentUserApp.Controllers
         {
             try
             {
-                ViewBag.LecturerDepartmentPostsList = APIClient.GetRequest<List<LecturerDepartmentPostViewModel>>("api/LecturerDepartmentPosts/GetLecturerDepartmentPostList");
+                ViewBag.LecturerDepartmentPostsList = APIClient.GetRequest<List<LecturerDepartmentPostViewModel>>("api/core/LecturerDepartmentPosts/GetLecturerDepartmentPostList");
                 return View();
             }
             catch (Exception ex)
@@ -108,17 +108,17 @@ namespace DepartmentUserApp.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    ViewBag.LecturerDepartmentPostsList = APIClient.GetRequest<List<LecturerDepartmentPostViewModel>>("api/LecturerDepartmentPosts/GetLecturerDepartmentPostList");
+                    ViewBag.LecturerDepartmentPostsList = APIClient.GetRequest<List<LecturerDepartmentPostViewModel>>("api/core/LecturerDepartmentPosts/GetLecturerDepartmentPostList");
                     return View(model);
                 }
 
-                APIClient.PostRequest("api/LecturerDepartmentPosts/LecturerDepartmentPostUpdate", model);
+                APIClient.PostRequest("api/core/LecturerDepartmentPosts/LecturerDepartmentPostUpdate", model);
                 return RedirectToAction("List");
             }
             catch (Exception ex)
             {
                 TempData["Error"] = ex.Message;
-                ViewBag.LecturerDepartmentPostsList = APIClient.GetRequest<List<LecturerDepartmentPostViewModel>>("api/LecturerDepartmentPosts/GetLecturerDepartmentPostList");
+                ViewBag.LecturerDepartmentPostsList = APIClient.GetRequest<List<LecturerDepartmentPostViewModel>>("api/core/LecturerDepartmentPosts/GetLecturerDepartmentPostList");
                 return View(model);
             }
         }
@@ -128,7 +128,7 @@ namespace DepartmentUserApp.Controllers
         {
             try
             {
-                ViewBag.LecturerDepartmentPostsList = APIClient.GetRequest<List<LecturerDepartmentPostViewModel>>("api/LecturerDepartmentPosts/GetLecturerDepartmentPostList");
+                ViewBag.LecturerDepartmentPostsList = APIClient.GetRequest<List<LecturerDepartmentPostViewModel>>("api/core/LecturerDepartmentPosts/GetLecturerDepartmentPostList");
                 return View();
             }
             catch (Exception ex)
@@ -150,7 +150,7 @@ namespace DepartmentUserApp.Controllers
                     return RedirectToAction("Delete");
                 }
 
-                APIClient.PostRequest("api/LecturerDepartmentPosts/LecturerDepartmentPostDelete", new LecturerDepartmentPostBindingModel
+                APIClient.PostRequest("api/core/LecturerDepartmentPosts/LecturerDepartmentPostDelete", new LecturerDepartmentPostBindingModel
                 {
                     Id = id
                 });

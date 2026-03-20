@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
@@ -15,12 +16,12 @@ namespace DepartmentDatabaseImplement.Migrations
                 name: "Classrooms",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Number = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ClassroomType = table.Column<int>(type: "int", nullable: false),
-                    Capacity = table.Column<int>(type: "int", nullable: false),
-                    NotUseInSchedule = table.Column<bool>(type: "bit", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Number = table.Column<string>(type: "text", nullable: false),
+                    ClassroomType = table.Column<int>(type: "integer", nullable: false),
+                    Capacity = table.Column<int>(type: "integer", nullable: false),
+                    NotUseInSchedule = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -31,12 +32,12 @@ namespace DepartmentDatabaseImplement.Migrations
                 name: "DisciplineBlocks",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DisciplineBlockBlueAsteriskName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DisciplineBlockUseForGrouping = table.Column<bool>(type: "bit", nullable: false),
-                    DisciplineBlockOrder = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Title = table.Column<string>(type: "text", nullable: false),
+                    DisciplineBlockBlueAsteriskName = table.Column<string>(type: "text", nullable: false),
+                    DisciplineBlockUseForGrouping = table.Column<bool>(type: "boolean", nullable: false),
+                    DisciplineBlockOrder = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -47,14 +48,14 @@ namespace DepartmentDatabaseImplement.Migrations
                 name: "EducationDirections",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Cipher = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ShortName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Qualification = table.Column<int>(type: "int", nullable: false),
-                    Profile = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Cipher = table.Column<string>(type: "text", nullable: false),
+                    ShortName = table.Column<string>(type: "text", nullable: false),
+                    Title = table.Column<string>(type: "text", nullable: false),
+                    Qualification = table.Column<int>(type: "integer", nullable: false),
+                    Profile = table.Column<string>(type: "text", nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -65,10 +66,10 @@ namespace DepartmentDatabaseImplement.Migrations
                 name: "LecturerDepartmentPosts",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    DepartmentPostTitle = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Order = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    DepartmentPostTitle = table.Column<string>(type: "text", nullable: false),
+                    Order = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -79,10 +80,10 @@ namespace DepartmentDatabaseImplement.Migrations
                 name: "LecturerStudyPosts",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    StudyPostTitle = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Hours = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    StudyPostTitle = table.Column<string>(type: "text", nullable: false),
+                    Hours = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -93,10 +94,10 @@ namespace DepartmentDatabaseImplement.Migrations
                 name: "StudentOrders",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    OrderNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    StudentOrderType = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    OrderNumber = table.Column<string>(type: "text", nullable: false),
+                    StudentOrderType = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -107,13 +108,13 @@ namespace DepartmentDatabaseImplement.Migrations
                 name: "Disciplines",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    DisciplineBlockId = table.Column<int>(type: "int", nullable: false),
-                    DisciplineName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DisciplineShortName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DisciplineDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DisciplineBlockBlueAsteriskName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    DisciplineBlockId = table.Column<int>(type: "integer", nullable: false),
+                    DisciplineName = table.Column<string>(type: "text", nullable: false),
+                    DisciplineShortName = table.Column<string>(type: "text", nullable: false),
+                    DisciplineDescription = table.Column<string>(type: "text", nullable: false),
+                    DisciplineBlockBlueAsteriskName = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -130,11 +131,11 @@ namespace DepartmentDatabaseImplement.Migrations
                 name: "AcademicPlans",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    EducationDirectionId = table.Column<int>(type: "int", nullable: true),
-                    AcademicCourses = table.Column<int>(type: "int", nullable: false),
-                    Year = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    EducationDirectionId = table.Column<int>(type: "integer", nullable: true),
+                    AcademicCourses = table.Column<int>(type: "integer", nullable: false),
+                    Year = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -150,24 +151,24 @@ namespace DepartmentDatabaseImplement.Migrations
                 name: "Lecturers",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    LecturerStudyPostId = table.Column<int>(type: "int", nullable: true),
-                    LecturerDepartmentPostId = table.Column<int>(type: "int", nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Patronymic = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Abbreviation = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DateBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    MobileNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    HomeNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Rank = table.Column<int>(type: "int", nullable: false),
-                    Rank2 = table.Column<int>(type: "int", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Photo = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
-                    OnlyForPrivate = table.Column<bool>(type: "bit", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    LecturerStudyPostId = table.Column<int>(type: "integer", nullable: true),
+                    LecturerDepartmentPostId = table.Column<int>(type: "integer", nullable: false),
+                    FirstName = table.Column<string>(type: "text", nullable: false),
+                    LastName = table.Column<string>(type: "text", nullable: false),
+                    Patronymic = table.Column<string>(type: "text", nullable: false),
+                    Abbreviation = table.Column<string>(type: "text", nullable: false),
+                    DateBirth = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Address = table.Column<string>(type: "text", nullable: false),
+                    Email = table.Column<string>(type: "text", nullable: false),
+                    MobileNumber = table.Column<string>(type: "text", nullable: false),
+                    HomeNumber = table.Column<string>(type: "text", nullable: false),
+                    Rank = table.Column<int>(type: "integer", nullable: false),
+                    Rank2 = table.Column<int>(type: "integer", nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: false),
+                    Photo = table.Column<byte[]>(type: "bytea", nullable: true),
+                    OnlyForPrivate = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -189,11 +190,11 @@ namespace DepartmentDatabaseImplement.Migrations
                 name: "StudentOrderBlocks",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    StudentOrderId = table.Column<int>(type: "int", nullable: false),
-                    EducationDirectionId = table.Column<int>(type: "int", nullable: false),
-                    StudentOrderType = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    StudentOrderId = table.Column<int>(type: "integer", nullable: false),
+                    EducationDirectionId = table.Column<int>(type: "integer", nullable: false),
+                    StudentOrderType = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -216,25 +217,25 @@ namespace DepartmentDatabaseImplement.Migrations
                 name: "AcademicPlanRecords",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    AcademicPlanId = table.Column<int>(type: "int", nullable: false),
-                    DisciplineId = table.Column<int>(type: "int", nullable: false),
-                    AcademicPlanRecordParentId = table.Column<int>(type: "int", nullable: true),
-                    InDepartment = table.Column<bool>(type: "bit", nullable: false),
-                    Semester = table.Column<int>(type: "int", nullable: false),
-                    Zet = table.Column<int>(type: "int", nullable: false),
-                    IsParent = table.Column<bool>(type: "bit", nullable: false),
-                    IsChild = table.Column<bool>(type: "bit", nullable: false),
-                    IsFacultative = table.Column<bool>(type: "bit", nullable: false),
-                    IsUseInWorkload = table.Column<bool>(type: "bit", nullable: false),
-                    IsActiveSemester = table.Column<bool>(type: "bit", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    AcademicPlanId = table.Column<int>(type: "integer", nullable: false),
+                    DisciplineId = table.Column<int>(type: "integer", nullable: false),
+                    AcademicPlanRecordParentId = table.Column<int>(type: "integer", nullable: true),
+                    InDepartment = table.Column<bool>(type: "boolean", nullable: false),
+                    Semester = table.Column<int>(type: "integer", nullable: false),
+                    Zet = table.Column<int>(type: "integer", nullable: false),
+                    IsParent = table.Column<bool>(type: "boolean", nullable: false),
+                    IsChild = table.Column<bool>(type: "boolean", nullable: false),
+                    IsFacultative = table.Column<bool>(type: "boolean", nullable: false),
+                    IsUseInWorkload = table.Column<bool>(type: "boolean", nullable: false),
+                    IsActiveSemester = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AcademicPlanRecords", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AcademicPlanRecords_AcademicPlanRecords_AcademicPlanRecordParentId",
+                        name: "FK_AcademicPlanRecords_AcademicPlanRecords_AcademicPlanRecordP~",
                         column: x => x.AcademicPlanRecordParentId,
                         principalTable: "AcademicPlanRecords",
                         principalColumn: "Id");
@@ -256,12 +257,12 @@ namespace DepartmentDatabaseImplement.Migrations
                 name: "StudentGroups",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    EducationDirectionId = table.Column<int>(type: "int", nullable: false),
-                    CuratorId = table.Column<int>(type: "int", nullable: true),
-                    GroupName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Course = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    EducationDirectionId = table.Column<int>(type: "integer", nullable: false),
+                    CuratorId = table.Column<int>(type: "integer", nullable: true),
+                    GroupName = table.Column<string>(type: "text", nullable: false),
+                    Course = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -283,18 +284,18 @@ namespace DepartmentDatabaseImplement.Migrations
                 name: "Students",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    StudentGroupId = table.Column<int>(type: "int", nullable: true),
-                    NumberOfBook = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Patronymic = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    StudentState = table.Column<int>(type: "int", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Photo = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
-                    IsSteward = table.Column<bool>(type: "bit", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    StudentGroupId = table.Column<int>(type: "integer", nullable: true),
+                    NumberOfBook = table.Column<string>(type: "text", nullable: false),
+                    FirstName = table.Column<string>(type: "text", nullable: false),
+                    LastName = table.Column<string>(type: "text", nullable: false),
+                    Patronymic = table.Column<string>(type: "text", nullable: false),
+                    Email = table.Column<string>(type: "text", nullable: false),
+                    StudentState = table.Column<int>(type: "integer", nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: false),
+                    Photo = table.Column<byte[]>(type: "bytea", nullable: true),
+                    IsSteward = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -310,13 +311,13 @@ namespace DepartmentDatabaseImplement.Migrations
                 name: "DisciplineStudentRecords",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    DisciplineId = table.Column<int>(type: "int", nullable: false),
-                    StudentId = table.Column<int>(type: "int", nullable: false),
-                    Semester = table.Column<int>(type: "int", nullable: false),
-                    Variant = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SubGroup = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    DisciplineId = table.Column<int>(type: "integer", nullable: false),
+                    StudentId = table.Column<int>(type: "integer", nullable: false),
+                    Semester = table.Column<int>(type: "integer", nullable: false),
+                    Variant = table.Column<string>(type: "text", nullable: false),
+                    SubGroup = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -339,12 +340,12 @@ namespace DepartmentDatabaseImplement.Migrations
                 name: "StudentOrderBlockStudents",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    StudentOrderBlockId = table.Column<int>(type: "int", nullable: false),
-                    StudentId = table.Column<int>(type: "int", nullable: false),
-                    StudentGroupFromId = table.Column<int>(type: "int", nullable: false),
-                    StudentGroupToId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    StudentOrderBlockId = table.Column<int>(type: "integer", nullable: false),
+                    StudentId = table.Column<int>(type: "integer", nullable: false),
+                    StudentGroupFromId = table.Column<int>(type: "integer", nullable: false),
+                    StudentGroupToId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -360,7 +361,7 @@ namespace DepartmentDatabaseImplement.Migrations
                         principalTable: "StudentGroups",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_StudentOrderBlockStudents_StudentOrderBlocks_StudentOrderBlockId",
+                        name: "FK_StudentOrderBlockStudents_StudentOrderBlocks_StudentOrderBl~",
                         column: x => x.StudentOrderBlockId,
                         principalTable: "StudentOrderBlocks",
                         principalColumn: "Id");

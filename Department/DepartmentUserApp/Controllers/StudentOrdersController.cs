@@ -13,7 +13,7 @@ namespace DepartmentUserApp.Controllers
         {
             try
             {
-                ViewBag.StudentOrdersList = APIClient.GetRequest<List<StudentOrderViewModel>>("api/StudentOrders/GetStudentOrderList");
+                ViewBag.StudentOrdersList = APIClient.GetRequest<List<StudentOrderViewModel>>("api/core/StudentOrders/GetStudentOrderList");
                 return View();
             }
             catch (Exception ex)
@@ -35,7 +35,7 @@ namespace DepartmentUserApp.Controllers
                     return RedirectToAction("List");
                 }
 
-                var item = APIClient.GetRequest<StudentOrderViewModel>($"api/StudentOrders/GetStudentOrder?id={id}");
+                var item = APIClient.GetRequest<StudentOrderViewModel>($"api/core/StudentOrders/GetStudentOrder?id={id}");
                 if (item == null)
                 {
                     TempData["Error"] = "Запись не найдена";
@@ -75,7 +75,7 @@ namespace DepartmentUserApp.Controllers
                     return View(model);
                 }
 
-                APIClient.PostRequest("api/StudentOrders/StudentOrderCreate", model);
+                APIClient.PostRequest("api/core/StudentOrders/StudentOrderCreate", model);
                 return RedirectToAction("List");
             }
             catch (Exception ex)
@@ -90,7 +90,7 @@ namespace DepartmentUserApp.Controllers
         {
             try
             {
-                ViewBag.StudentOrdersList = APIClient.GetRequest<List<StudentOrderViewModel>>("api/StudentOrders/GetStudentOrderList");
+                ViewBag.StudentOrdersList = APIClient.GetRequest<List<StudentOrderViewModel>>("api/core/StudentOrders/GetStudentOrderList");
                 return View();
             }
             catch (Exception ex)
@@ -108,17 +108,17 @@ namespace DepartmentUserApp.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    ViewBag.StudentOrdersList = APIClient.GetRequest<List<StudentOrderViewModel>>("api/StudentOrders/GetStudentOrderList");
+                    ViewBag.StudentOrdersList = APIClient.GetRequest<List<StudentOrderViewModel>>("api/core/StudentOrders/GetStudentOrderList");
                     return View(model);
                 }
 
-                APIClient.PostRequest("api/StudentOrders/StudentOrderUpdate", model);
+                APIClient.PostRequest("api/core/StudentOrders/StudentOrderUpdate", model);
                 return RedirectToAction("List");
             }
             catch (Exception ex)
             {
                 TempData["Error"] = ex.Message;
-                ViewBag.StudentOrdersList = APIClient.GetRequest<List<StudentOrderViewModel>>("api/StudentOrders/GetStudentOrderList");
+                ViewBag.StudentOrdersList = APIClient.GetRequest<List<StudentOrderViewModel>>("api/core/StudentOrders/GetStudentOrderList");
                 return View(model);
             }
         }
@@ -128,7 +128,7 @@ namespace DepartmentUserApp.Controllers
         {
             try
             {
-                ViewBag.StudentOrdersList = APIClient.GetRequest<List<StudentOrderViewModel>>("api/StudentOrders/GetStudentOrderList");
+                ViewBag.StudentOrdersList = APIClient.GetRequest<List<StudentOrderViewModel>>("api/core/StudentOrders/GetStudentOrderList");
                 return View();
             }
             catch (Exception ex)
@@ -150,7 +150,7 @@ namespace DepartmentUserApp.Controllers
                     return RedirectToAction("Delete");
                 }
 
-                APIClient.PostRequest("api/StudentOrders/StudentOrderDelete", new StudentOrderBindingModel
+                APIClient.PostRequest("api/core/StudentOrders/StudentOrderDelete", new StudentOrderBindingModel
                 {
                     Id = id
                 });

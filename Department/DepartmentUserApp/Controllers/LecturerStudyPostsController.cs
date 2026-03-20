@@ -13,7 +13,7 @@ namespace DepartmentUserApp.Controllers
         {
             try
             {
-                ViewBag.LecturerStudyPostsList = APIClient.GetRequest<List<LecturerStudyPostViewModel>>("api/LecturerStudyPosts/GetLecturerStudyPostList");
+                ViewBag.LecturerStudyPostsList = APIClient.GetRequest<List<LecturerStudyPostViewModel>>("api/core/LecturerStudyPosts/GetLecturerStudyPostList");
                 return View();
             }
             catch (Exception ex)
@@ -35,7 +35,7 @@ namespace DepartmentUserApp.Controllers
                     return RedirectToAction("List");
                 }
 
-                var item = APIClient.GetRequest<LecturerStudyPostViewModel>($"api/LecturerStudyPosts/GetLecturerStudyPost?id={id}");
+                var item = APIClient.GetRequest<LecturerStudyPostViewModel>($"api/core/LecturerStudyPosts/GetLecturerStudyPost?id={id}");
                 if (item == null)
                 {
                     TempData["Error"] = "Запись не найдена";
@@ -75,7 +75,7 @@ namespace DepartmentUserApp.Controllers
                     return View(model);
                 }
 
-                APIClient.PostRequest("api/LecturerStudyPosts/LecturerStudyPostCreate", model);
+                APIClient.PostRequest("api/core/LecturerStudyPosts/LecturerStudyPostCreate", model);
                 return RedirectToAction("List");
             }
             catch (Exception ex)
@@ -90,7 +90,7 @@ namespace DepartmentUserApp.Controllers
         {
             try
             {
-                ViewBag.LecturerStudyPostsList = APIClient.GetRequest<List<LecturerStudyPostViewModel>>("api/LecturerStudyPosts/GetLecturerStudyPostList");
+                ViewBag.LecturerStudyPostsList = APIClient.GetRequest<List<LecturerStudyPostViewModel>>("api/core/LecturerStudyPosts/GetLecturerStudyPostList");
                 return View();
             }
             catch (Exception ex)
@@ -108,17 +108,17 @@ namespace DepartmentUserApp.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    ViewBag.LecturerStudyPostsList = APIClient.GetRequest<List<LecturerStudyPostViewModel>>("api/LecturerStudyPosts/GetLecturerStudyPostList");
+                    ViewBag.LecturerStudyPostsList = APIClient.GetRequest<List<LecturerStudyPostViewModel>>("api/core/LecturerStudyPosts/GetLecturerStudyPostList");
                     return View(model);
                 }
 
-                APIClient.PostRequest("api/LecturerStudyPosts/LecturerStudyPostUpdate", model);
+                APIClient.PostRequest("api/core/LecturerStudyPosts/LecturerStudyPostUpdate", model);
                 return RedirectToAction("List");
             }
             catch (Exception ex)
             {
                 TempData["Error"] = ex.Message;
-                ViewBag.LecturerStudyPostsList = APIClient.GetRequest<List<LecturerStudyPostViewModel>>("api/LecturerStudyPosts/GetLecturerStudyPostList");
+                ViewBag.LecturerStudyPostsList = APIClient.GetRequest<List<LecturerStudyPostViewModel>>("api/core/LecturerStudyPosts/GetLecturerStudyPostList");
                 return View(model);
             }
         }
@@ -128,7 +128,7 @@ namespace DepartmentUserApp.Controllers
         {
             try
             {
-                ViewBag.LecturerStudyPostsList = APIClient.GetRequest<List<LecturerStudyPostViewModel>>("api/LecturerStudyPosts/GetLecturerStudyPostList");
+                ViewBag.LecturerStudyPostsList = APIClient.GetRequest<List<LecturerStudyPostViewModel>>("api/core/LecturerStudyPosts/GetLecturerStudyPostList");
                 return View();
             }
             catch (Exception ex)
@@ -150,7 +150,7 @@ namespace DepartmentUserApp.Controllers
                     return RedirectToAction("Delete");
                 }
 
-                APIClient.PostRequest("api/LecturerStudyPosts/LecturerStudyPostDelete", new LecturerStudyPostBindingModel
+                APIClient.PostRequest("api/core/LecturerStudyPosts/LecturerStudyPostDelete", new LecturerStudyPostBindingModel
                 {
                     Id = id
                 });

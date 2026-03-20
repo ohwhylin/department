@@ -13,8 +13,8 @@ namespace DepartmentUserApp.Controllers
         {
             try
             {
-                ViewBag.DisciplinesList = APIClient.GetRequest<List<DisciplineViewModel>>("api/Disciplines/GetDisciplineList");
-                ViewBag.DisciplineBlocksList = APIClient.GetRequest<List<DisciplineBlockViewModel>>("api/DisciplineBlocks/GetDisciplineBlockList");
+                ViewBag.DisciplinesList = APIClient.GetRequest<List<DisciplineViewModel>>("api/core/Disciplines/GetDisciplineList");
+                ViewBag.DisciplineBlocksList = APIClient.GetRequest<List<DisciplineBlockViewModel>>("api/core/DisciplineBlocks/GetDisciplineBlockList");
                 return View();
             }
             catch (Exception ex)
@@ -37,7 +37,7 @@ namespace DepartmentUserApp.Controllers
                     return RedirectToAction("List");
                 }
 
-                var item = APIClient.GetRequest<DisciplineViewModel>($"api/Disciplines/GetDiscipline?id={id}");
+                var item = APIClient.GetRequest<DisciplineViewModel>($"api/core/Disciplines/GetDiscipline?id={id}");
                 if (item == null)
                 {
                     TempData["Error"] = "Запись не найдена";
@@ -58,7 +58,7 @@ namespace DepartmentUserApp.Controllers
         {
             try
             {
-                ViewBag.DisciplineBlocksList = APIClient.GetRequest<List<DisciplineBlockViewModel>>("api/DisciplineBlocks/GetDisciplineBlockList");
+                ViewBag.DisciplineBlocksList = APIClient.GetRequest<List<DisciplineBlockViewModel>>("api/core/DisciplineBlocks/GetDisciplineBlockList");
                 return View();
             }
             catch (Exception ex)
@@ -76,17 +76,17 @@ namespace DepartmentUserApp.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    ViewBag.DisciplineBlocksList = APIClient.GetRequest<List<DisciplineBlockViewModel>>("api/DisciplineBlocks/GetDisciplineBlockList");
+                    ViewBag.DisciplineBlocksList = APIClient.GetRequest<List<DisciplineBlockViewModel>>("api/core/DisciplineBlocks/GetDisciplineBlockList");
                     return View(model);
                 }
 
-                APIClient.PostRequest("api/Disciplines/DisciplineCreate", model);
+                APIClient.PostRequest("api/core/Disciplines/DisciplineCreate", model);
                 return RedirectToAction("List");
             }
             catch (Exception ex)
             {
                 TempData["Error"] = ex.Message;
-                ViewBag.DisciplineBlocksList = APIClient.GetRequest<List<DisciplineBlockViewModel>>("api/DisciplineBlocks/GetDisciplineBlockList");
+                ViewBag.DisciplineBlocksList = APIClient.GetRequest<List<DisciplineBlockViewModel>>("api/core/DisciplineBlocks/GetDisciplineBlockList");
                 return View(model);
             }
         }
@@ -96,8 +96,8 @@ namespace DepartmentUserApp.Controllers
         {
             try
             {
-                ViewBag.DisciplinesList = APIClient.GetRequest<List<DisciplineViewModel>>("api/Disciplines/GetDisciplineList");
-                ViewBag.DisciplineBlocksList = APIClient.GetRequest<List<DisciplineBlockViewModel>>("api/DisciplineBlocks/GetDisciplineBlockList");
+                ViewBag.DisciplinesList = APIClient.GetRequest<List<DisciplineViewModel>>("api/core/Disciplines/GetDisciplineList");
+                ViewBag.DisciplineBlocksList = APIClient.GetRequest<List<DisciplineBlockViewModel>>("api/core/DisciplineBlocks/GetDisciplineBlockList");
                 return View();
             }
             catch (Exception ex)
@@ -116,19 +116,19 @@ namespace DepartmentUserApp.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    ViewBag.DisciplinesList = APIClient.GetRequest<List<DisciplineViewModel>>("api/Disciplines/GetDisciplineList");
-                    ViewBag.DisciplineBlocksList = APIClient.GetRequest<List<DisciplineBlockViewModel>>("api/DisciplineBlocks/GetDisciplineBlockList");
+                    ViewBag.DisciplinesList = APIClient.GetRequest<List<DisciplineViewModel>>("api/core/Disciplines/GetDisciplineList");
+                    ViewBag.DisciplineBlocksList = APIClient.GetRequest<List<DisciplineBlockViewModel>>("api/core/DisciplineBlocks/GetDisciplineBlockList");
                     return View(model);
                 }
 
-                APIClient.PostRequest("api/Disciplines/DisciplineUpdate", model);
+                APIClient.PostRequest("api/core/Disciplines/DisciplineUpdate", model);
                 return RedirectToAction("List");
             }
             catch (Exception ex)
             {
                 TempData["Error"] = ex.Message;
-                ViewBag.DisciplinesList = APIClient.GetRequest<List<DisciplineViewModel>>("api/Disciplines/GetDisciplineList");
-                ViewBag.DisciplineBlocksList = APIClient.GetRequest<List<DisciplineBlockViewModel>>("api/DisciplineBlocks/GetDisciplineBlockList");
+                ViewBag.DisciplinesList = APIClient.GetRequest<List<DisciplineViewModel>>("api/core/Disciplines/GetDisciplineList");
+                ViewBag.DisciplineBlocksList = APIClient.GetRequest<List<DisciplineBlockViewModel>>("api/core/DisciplineBlocks/GetDisciplineBlockList");
                 return View(model);
             }
         }
@@ -138,7 +138,7 @@ namespace DepartmentUserApp.Controllers
         {
             try
             {
-                ViewBag.DisciplinesList = APIClient.GetRequest<List<DisciplineViewModel>>("api/Disciplines/GetDisciplineList");
+                ViewBag.DisciplinesList = APIClient.GetRequest<List<DisciplineViewModel>>("api/core/Disciplines/GetDisciplineList");
                 return View();
             }
             catch (Exception ex)
@@ -160,7 +160,7 @@ namespace DepartmentUserApp.Controllers
                     return RedirectToAction("Delete");
                 }
 
-                APIClient.PostRequest("api/Disciplines/DisciplineDelete", new DisciplineBindingModel
+                APIClient.PostRequest("api/core/Disciplines/DisciplineDelete", new DisciplineBindingModel
                 {
                     Id = id
                 });

@@ -13,7 +13,7 @@ namespace DepartmentUserApp.Controllers
         {
             try
             {
-                ViewBag.ClassroomsList = APIClient.GetRequest<List<ClassroomViewModel>>("api/Classrooms/GetClassroomList");
+                ViewBag.ClassroomsList = APIClient.GetRequest<List<ClassroomViewModel>>("api/core/Classrooms/GetClassroomList");
                 return View();
             }
             catch (Exception ex)
@@ -35,7 +35,7 @@ namespace DepartmentUserApp.Controllers
                     return RedirectToAction("List");
                 }
 
-                var item = APIClient.GetRequest<ClassroomViewModel>($"api/Classrooms/GetClassroom?id={id}");
+                var item = APIClient.GetRequest<ClassroomViewModel>($"api/core/Classrooms/GetClassroom?id={id}");
                 if (item == null)
                 {
                     TempData["Error"] = "Запись не найдена";
@@ -75,7 +75,7 @@ namespace DepartmentUserApp.Controllers
                     return View(model);
                 }
 
-                APIClient.PostRequest("api/Classrooms/ClassroomCreate", model);
+                APIClient.PostRequest("api/core/Classrooms/ClassroomCreate", model);
                 return RedirectToAction("List");
             }
             catch (Exception ex)
@@ -90,7 +90,7 @@ namespace DepartmentUserApp.Controllers
         {
             try
             {
-                ViewBag.ClassroomsList = APIClient.GetRequest<List<ClassroomViewModel>>("api/Classrooms/GetClassroomList");
+                ViewBag.ClassroomsList = APIClient.GetRequest<List<ClassroomViewModel>>("api/core/Classrooms/GetClassroomList");
                 return View();
             }
             catch (Exception ex)
@@ -108,17 +108,17 @@ namespace DepartmentUserApp.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    ViewBag.ClassroomsList = APIClient.GetRequest<List<ClassroomViewModel>>("api/Classrooms/GetClassroomList");
+                    ViewBag.ClassroomsList = APIClient.GetRequest<List<ClassroomViewModel>>("api/core/Classrooms/GetClassroomList");
                     return View(model);
                 }
 
-                APIClient.PostRequest("api/Classrooms/ClassroomUpdate", model);
+                APIClient.PostRequest("api/core/Classrooms/ClassroomUpdate", model);
                 return RedirectToAction("List");
             }
             catch (Exception ex)
             {
                 TempData["Error"] = ex.Message;
-                ViewBag.ClassroomsList = APIClient.GetRequest<List<ClassroomViewModel>>("api/Classrooms/GetClassroomList");
+                ViewBag.ClassroomsList = APIClient.GetRequest<List<ClassroomViewModel>>("api/core/Classrooms/GetClassroomList");
                 return View(model);
             }
         }
@@ -128,7 +128,7 @@ namespace DepartmentUserApp.Controllers
         {
             try
             {
-                ViewBag.ClassroomsList = APIClient.GetRequest<List<ClassroomViewModel>>("api/Classrooms/GetClassroomList");
+                ViewBag.ClassroomsList = APIClient.GetRequest<List<ClassroomViewModel>>("api/core/Classrooms/GetClassroomList");
                 return View();
             }
             catch (Exception ex)
@@ -150,7 +150,7 @@ namespace DepartmentUserApp.Controllers
                     return RedirectToAction("Delete");
                 }
 
-                APIClient.PostRequest("api/Classrooms/ClassroomDelete", new ClassroomBindingModel
+                APIClient.PostRequest("api/core/Classrooms/ClassroomDelete", new ClassroomBindingModel
                 {
                     Id = id
                 });

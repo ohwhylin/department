@@ -13,8 +13,8 @@ namespace DepartmentUserApp.Controllers
         {
             try
             {
-                ViewBag.AcademicPlansList = APIClient.GetRequest<List<AcademicPlanViewModel>>("api/AcademicPlans/GetAcademicPlanList");
-                ViewBag.EducationDirectionsList = APIClient.GetRequest<List<EducationDirectionViewModel>>("api/EducationDirections/GetEducationDirectionList");
+                ViewBag.AcademicPlansList = APIClient.GetRequest<List<AcademicPlanViewModel>>("api/core/AcademicPlans/GetAcademicPlanList");
+                ViewBag.EducationDirectionsList = APIClient.GetRequest<List<EducationDirectionViewModel>>("api/core/EducationDirections/GetEducationDirectionList");
                 return View();
             }
             catch (Exception ex)
@@ -37,7 +37,7 @@ namespace DepartmentUserApp.Controllers
                     return RedirectToAction("List");
                 }
 
-                var item = APIClient.GetRequest<AcademicPlanViewModel>($"api/AcademicPlans/GetAcademicPlan?id={id}");
+                var item = APIClient.GetRequest<AcademicPlanViewModel>($"api/core/AcademicPlans/GetAcademicPlan?id={id}");
                 if (item == null)
                 {
                     TempData["Error"] = "Запись не найдена";
@@ -58,7 +58,7 @@ namespace DepartmentUserApp.Controllers
         {
             try
             {
-                ViewBag.EducationDirectionsList = APIClient.GetRequest<List<EducationDirectionViewModel>>("api/EducationDirections/GetEducationDirectionList");
+                ViewBag.EducationDirectionsList = APIClient.GetRequest<List<EducationDirectionViewModel>>("api/core/EducationDirections/GetEducationDirectionList");
                 return View();
             }
             catch (Exception ex)
@@ -76,17 +76,17 @@ namespace DepartmentUserApp.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    ViewBag.EducationDirectionsList = APIClient.GetRequest<List<EducationDirectionViewModel>>("api/EducationDirections/GetEducationDirectionList");
+                    ViewBag.EducationDirectionsList = APIClient.GetRequest<List<EducationDirectionViewModel>>("api/core/EducationDirections/GetEducationDirectionList");
                     return View(model);
                 }
 
-                APIClient.PostRequest("api/AcademicPlans/AcademicPlanCreate", model);
+                APIClient.PostRequest("api/core/AcademicPlans/AcademicPlanCreate", model);
                 return RedirectToAction("List");
             }
             catch (Exception ex)
             {
                 TempData["Error"] = ex.Message;
-                ViewBag.EducationDirectionsList = APIClient.GetRequest<List<EducationDirectionViewModel>>("api/EducationDirections/GetEducationDirectionList");
+                ViewBag.EducationDirectionsList = APIClient.GetRequest<List<EducationDirectionViewModel>>("api/core/EducationDirections/GetEducationDirectionList");
                 return View(model);
             }
         }
@@ -96,8 +96,8 @@ namespace DepartmentUserApp.Controllers
         {
             try
             {
-                ViewBag.AcademicPlansList = APIClient.GetRequest<List<AcademicPlanViewModel>>("api/AcademicPlans/GetAcademicPlanList");
-                ViewBag.EducationDirectionsList = APIClient.GetRequest<List<EducationDirectionViewModel>>("api/EducationDirections/GetEducationDirectionList");
+                ViewBag.AcademicPlansList = APIClient.GetRequest<List<AcademicPlanViewModel>>("api/core/AcademicPlans/GetAcademicPlanList");
+                ViewBag.EducationDirectionsList = APIClient.GetRequest<List<EducationDirectionViewModel>>("api/core/EducationDirections/GetEducationDirectionList");
                 return View();
             }
             catch (Exception ex)
@@ -116,19 +116,19 @@ namespace DepartmentUserApp.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    ViewBag.AcademicPlansList = APIClient.GetRequest<List<AcademicPlanViewModel>>("api/AcademicPlans/GetAcademicPlanList");
-                    ViewBag.EducationDirectionsList = APIClient.GetRequest<List<EducationDirectionViewModel>>("api/EducationDirections/GetEducationDirectionList");
+                    ViewBag.AcademicPlansList = APIClient.GetRequest<List<AcademicPlanViewModel>>("api/core/AcademicPlans/GetAcademicPlanList");
+                    ViewBag.EducationDirectionsList = APIClient.GetRequest<List<EducationDirectionViewModel>>("api/core/EducationDirections/GetEducationDirectionList");
                     return View(model);
                 }
 
-                APIClient.PostRequest("api/AcademicPlans/AcademicPlanUpdate", model);
+                APIClient.PostRequest("api/core/AcademicPlans/AcademicPlanUpdate", model);
                 return RedirectToAction("List");
             }
             catch (Exception ex)
             {
                 TempData["Error"] = ex.Message;
-                ViewBag.AcademicPlansList = APIClient.GetRequest<List<AcademicPlanViewModel>>("api/AcademicPlans/GetAcademicPlanList");
-                ViewBag.EducationDirectionsList = APIClient.GetRequest<List<EducationDirectionViewModel>>("api/EducationDirections/GetEducationDirectionList");
+                ViewBag.AcademicPlansList = APIClient.GetRequest<List<AcademicPlanViewModel>>("api/core/AcademicPlans/GetAcademicPlanList");
+                ViewBag.EducationDirectionsList = APIClient.GetRequest<List<EducationDirectionViewModel>>("api/core/EducationDirections/GetEducationDirectionList");
                 return View(model);
             }
         }
@@ -138,7 +138,7 @@ namespace DepartmentUserApp.Controllers
         {
             try
             {
-                ViewBag.AcademicPlansList = APIClient.GetRequest<List<AcademicPlanViewModel>>("api/AcademicPlans/GetAcademicPlanList");
+                ViewBag.AcademicPlansList = APIClient.GetRequest<List<AcademicPlanViewModel>>("api/core/AcademicPlans/GetAcademicPlanList");
                 return View();
             }
             catch (Exception ex)
@@ -160,7 +160,7 @@ namespace DepartmentUserApp.Controllers
                     return RedirectToAction("Delete");
                 }
 
-                APIClient.PostRequest("api/AcademicPlans/AcademicPlanDelete", new AcademicPlanBindingModel
+                APIClient.PostRequest("api/core/AcademicPlans/AcademicPlanDelete", new AcademicPlanBindingModel
                 {
                     Id = id
                 });

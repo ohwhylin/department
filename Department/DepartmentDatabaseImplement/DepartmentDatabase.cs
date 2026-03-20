@@ -14,7 +14,7 @@ namespace DepartmentDatabaseImplement
         {
             if (optionsBuilder.IsConfigured == false)
             {
-                optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-0CI5KVE\SQLEXPRESS;Initial Catalog=DepartmentDatabase1;Integrated Security=True;MultipleActiveResultSets=True;;TrustServerCertificate=True");
+                optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=department_db;Username=department_user;Password=123456;SSL Mode=Prefer;Timeout=10");
             }
             base.OnConfiguring(optionsBuilder);
         }

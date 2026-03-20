@@ -13,9 +13,9 @@ namespace DepartmentUserApp.Controllers
         {
             try
             {
-                ViewBag.LecturersList = APIClient.GetRequest<List<LecturerViewModel>>("api/Lecturers/GetLecturerList");
-                ViewBag.LecturerStudyPostsList = APIClient.GetRequest<List<LecturerStudyPostViewModel>>("api/LecturerStudyPosts/GetLecturerStudyPostList");
-                ViewBag.LecturerDepartmentPostsList = APIClient.GetRequest<List<LecturerDepartmentPostViewModel>>("api/LecturerDepartmentPosts/GetLecturerDepartmentPostList");
+                ViewBag.LecturersList = APIClient.GetRequest<List<LecturerViewModel>>("api/core/Lecturers/GetLecturerList");
+                ViewBag.LecturerStudyPostsList = APIClient.GetRequest<List<LecturerStudyPostViewModel>>("api/core/LecturerStudyPosts/GetLecturerStudyPostList");
+                ViewBag.LecturerDepartmentPostsList = APIClient.GetRequest<List<LecturerDepartmentPostViewModel>>("api/core/LecturerDepartmentPosts/GetLecturerDepartmentPostList");
                 return View();
             }
             catch (Exception ex)
@@ -39,7 +39,7 @@ namespace DepartmentUserApp.Controllers
                     return RedirectToAction("List");
                 }
 
-                var item = APIClient.GetRequest<LecturerViewModel>($"api/Lecturers/GetLecturer?id={id}");
+                var item = APIClient.GetRequest<LecturerViewModel>($"api/core/Lecturers/GetLecturer?id={id}");
                 if (item == null)
                 {
                     TempData["Error"] = "Запись не найдена";
@@ -60,8 +60,8 @@ namespace DepartmentUserApp.Controllers
         {
             try
             {
-                ViewBag.LecturerStudyPostsList = APIClient.GetRequest<List<LecturerStudyPostViewModel>>("api/LecturerStudyPosts/GetLecturerStudyPostList");
-                ViewBag.LecturerDepartmentPostsList = APIClient.GetRequest<List<LecturerDepartmentPostViewModel>>("api/LecturerDepartmentPosts/GetLecturerDepartmentPostList");
+                ViewBag.LecturerStudyPostsList = APIClient.GetRequest<List<LecturerStudyPostViewModel>>("api/core/LecturerStudyPosts/GetLecturerStudyPostList");
+                ViewBag.LecturerDepartmentPostsList = APIClient.GetRequest<List<LecturerDepartmentPostViewModel>>("api/core/LecturerDepartmentPosts/GetLecturerDepartmentPostList");
                 return View();
             }
             catch (Exception ex)
@@ -80,19 +80,19 @@ namespace DepartmentUserApp.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    ViewBag.LecturerStudyPostsList = APIClient.GetRequest<List<LecturerStudyPostViewModel>>("api/LecturerStudyPosts/GetLecturerStudyPostList");
-                    ViewBag.LecturerDepartmentPostsList = APIClient.GetRequest<List<LecturerDepartmentPostViewModel>>("api/LecturerDepartmentPosts/GetLecturerDepartmentPostList");
+                    ViewBag.LecturerStudyPostsList = APIClient.GetRequest<List<LecturerStudyPostViewModel>>("api/core/LecturerStudyPosts/GetLecturerStudyPostList");
+                    ViewBag.LecturerDepartmentPostsList = APIClient.GetRequest<List<LecturerDepartmentPostViewModel>>("api/core/LecturerDepartmentPosts/GetLecturerDepartmentPostList");
                     return View(model);
                 }
 
-                APIClient.PostRequest("api/Lecturers/LecturerCreate", model);
+                APIClient.PostRequest("api/core/Lecturers/LecturerCreate", model);
                 return RedirectToAction("List");
             }
             catch (Exception ex)
             {
                 TempData["Error"] = ex.Message;
-                ViewBag.LecturerStudyPostsList = APIClient.GetRequest<List<LecturerStudyPostViewModel>>("api/LecturerStudyPosts/GetLecturerStudyPostList");
-                ViewBag.LecturerDepartmentPostsList = APIClient.GetRequest<List<LecturerDepartmentPostViewModel>>("api/LecturerDepartmentPosts/GetLecturerDepartmentPostList");
+                ViewBag.LecturerStudyPostsList = APIClient.GetRequest<List<LecturerStudyPostViewModel>>("api/core/LecturerStudyPosts/GetLecturerStudyPostList");
+                ViewBag.LecturerDepartmentPostsList = APIClient.GetRequest<List<LecturerDepartmentPostViewModel>>("api/core/LecturerDepartmentPosts/GetLecturerDepartmentPostList");
                 return View(model);
             }
         }
@@ -102,9 +102,9 @@ namespace DepartmentUserApp.Controllers
         {
             try
             {
-                ViewBag.LecturersList = APIClient.GetRequest<List<LecturerViewModel>>("api/Lecturers/GetLecturerList");
-                ViewBag.LecturerStudyPostsList = APIClient.GetRequest<List<LecturerStudyPostViewModel>>("api/LecturerStudyPosts/GetLecturerStudyPostList");
-                ViewBag.LecturerDepartmentPostsList = APIClient.GetRequest<List<LecturerDepartmentPostViewModel>>("api/LecturerDepartmentPosts/GetLecturerDepartmentPostList");
+                ViewBag.LecturersList = APIClient.GetRequest<List<LecturerViewModel>>("api/core/Lecturers/GetLecturerList");
+                ViewBag.LecturerStudyPostsList = APIClient.GetRequest<List<LecturerStudyPostViewModel>>("api/core/LecturerStudyPosts/GetLecturerStudyPostList");
+                ViewBag.LecturerDepartmentPostsList = APIClient.GetRequest<List<LecturerDepartmentPostViewModel>>("api/core/LecturerDepartmentPosts/GetLecturerDepartmentPostList");
                 return View();
             }
             catch (Exception ex)
@@ -124,21 +124,21 @@ namespace DepartmentUserApp.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    ViewBag.LecturersList = APIClient.GetRequest<List<LecturerViewModel>>("api/Lecturers/GetLecturerList");
-                    ViewBag.LecturerStudyPostsList = APIClient.GetRequest<List<LecturerStudyPostViewModel>>("api/LecturerStudyPosts/GetLecturerStudyPostList");
-                    ViewBag.LecturerDepartmentPostsList = APIClient.GetRequest<List<LecturerDepartmentPostViewModel>>("api/LecturerDepartmentPosts/GetLecturerDepartmentPostList");
+                    ViewBag.LecturersList = APIClient.GetRequest<List<LecturerViewModel>>("api/core/Lecturers/GetLecturerList");
+                    ViewBag.LecturerStudyPostsList = APIClient.GetRequest<List<LecturerStudyPostViewModel>>("api/core/LecturerStudyPosts/GetLecturerStudyPostList");
+                    ViewBag.LecturerDepartmentPostsList = APIClient.GetRequest<List<LecturerDepartmentPostViewModel>>("api/core/LecturerDepartmentPosts/GetLecturerDepartmentPostList");
                     return View(model);
                 }
 
-                APIClient.PostRequest("api/Lecturers/LecturerUpdate", model);
+                APIClient.PostRequest("api/core/Lecturers/LecturerUpdate", model);
                 return RedirectToAction("List");
             }
             catch (Exception ex)
             {
                 TempData["Error"] = ex.Message;
-                ViewBag.LecturersList = APIClient.GetRequest<List<LecturerViewModel>>("api/Lecturers/GetLecturerList");
-                ViewBag.LecturerStudyPostsList = APIClient.GetRequest<List<LecturerStudyPostViewModel>>("api/LecturerStudyPosts/GetLecturerStudyPostList");
-                ViewBag.LecturerDepartmentPostsList = APIClient.GetRequest<List<LecturerDepartmentPostViewModel>>("api/LecturerDepartmentPosts/GetLecturerDepartmentPostList");
+                ViewBag.LecturersList = APIClient.GetRequest<List<LecturerViewModel>>("api/core/Lecturers/GetLecturerList");
+                ViewBag.LecturerStudyPostsList = APIClient.GetRequest<List<LecturerStudyPostViewModel>>("api/core/LecturerStudyPosts/GetLecturerStudyPostList");
+                ViewBag.LecturerDepartmentPostsList = APIClient.GetRequest<List<LecturerDepartmentPostViewModel>>("api/core/LecturerDepartmentPosts/GetLecturerDepartmentPostList");
                 return View(model);
             }
         }
@@ -148,7 +148,7 @@ namespace DepartmentUserApp.Controllers
         {
             try
             {
-                ViewBag.LecturersList = APIClient.GetRequest<List<LecturerViewModel>>("api/Lecturers/GetLecturerList");
+                ViewBag.LecturersList = APIClient.GetRequest<List<LecturerViewModel>>("api/core/Lecturers/GetLecturerList");
                 return View();
             }
             catch (Exception ex)
@@ -170,7 +170,7 @@ namespace DepartmentUserApp.Controllers
                     return RedirectToAction("Delete");
                 }
 
-                APIClient.PostRequest("api/Lecturers/LecturerDelete", new LecturerBindingModel
+                APIClient.PostRequest("api/core/Lecturers/LecturerDelete", new LecturerBindingModel
                 {
                     Id = id
                 });

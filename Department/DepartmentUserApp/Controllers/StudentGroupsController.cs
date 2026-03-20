@@ -13,9 +13,9 @@ namespace DepartmentUserApp.Controllers
         {
             try
             {
-                ViewBag.StudentGroupsList = APIClient.GetRequest<List<StudentGroupViewModel>>("api/StudentGroups/GetStudentGroupList");
-                ViewBag.EducationDirectionsList = APIClient.GetRequest<List<EducationDirectionViewModel>>("api/EducationDirections/GetEducationDirectionList");
-                ViewBag.LecturersList = APIClient.GetRequest<List<LecturerViewModel>>("api/Lecturers/GetLecturerList");
+                ViewBag.StudentGroupsList = APIClient.GetRequest<List<StudentGroupViewModel>>("api/core/StudentGroups/GetStudentGroupList");
+                ViewBag.EducationDirectionsList = APIClient.GetRequest<List<EducationDirectionViewModel>>("api/core/EducationDirections/GetEducationDirectionList");
+                ViewBag.LecturersList = APIClient.GetRequest<List<LecturerViewModel>>("api/core/Lecturers/GetLecturerList");
                 return View();
             }
             catch (Exception ex)
@@ -39,7 +39,7 @@ namespace DepartmentUserApp.Controllers
                     return RedirectToAction("List");
                 }
 
-                var item = APIClient.GetRequest<StudentGroupViewModel>($"api/StudentGroups/GetStudentGroup?id={id}");
+                var item = APIClient.GetRequest<StudentGroupViewModel>($"api/core/StudentGroups/GetStudentGroup?id={id}");
                 if (item == null)
                 {
                     TempData["Error"] = "Запись не найдена";
@@ -60,8 +60,8 @@ namespace DepartmentUserApp.Controllers
         {
             try
             {
-                ViewBag.EducationDirectionsList = APIClient.GetRequest<List<EducationDirectionViewModel>>("api/EducationDirections/GetEducationDirectionList");
-                ViewBag.LecturersList = APIClient.GetRequest<List<LecturerViewModel>>("api/Lecturers/GetLecturerList");
+                ViewBag.EducationDirectionsList = APIClient.GetRequest<List<EducationDirectionViewModel>>("api/core/EducationDirections/GetEducationDirectionList");
+                ViewBag.LecturersList = APIClient.GetRequest<List<LecturerViewModel>>("api/core/Lecturers/GetLecturerList");
                 return View();
             }
             catch (Exception ex)
@@ -80,19 +80,19 @@ namespace DepartmentUserApp.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    ViewBag.EducationDirectionsList = APIClient.GetRequest<List<EducationDirectionViewModel>>("api/EducationDirections/GetEducationDirectionList");
-                    ViewBag.LecturersList = APIClient.GetRequest<List<LecturerViewModel>>("api/Lecturers/GetLecturerList");
+                    ViewBag.EducationDirectionsList = APIClient.GetRequest<List<EducationDirectionViewModel>>("api/core/EducationDirections/GetEducationDirectionList");
+                    ViewBag.LecturersList = APIClient.GetRequest<List<LecturerViewModel>>("api/core/Lecturers/GetLecturerList");
                     return View(model);
                 }
 
-                APIClient.PostRequest("api/StudentGroups/StudentGroupCreate", model);
+                APIClient.PostRequest("api/core/StudentGroups/StudentGroupCreate", model);
                 return RedirectToAction("List");
             }
             catch (Exception ex)
             {
                 TempData["Error"] = ex.Message;
-                ViewBag.EducationDirectionsList = APIClient.GetRequest<List<EducationDirectionViewModel>>("api/EducationDirections/GetEducationDirectionList");
-                ViewBag.LecturersList = APIClient.GetRequest<List<LecturerViewModel>>("api/Lecturers/GetLecturerList");
+                ViewBag.EducationDirectionsList = APIClient.GetRequest<List<EducationDirectionViewModel>>("api/core/EducationDirections/GetEducationDirectionList");
+                ViewBag.LecturersList = APIClient.GetRequest<List<LecturerViewModel>>("api/core/Lecturers/GetLecturerList");
                 return View(model);
             }
         }
@@ -102,9 +102,9 @@ namespace DepartmentUserApp.Controllers
         {
             try
             {
-                ViewBag.StudentGroupsList = APIClient.GetRequest<List<StudentGroupViewModel>>("api/StudentGroups/GetStudentGroupList");
-                ViewBag.EducationDirectionsList = APIClient.GetRequest<List<EducationDirectionViewModel>>("api/EducationDirections/GetEducationDirectionList");
-                ViewBag.LecturersList = APIClient.GetRequest<List<LecturerViewModel>>("api/Lecturers/GetLecturerList");
+                ViewBag.StudentGroupsList = APIClient.GetRequest<List<StudentGroupViewModel>>("api/core/StudentGroups/GetStudentGroupList");
+                ViewBag.EducationDirectionsList = APIClient.GetRequest<List<EducationDirectionViewModel>>("api/core/EducationDirections/GetEducationDirectionList");
+                ViewBag.LecturersList = APIClient.GetRequest<List<LecturerViewModel>>("api/core/Lecturers/GetLecturerList");
                 return View();
             }
             catch (Exception ex)
@@ -124,21 +124,21 @@ namespace DepartmentUserApp.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    ViewBag.StudentGroupsList = APIClient.GetRequest<List<StudentGroupViewModel>>("api/StudentGroups/GetStudentGroupList");
-                    ViewBag.EducationDirectionsList = APIClient.GetRequest<List<EducationDirectionViewModel>>("api/EducationDirections/GetEducationDirectionList");
-                    ViewBag.LecturersList = APIClient.GetRequest<List<LecturerViewModel>>("api/Lecturers/GetLecturerList");
+                    ViewBag.StudentGroupsList = APIClient.GetRequest<List<StudentGroupViewModel>>("api/core/StudentGroups/GetStudentGroupList");
+                    ViewBag.EducationDirectionsList = APIClient.GetRequest<List<EducationDirectionViewModel>>("api/core/EducationDirections/GetEducationDirectionList");
+                    ViewBag.LecturersList = APIClient.GetRequest<List<LecturerViewModel>>("api/core/Lecturers/GetLecturerList");
                     return View(model);
                 }
 
-                APIClient.PostRequest("api/StudentGroups/StudentGroupUpdate", model);
+                APIClient.PostRequest("api/core/StudentGroups/StudentGroupUpdate", model);
                 return RedirectToAction("List");
             }
             catch (Exception ex)
             {
                 TempData["Error"] = ex.Message;
-                ViewBag.StudentGroupsList = APIClient.GetRequest<List<StudentGroupViewModel>>("api/StudentGroups/GetStudentGroupList");
-                ViewBag.EducationDirectionsList = APIClient.GetRequest<List<EducationDirectionViewModel>>("api/EducationDirections/GetEducationDirectionList");
-                ViewBag.LecturersList = APIClient.GetRequest<List<LecturerViewModel>>("api/Lecturers/GetLecturerList");
+                ViewBag.StudentGroupsList = APIClient.GetRequest<List<StudentGroupViewModel>>("api/core/StudentGroups/GetStudentGroupList");
+                ViewBag.EducationDirectionsList = APIClient.GetRequest<List<EducationDirectionViewModel>>("api/core/EducationDirections/GetEducationDirectionList");
+                ViewBag.LecturersList = APIClient.GetRequest<List<LecturerViewModel>>("api/core/Lecturers/GetLecturerList");
                 return View(model);
             }
         }
@@ -148,7 +148,7 @@ namespace DepartmentUserApp.Controllers
         {
             try
             {
-                ViewBag.StudentGroupsList = APIClient.GetRequest<List<StudentGroupViewModel>>("api/StudentGroups/GetStudentGroupList");
+                ViewBag.StudentGroupsList = APIClient.GetRequest<List<StudentGroupViewModel>>("api/core/StudentGroups/GetStudentGroupList");
                 return View();
             }
             catch (Exception ex)
@@ -170,7 +170,7 @@ namespace DepartmentUserApp.Controllers
                     return RedirectToAction("Delete");
                 }
 
-                APIClient.PostRequest("api/StudentGroups/StudentGroupDelete", new StudentGroupBindingModel
+                APIClient.PostRequest("api/core/StudentGroups/StudentGroupDelete", new StudentGroupBindingModel
                 {
                     Id = id
                 });
