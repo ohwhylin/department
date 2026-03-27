@@ -1,0 +1,31 @@
+﻿using DepartmentDataModels.Enums;
+
+namespace DepartmentContracts.Dtos.OneC
+{
+    public class AcademicPlanRecordOneCDto
+    {
+        public int Id { get; set; }
+
+        public int AcademicPlanId { get; set; }
+
+        public int DisciplineId { get; set; }
+
+        public int? AcademicPlanRecordParentId { get; set; }
+
+        public bool InDepartment { get; set; }
+
+        public Semesters Semester { get; set; }
+
+        public int Zet { get; set; }
+
+        public bool IsParent { get; set; }
+
+        public bool IsChild { get; set; }
+
+        public bool IsFacultative { get; set; }
+
+        public bool IsUseInWorkload { get; set; }
+
+        public bool IsActiveSemester { get; set; }
+    }
+}

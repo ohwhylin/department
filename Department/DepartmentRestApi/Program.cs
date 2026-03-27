@@ -3,6 +3,10 @@ using DepartmentContracts.BusinessLogicsContracts;
 using DepartmentContracts.StoragesContracts;
 using DepartmentDatabaseImplement.Implements;
 using Microsoft.OpenApi.Models;
+using DepartmentBusinessLogic.Services.OneC;
+using DepartmentContracts.Configs;
+using DepartmentBusinessLogic.BusinessLogics.Sync;
+using DepartmentContracts.BusinessLogicsContracts.Sync;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,6 +44,11 @@ builder.Services.AddTransient<IStudentGroupLogic, StudentGroupLogic>();
 builder.Services.AddTransient<IStudentOrderLogic, StudentOrderLogic>();
 builder.Services.AddTransient<IStudentOrderBlockLogic, StudentOrderBlockLogic>();
 builder.Services.AddTransient<IStudentOrderBlockStudentLogic, StudentOrderBlockStudentLogic>();
+
+// один эска
+builder.Services.Configure<OneCConnectionConfig>(builder.Configuration.GetSection("OneCConnection"));
+builder.Services.AddHttpClient<IOneCApiService, OneCApiService>();
+builder.Services.AddScoped<IAcademicPlanSyncLogic, AcademicPlanSyncLogic>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
