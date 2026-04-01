@@ -1,8 +1,8 @@
 ﻿using DepartmentDataModels.Enums;
 
-namespace DepartmentContracts.Dtos.OneC
+namespace DepartmentOneCMockApi.Models
 {
-    public class AcademicPlanRecordOneCDto
+    public class AcademicPlanRecordMockModel
     {
         public int Id { get; set; }
 
