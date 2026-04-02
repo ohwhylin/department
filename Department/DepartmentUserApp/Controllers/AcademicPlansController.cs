@@ -14,6 +14,7 @@ namespace DepartmentUserApp.Controllers
             try
             {
                 ViewBag.AcademicPlansList = APIClient.GetRequest<List<AcademicPlanViewModel>>("api/core/AcademicPlans/GetAcademicPlanList");
+                ViewBag.AcademicPlanRecordsList = APIClient.GetRequest<List<AcademicPlanRecordViewModel>>("api/core/AcademicPlanRecords/GetAcademicPlanRecordList");
                 ViewBag.EducationDirectionsList = APIClient.GetRequest<List<EducationDirectionViewModel>>("api/core/EducationDirections/GetEducationDirectionList");
                 return View();
             }
@@ -21,6 +22,7 @@ namespace DepartmentUserApp.Controllers
             {
                 TempData["Error"] = ex.Message;
                 ViewBag.AcademicPlansList = new List<AcademicPlanViewModel>();
+                ViewBag.AcademicPlanRecordsList = new List<AcademicPlanRecordViewModel>();
                 ViewBag.EducationDirectionsList = new List<EducationDirectionViewModel>();
                 return View();
             }

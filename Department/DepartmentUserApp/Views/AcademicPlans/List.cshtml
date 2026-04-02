@@ -1,61 +1,211 @@
+@using DepartmentContracts.ViewModels
+
 @{
     ViewData["Title"] = "AcademicPlans";
+
+    var plans = ViewBag.AcademicPlansList as List<AcademicPlanViewModel> ?? new List<AcademicPlanViewModel>();
+    var records = ViewBag.AcademicPlanRecordsList as List<AcademicPlanRecordViewModel> ?? new List<AcademicPlanRecordViewModel>();
 }
 
 <div class="list-shell">
     <div class="list-head">
         <div>
-            <h2 class="list-title">Список AcademicPlans</h2>
-            <div class="list-sub">Управление сущностью AcademicPlan</div>
+            <h2 class="list-title">Список учебных планов</h2>
+            <div class="list-sub">
+                Данные загружаются из 1С. Записи учебных планов отображаются внутри соответствующего плана.
+            </div>
         </div>
         <div class="d-flex gap-2">
             <form asp-controller="AcademicPlans" asp-action="Sync" method="post" class="d-inline">
                 <button type="submit" class="btn btn-app-primary">Синхронизировать данные</button>
             </form>
-
-            <a class="btn btn-app-primary" asp-controller="AcademicPlans" asp-action="Create">Добавить</a>
         </div>
     </div>
 
     @if (TempData["Success"] != null)
     {
-        <div class="alert alert-success mt-3">
+        <div class="alert alert-success m-3">
             @TempData["Success"]
         </div>
     }
 
     @if (TempData["Error"] != null)
     {
-        <div class="alert alert-danger mt-3">
+        <div class="alert alert-danger m-3">
             @TempData["Error"]
         </div>
     }
 
-    @if (ViewBag.AcademicPlansList != null)
+    @if (plans.Count > 0)
     {
-        @foreach (var item in ViewBag.AcademicPlansList)
+        @foreach (var item in plans)
         {
-            <div class="entity-row">
-                <div class="entity-accent"></div>
-                <div class="entity-content">
-                    <div class="entity-main">
-                        <h5 class="entity-title">@item.Id</h5>
-                        <div class="entity-meta">
-                            <span class="meta-chip">Id: @item.Id</span>
-                            <span class="meta-chip">@item.EducationDirection</span>
-                            <span class="meta-chip">@item.AcademicCourses</span>
-                            <span class="meta-chip">@item.Year</span>
+            var planRecords = records.Where(x => x.AcademicPlanId == item.Id).ToList();
+            var collapseId = $"planRecords_{item.Id}";
+            var buttonId = $"toggleBtn_{item.Id}";
+
+            <div class="plan-block">
+                <div class="entity-row">
+                    <div class="entity-accent"></div>
+
+                    <div class="entity-content">
+                        <div class="entity-main">
+                            <h5 class="entity-title">Учебный план №@item.Id</h5>
+                            <div class="entity-meta">
+                                <span class="meta-chip">Id: @item.Id</span>
+                                <span class="meta-chip">@item.EducationDirection</span>
+                                <span class="meta-chip">@item.AcademicCourses</span>
+                                <span class="meta-chip">@item.Year</span>
+                                <span class="meta-chip">Записей: @planRecords.Count</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="entity-actions">
+                        <div class="actions-stack">
+                            <a class="btn btn-sm btn-app-outline"
+                       asp-controller="AcademicPlans"
+                       asp-action="Details"
+                       asp-route-id="@item.Id">
+                                Подробнее
+                            </a>
+
+                            <button id="@buttonId"
+                            class="btn btn-sm btn-app-outline"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#@collapseId"
+                            aria-expanded="false"
+                            aria-controls="@collapseId">
+                                Показать записи
+                            </button>
                         </div>
                     </div>
                 </div>
-                <div class="entity-actions">
-                    <div class="actions-stack">
-                        <a class="btn btn-sm btn-app-outline" asp-controller="AcademicPlans" asp-action="Details" asp-route-id="@item.Id">Подробнее</a>
-                        <a class="btn btn-sm btn-app-outline" asp-controller="AcademicPlans" asp-action="Update">Изменить</a>
-                        <a class="btn btn-sm btn-app-outline" asp-controller="AcademicPlans" asp-action="Delete">Удалить</a>
+
+                <div class="collapse" id="@collapseId">
+                    <div class="plan-records-wrap">
+                        @if (planRecords.Count > 0)
+                        {
+                            @foreach (var record in planRecords)
+                            {
+                                <div class="plan-record-item">
+                                    <div class="plan-record-info">
+                                        <div class="plan-record-title">
+                                            Запись учебного плана №@record.Id
+                                        </div>
+                                        <div class="entity-meta">
+                                            <span class="meta-chip">Дисциплина: @record.Discipline</span>
+                                            <span class="meta-chip">Семестр: @record.Semester</span>
+                                            <span class="meta-chip">ZET: @record.Zet</span>
+                                            <span class="meta-chip">Кафедра: @(record.InDepartment ? "Да" : "Нет")</span>
+                                            <span class="meta-chip">Активен: @(record.IsActiveSemester ? "Да" : "Нет")</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="plan-record-actions">
+                                        <a class="btn btn-sm btn-app-outline"
+                           asp-controller="AcademicPlanRecords"
+                           asp-action="Details"
+                           asp-route-id="@record.Id">
+                                            Подробнее
+                                        </a>
+                                    </div>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="text-muted">
+                                Для данного учебного плана записи отсутствуют.
+                            </div>
+                        }
                     </div>
                 </div>
             </div>
         }
     }
+    else
+    {
+        <div class="alert alert-secondary m-3">
+            Данные отсутствуют. Выполните синхронизацию.
+        </div>
+    }
 </div>
+
+@section Styles {
+    <style>
+        .plan-block {
+            border-top: 1px solid var(--sky);
+        }
+
+            .plan-block:first-of-type {
+                border-top: none;
+            }
+
+            .plan-block .entity-row {
+                border-top: none;
+            }
+
+        .plan-records-wrap {
+            margin-left: 8px;
+            border-top: 1px solid var(--sky);
+            background: #f8fbff;
+            padding: 12px 14px 12px 22px;
+        }
+
+        .plan-record-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 12px 0;
+            border-bottom: 1px solid #e3eefb;
+        }
+
+            .plan-record-item:last-child {
+                border-bottom: none;
+            }
+
+        .plan-record-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .plan-record-title {
+            margin: 0 0 6px 0;
+            font-weight: 700;
+            color: var(--galaxy);
+            line-height: 1.2;
+        }
+
+        .plan-record-actions {
+            flex-shrink: 0;
+            padding-top: 2px;
+        }
+    </style>
+}
+
+    @section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const collapseElements = document.querySelectorAll('.collapse');
+
+            collapseElements.forEach(function (collapseElement) {
+                collapseElement.addEventListener('shown.bs.collapse', function () {
+                    const button = document.querySelector('[data-bs-target="#' + collapseElement.id + '"]');
+                    if (button) {
+                        button.textContent = 'Скрыть записи';
+                    }
+                });
+
+                collapseElement.addEventListener('hidden.bs.collapse', function () {
+                    const button = document.querySelector('[data-bs-target="#' + collapseElement.id + '"]');
+                    if (button) {
+                        button.textContent = 'Показать записи';
+                    }
+                });
+            });
+        });
+    </script>
+}

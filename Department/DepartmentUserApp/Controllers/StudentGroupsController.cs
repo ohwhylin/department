@@ -14,6 +14,7 @@ namespace DepartmentUserApp.Controllers
             try
             {
                 ViewBag.StudentGroupsList = APIClient.GetRequest<List<StudentGroupViewModel>>("api/core/StudentGroups/GetStudentGroupList");
+                ViewBag.StudentsList = APIClient.GetRequest<List<StudentViewModel>>("api/core/Students/GetStudentList");
                 ViewBag.EducationDirectionsList = APIClient.GetRequest<List<EducationDirectionViewModel>>("api/core/EducationDirections/GetEducationDirectionList");
                 ViewBag.LecturersList = APIClient.GetRequest<List<LecturerViewModel>>("api/core/Lecturers/GetLecturerList");
                 return View();
@@ -22,6 +23,7 @@ namespace DepartmentUserApp.Controllers
             {
                 TempData["Error"] = ex.Message;
                 ViewBag.StudentGroupsList = new List<StudentGroupViewModel>();
+                ViewBag.StudentsList = new List<StudentViewModel>();
                 ViewBag.EducationDirectionsList = new List<EducationDirectionViewModel>();
                 ViewBag.LecturersList = new List<LecturerViewModel>();
                 return View();
@@ -182,6 +184,23 @@ namespace DepartmentUserApp.Controllers
                 TempData["Error"] = ex.Message;
                 return RedirectToAction("Delete");
             }
+        }
+
+        [HttpPost]
+        public IActionResult Sync()
+        {
+            try
+            {
+                APIClient.PostRequest("api/core/Sync/student-groups");
+                APIClient.PostRequest("api/core/Sync/students");
+                TempData["Success"] = "Синхронизация групп и студентов выполнена успешно.";
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message;
+            }
+
+            return RedirectToAction("List");
         }
     }
 }

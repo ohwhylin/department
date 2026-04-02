@@ -183,5 +183,22 @@ namespace DepartmentUserApp.Controllers
                 return RedirectToAction("Delete");
             }
         }
+
+        [HttpPost]
+        public IActionResult Sync()
+        {
+            try
+            {
+                APIClient.PostRequest("api/core/Sync/discipline-student-records");
+                TempData["Success"] = "Синхронизация успеваемости выполнена успешно.";
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message;
+            }
+
+            return RedirectToAction("List");
+        }
+
     }
 }
