@@ -65,7 +65,7 @@ namespace DepartmentOneCMockApi.Data
             {
                 Id = 1,
                 EducationDirectionId = 1,
-                CuratorId = null,
+                CuratorId = 1,
                 GroupName = "ПИбд-31",
                 Course = AcademicCourse.Course_3
             },
@@ -73,7 +73,7 @@ namespace DepartmentOneCMockApi.Data
             {
                 Id = 2,
                 EducationDirectionId = 1,
-                CuratorId = null,
+                CuratorId = 1,
                 GroupName = "ПИбд-21",
                 Course = AcademicCourse.Course_2
             }

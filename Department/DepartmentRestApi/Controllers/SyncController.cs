@@ -8,10 +8,14 @@ namespace DepartmentRestApi.Controllers
     public class SyncController : ControllerBase
     {
         private readonly IAcademicPlanSyncLogic _academicPlanSyncLogic;
+        private readonly IStudentGroupSyncLogic _studentGroupSyncLogic;
+        private readonly IStudentSyncLogic _studentSyncLogic;
 
-        public SyncController(IAcademicPlanSyncLogic academicPlanSyncLogic)
+        public SyncController(IAcademicPlanSyncLogic academicPlanSyncLogic, IStudentGroupSyncLogic studentGroupSyncLogic, IStudentSyncLogic studentSyncLogic)
         {
             _academicPlanSyncLogic = academicPlanSyncLogic;
+            _studentGroupSyncLogic = studentGroupSyncLogic;
+            _studentSyncLogic = studentSyncLogic;
         }
 
         [HttpPost("academic-plans")]
@@ -31,5 +35,42 @@ namespace DepartmentRestApi.Controllers
                 });
             }
         }
+
+        [HttpPost("student-groups")]
+        public async Task<IActionResult> SyncStudentGroups()
+        {
+            try
+            {
+                await _studentGroupSyncLogic.SyncStudentGroupsAsync();
+                return Ok("Student groups synchronized successfully.");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    error = "Internal server error",
+                    details = ex.Message
+                });
+            }
+        }
+
+        [HttpPost("students")]
+        public async Task<IActionResult> SyncStudents()
+        {
+            try
+            {
+                await _studentSyncLogic.SyncStudentsAsync();
+                return Ok("Students synchronized successfully.");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    error = "Internal server error",
+                    details = ex.Message
+                });
+            }
+        }
+
     }
 }
