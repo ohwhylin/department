@@ -17,5 +17,6 @@
         public string StudentsEndpoint { get; set; } = string.Empty;
 
         public string DisciplineStudentRecordsEndpoint { get; set; } = string.Empty;
+        public string StudentOrdersEndpoint { get; set; } = string.Empty;
     }
 }

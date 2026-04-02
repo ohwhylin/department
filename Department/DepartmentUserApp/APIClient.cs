@@ -53,6 +53,18 @@ namespace DepartmentUserApp
             }
         }
 
+        public static void PostRequest(string requestUrl)
+        {
+            var data = new StringContent("", Encoding.UTF8, "application/json");
+            var response = _client.PostAsync(requestUrl, data).Result;
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var errorContent = response.Content.ReadAsStringAsync().Result;
+                throw new Exception(errorContent);
+            }
+        }
+
         //public static (T? Result, string? Error) GetRequestWithErrorHandling<T>(string requestUrl)
         //{
         //    try

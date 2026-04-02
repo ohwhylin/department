@@ -130,5 +130,36 @@ namespace DepartmentOneCMockApi.Data
                 SubGroup = 1
             }
         };
+
+        public static List<StudentOrderMockModel> StudentOrders => new()
+        {
+            new StudentOrderMockModel
+            {
+                Id = 1,
+                OrderNumber = "123",
+                StudentOrderType = StudentOrderType.ПереводВГруппу,
+                Blocks = new List<StudentOrderBlockMockModel>
+                {
+                    new StudentOrderBlockMockModel
+                    {
+                        Id = 1,
+                        StudentOrderId = 1,
+                        EducationDirectionId = 1,
+                        StudentOrderType = StudentOrderType.ПереводВГруппу,
+                        Students = new List<StudentOrderBlockStudentMockModel>
+                        {
+                            new StudentOrderBlockStudentMockModel
+                            {
+                                Id = 1,
+                                StudentOrderBlockId = 1,
+                                StudentId = 1,
+                                StudentGroupFromId = 1,
+                                StudentGroupToId = 2
+                            }
+                        }
+                    }
+                }
+            }
+        };
     }
 }

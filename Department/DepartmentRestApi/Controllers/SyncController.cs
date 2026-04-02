@@ -1,4 +1,5 @@
-﻿using DepartmentContracts.BusinessLogicsContracts.Sync;
+﻿using DepartmentBusinessLogic.BusinessLogics.Sync;
+using DepartmentContracts.BusinessLogicsContracts.Sync;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DepartmentRestApi.Controllers
@@ -10,12 +11,21 @@ namespace DepartmentRestApi.Controllers
         private readonly IAcademicPlanSyncLogic _academicPlanSyncLogic;
         private readonly IStudentGroupSyncLogic _studentGroupSyncLogic;
         private readonly IStudentSyncLogic _studentSyncLogic;
+        private readonly IDisciplineStudentRecordSyncLogic _disciplineStudentRecordSyncLogic;
+        private readonly IStudentOrderSyncLogic _studentOrderSyncLogic;
 
-        public SyncController(IAcademicPlanSyncLogic academicPlanSyncLogic, IStudentGroupSyncLogic studentGroupSyncLogic, IStudentSyncLogic studentSyncLogic)
+        public SyncController(
+            IAcademicPlanSyncLogic academicPlanSyncLogic, 
+            IStudentGroupSyncLogic studentGroupSyncLogic, 
+            IStudentSyncLogic studentSyncLogic, 
+            IDisciplineStudentRecordSyncLogic disciplineStudentRecordSyncLogic, 
+            IStudentOrderSyncLogic studentOrderSyncLogic)
         {
             _academicPlanSyncLogic = academicPlanSyncLogic;
             _studentGroupSyncLogic = studentGroupSyncLogic;
             _studentSyncLogic = studentSyncLogic;
+            _disciplineStudentRecordSyncLogic = disciplineStudentRecordSyncLogic;
+            _studentOrderSyncLogic = studentOrderSyncLogic;
         }
 
         [HttpPost("academic-plans")]
@@ -72,5 +82,40 @@ namespace DepartmentRestApi.Controllers
             }
         }
 
+        [HttpPost("discipline-student-records")]
+        public async Task<IActionResult> SyncDisciplineStudentRecords()
+        {
+            try
+            {
+                await _disciplineStudentRecordSyncLogic.SyncDisciplineStudentRecordsAsync();
+                return Ok("Discipline student records synchronized successfully.");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    error = "Internal server error",
+                    details = ex.Message
+                });
+            }
+        }
+
+        [HttpPost("student-orders")]
+        public async Task<IActionResult> SyncStudentOrders()
+        {
+            try
+            {
+                await _studentOrderSyncLogic.SyncStudentOrdersAsync();
+                return Ok("Student orders synchronized successfully.");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    error = "Internal server error",
+                    details = ex.Message
+                });
+            }
+        }
     }
 }

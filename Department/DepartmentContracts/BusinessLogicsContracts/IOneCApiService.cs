@@ -9,6 +9,7 @@ namespace DepartmentContracts.BusinessLogicsContracts
         Task<List<StudentGroupOneCDto>> GetStudentGroupsAsync();
         Task<List<StudentOneCDto>> GetStudentsAsync();
         Task<List<DisciplineStudentRecordOneCDto>> GetDisciplineStudentRecordsAsync();
+        Task<List<StudentOrderOneCDto>> GetStudentOrdersAsync();
 
     }
 }

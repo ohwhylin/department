@@ -69,6 +69,12 @@ namespace DepartmentBusinessLogic.Services.OneC
                    ?? new List<DisciplineStudentRecordOneCDto>();
         }
 
+        public async Task<List<StudentOrderOneCDto>> GetStudentOrdersAsync()
+        {
+            return await GetAsync<List<StudentOrderOneCDto>>(_config.StudentOrdersEndpoint)
+                   ?? new List<StudentOrderOneCDto>();
+        }
+
         private async Task<T?> GetAsync<T>(string endpoint)
         {
             if (string.IsNullOrWhiteSpace(endpoint))

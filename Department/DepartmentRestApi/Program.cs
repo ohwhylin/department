@@ -51,6 +51,8 @@ builder.Services.AddHttpClient<IOneCApiService, OneCApiService>();
 builder.Services.AddScoped<IAcademicPlanSyncLogic, AcademicPlanSyncLogic>();
 builder.Services.AddScoped<IStudentGroupSyncLogic, StudentGroupSyncLogic>();
 builder.Services.AddScoped<IStudentSyncLogic, StudentSyncLogic>();
+builder.Services.AddScoped<IDisciplineStudentRecordSyncLogic, DisciplineStudentRecordSyncLogic>();
+builder.Services.AddScoped<IStudentOrderSyncLogic, StudentOrderSyncLogic>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
