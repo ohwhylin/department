@@ -52,7 +52,57 @@ namespace DepartmentBusinessLogic.BusinessLogics.Sync
                     SyncAcademicPlanRecord(oneCRecord, currentAcademicPlanRecords);
                 }
             }
+
+            DeleteRemovedAcademicPlanRecords(oneCAcademicPlans, currentAcademicPlanRecords);
+            DeleteRemovedAcademicPlans(oneCAcademicPlans, currentAcademicPlans);
         }
+
+        private void DeleteRemovedAcademicPlanRecords(
+        List<DepartmentContracts.Dtos.OneC.AcademicPlanOneCDto> oneCAcademicPlans,
+        List<AcademicPlanRecordViewModel> currentAcademicPlanRecords)
+            {
+                var oneCRecordIds = oneCAcademicPlans
+                    .SelectMany(x => x.AcademicPlanRecords ?? new List<DepartmentContracts.Dtos.OneC.AcademicPlanRecordOneCDto>())
+                    .Select(x => x.Id)
+                    .ToHashSet();
+
+                var recordsToDelete = currentAcademicPlanRecords
+                    .Where(x => !oneCRecordIds.Contains(x.Id))
+                    .ToList();
+
+                foreach (var record in recordsToDelete)
+                {
+                    _academicPlanRecordStorage.Delete(new AcademicPlanRecordBindingModel
+                    {
+                        Id = record.Id
+                    });
+
+                    currentAcademicPlanRecords.Remove(record);
+                }
+            }
+
+        private void DeleteRemovedAcademicPlans(
+        List<DepartmentContracts.Dtos.OneC.AcademicPlanOneCDto> oneCAcademicPlans,
+        List<AcademicPlanViewModel> currentAcademicPlans)
+            {
+                var oneCPlanIds = oneCAcademicPlans
+                    .Select(x => x.Id)
+                    .ToHashSet();
+
+                var plansToDelete = currentAcademicPlans
+                    .Where(x => !oneCPlanIds.Contains(x.Id))
+                    .ToList();
+
+                foreach (var plan in plansToDelete)
+                {
+                    _academicPlanStorage.Delete(new AcademicPlanBindingModel
+                    {
+                        Id = plan.Id
+                    });
+
+                    currentAcademicPlans.Remove(plan);
+                }
+            }
 
         private void SyncAcademicPlan(
             DepartmentContracts.Dtos.OneC.AcademicPlanOneCDto oneCPlan,
