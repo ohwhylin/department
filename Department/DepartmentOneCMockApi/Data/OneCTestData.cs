@@ -12,7 +12,7 @@ namespace DepartmentOneCMockApi.Data
                 Id = 1,
                 EducationDirectionId = 1,
                 AcademicCourses = AcademicCourse.Course_1,
-                Year = 2024,
+                Year = 2030,
                 AcademicPlanRecords = new List<AcademicPlanRecordMockModel>
                 {
                     new AcademicPlanRecordMockModel
@@ -279,14 +279,22 @@ namespace DepartmentOneCMockApi.Data
                 Id = 1,
                 EducationDirectionId = 1,
                 CuratorId = 1,
-                GroupName = "ПИбд-31",
-                Course = AcademicCourse.Course_3
+                GroupName = "ПИбд-41",
+                Course = AcademicCourse.Course_4
             },
             new StudentGroupMockModel
             {
                 Id = 2,
                 EducationDirectionId = 1,
-                CuratorId = 1,
+                CuratorId = 2,
+                GroupName = "ПИбд-31",
+                Course = AcademicCourse.Course_3
+            },
+            new StudentGroupMockModel
+            {
+                Id = 3,
+                EducationDirectionId = 1,
+                CuratorId = 2,
                 GroupName = "ПИбд-21",
                 Course = AcademicCourse.Course_2
             }
@@ -294,17 +302,18 @@ namespace DepartmentOneCMockApi.Data
 
         public static List<StudentMockModel> Students => new()
         {
+            // Группа ПИбд-41 (5 студентов)
             new StudentMockModel
             {
                 Id = 1,
                 StudentGroupId = 1,
                 NumberOfBook = "10001",
-                FirstName = "Иван",
-                LastName = "Иванов",
-                Patronymic = "Иванович",
-                Email = "ivanov@test.local",
+                FirstName = "Александр",
+                LastName = "Кузнецов",
+                Patronymic = "Андреевич",
+                Email = "a.kuznetsov@university.ru",
                 StudentState = StudentState.Учится,
-                Description = "Тестовый студент",
+                Description = "",
                 IsSteward = true
             },
             new StudentMockModel
@@ -312,12 +321,172 @@ namespace DepartmentOneCMockApi.Data
                 Id = 2,
                 StudentGroupId = 1,
                 NumberOfBook = "10002",
-                FirstName = "Петр",
-                LastName = "Петров",
-                Patronymic = "Петрович",
-                Email = "petrov@test.local",
+                FirstName = "Екатерина",
+                LastName = "Смирнова",
+                Patronymic = "Дмитриевна",
+                Email = "e.smirnova@university.ru",
                 StudentState = StudentState.Учится,
-                Description = "Тестовый студент",
+                Description = "",
+                IsSteward = false
+            },
+            new StudentMockModel
+            {
+                Id = 3,
+                StudentGroupId = 1,
+                NumberOfBook = "10003",
+                FirstName = "Дмитрий",
+                LastName = "Волков",
+                Patronymic = "Сергеевич",
+                Email = "d.volkov@university.ru",
+                StudentState = StudentState.Учится,
+                Description = "",
+                IsSteward = false
+            },
+            new StudentMockModel
+            {
+                Id = 4,
+                StudentGroupId = 1,
+                NumberOfBook = "10004",
+                FirstName = "Анна",
+                LastName = "Морозова",
+                Patronymic = "Игоревна",
+                Email = "a.morozova@university.ru",
+                StudentState = StudentState.Учится,
+                Description = "",
+                IsSteward = false
+            },
+            new StudentMockModel
+            {
+                Id = 5,
+                StudentGroupId = 1,
+                NumberOfBook = "10005",
+                FirstName = "Максим",
+                LastName = "Новиков",
+                Patronymic = "Владимирович",
+                Email = "m.novikov@university.ru",
+                StudentState = StudentState.Академ,
+                Description = "",
+                IsSteward = false
+            },
+
+            // Группа ПИбд-31 (5 студентов)
+            new StudentMockModel
+            {
+                Id = 6,
+                StudentGroupId = 2,
+                NumberOfBook = "10006",
+                FirstName = "Ольга",
+                LastName = "Федорова",
+                Patronymic = "Алексеевна",
+                Email = "o.fedorova@university.ru",
+                StudentState = StudentState.Учится,
+                Description = "",
+                IsSteward = true
+            },
+            new StudentMockModel
+            {
+                Id = 7,
+                StudentGroupId = 2,
+                NumberOfBook = "10007",
+                FirstName = "Сергей",
+                LastName = "Михайлов",
+                Patronymic = "Петрович",
+                Email = "s.mikhailov@university.ru",
+                StudentState = StudentState.Учится,
+                Description = "",
+                IsSteward = false
+            },
+            new StudentMockModel
+            {
+                Id = 8,
+                StudentGroupId = 2,
+                NumberOfBook = "10008",
+                FirstName = "Татьяна",
+                LastName = "Егорова",
+                Patronymic = "Николаевна",
+                Email = "t.egorova@university.ru",
+                StudentState = StudentState.Учится,
+                Description = "",
+                IsSteward = false
+            },
+            new StudentMockModel
+            {
+                Id = 9,
+                StudentGroupId = 2,
+                NumberOfBook = "10009",
+                FirstName = "Андрей",
+                LastName = "Козлов",
+                Patronymic = "Валерьевич",
+                Email = "a.kozlov@university.ru",
+                StudentState = StudentState.Учится,
+                Description = "",
+                IsSteward = false
+            },
+            new StudentMockModel
+            {
+                Id = 10,
+                StudentGroupId = 2,
+                NumberOfBook = "10010",
+                FirstName = "Юлия",
+                LastName = "Соколова",
+                Patronymic = "Викторовна",
+                Email = "y.sokolova@university.ru",
+                StudentState = StudentState.Учится,
+                Description = "",
+                IsSteward = false
+            },
+
+            // Группа ПИбд-21 (4 студента)
+            new StudentMockModel
+            {
+                Id = 11,
+                StudentGroupId = 3,
+                NumberOfBook = "10011",
+                FirstName = "Никита",
+                LastName = "Лебедев",
+                Patronymic = "Александрович",
+                Email = "n.lebedev@university.ru",
+                StudentState = StudentState.Учится,
+                Description = "",
+                IsSteward = true
+            },
+            new StudentMockModel
+            {
+                Id = 12,
+                StudentGroupId = 3,
+                NumberOfBook = "10012",
+                FirstName = "Мария",
+                LastName = "Павлова",
+                Patronymic = "Андреевна",
+                Email = "m.pavlova@university.ru",
+                StudentState = StudentState.Учится,
+                Description = "",
+                IsSteward = false
+            },
+            new StudentMockModel
+            {
+                Id = 13,
+                StudentGroupId = 3,
+                NumberOfBook = "10013",
+                FirstName = "Артем",
+                LastName = "Семенов",
+                Patronymic = "Иванович",
+                Email = "a.semenov@university.ru",
+                StudentState = StudentState.Учится,
+                Description = "",
+                IsSteward = false
+            },
+            new StudentMockModel
+            {
+                Id = 14,
+                StudentGroupId = 3,
+                NumberOfBook = "10014",
+                FirstName = "Елена",
+                LastName = "Тихонова",
+                Patronymic = "Сергеевна",
+                Email = "e.tikhonova@university.ru",
+                StudentState = StudentState.Учится,
+                Description = "",
                 IsSteward = false
             }
         };
@@ -341,6 +510,43 @@ namespace DepartmentOneCMockApi.Data
                 Semester = Semesters.Второй,
                 Variant = "Зачет",
                 SubGroup = 1
+            },
+            // Добавляем новые записи
+            new DisciplineStudentRecordMockModel
+            {
+                Id = 3,
+                DisciplineId = 3,
+                StudentId = 3,
+                Semester = Semesters.Первый,
+                Variant = "Экзамен",
+                SubGroup = 2
+            },
+            new DisciplineStudentRecordMockModel
+            {
+                Id = 4,
+                DisciplineId = 4,
+                StudentId = 4,
+                Semester = Semesters.Второй,
+                Variant = "Зачет",
+                SubGroup = 2
+            },
+            new DisciplineStudentRecordMockModel
+            {
+                Id = 5,
+                DisciplineId = 5,
+                StudentId = 5,
+                Semester = Semesters.Первый,
+                Variant = "Экзамен",
+                SubGroup = 3
+            },
+            new DisciplineStudentRecordMockModel
+            {
+                Id = 6,
+                DisciplineId = 6,
+                StudentId = 6,
+                Semester = Semesters.Второй,
+                Variant = "Зачет",
+                SubGroup = 3
             }
         };
 
@@ -368,6 +574,166 @@ namespace DepartmentOneCMockApi.Data
                                 StudentId = 1,
                                 StudentGroupFromId = 1,
                                 StudentGroupToId = 2
+                            },
+                            new StudentOrderBlockStudentMockModel
+                            {
+                                Id = 2,
+                                StudentOrderBlockId = 1,
+                                StudentId = 2,
+                                StudentGroupFromId = 1,
+                                StudentGroupToId = 2
+                            }
+                        }
+                    },
+                    new StudentOrderBlockMockModel
+                    {
+                        Id = 2,
+                        StudentOrderId = 1,
+                        EducationDirectionId = 1,
+                        StudentOrderType = StudentOrderType.ПереводВГруппу,
+                        Students = new List<StudentOrderBlockStudentMockModel>
+                        {
+                            new StudentOrderBlockStudentMockModel
+                            {
+                                Id = 3,
+                                StudentOrderBlockId = 2,
+                                StudentId = 6,
+                                StudentGroupFromId = 2,
+                                StudentGroupToId = 1
+                            }
+                        }
+                    }
+                }
+            },
+
+            new StudentOrderMockModel
+            {
+                Id = 2,
+                OrderNumber = "124",
+                StudentOrderType = StudentOrderType.ПереводВГруппу,
+                Blocks = new List<StudentOrderBlockMockModel>
+                {
+                    new StudentOrderBlockMockModel
+                    {
+                        Id = 3,
+                        StudentOrderId = 2,
+                        EducationDirectionId = 1,
+                        StudentOrderType = StudentOrderType.ПереводВГруппу,
+                        Students = new List<StudentOrderBlockStudentMockModel>
+                        {
+                            new StudentOrderBlockStudentMockModel
+                            {
+                                Id = 4,
+                                StudentOrderBlockId = 3,
+                                StudentId = 7,
+                                StudentGroupFromId = 2,
+                                StudentGroupToId = 3
+                            },
+                            new StudentOrderBlockStudentMockModel
+                            {
+                                Id = 5,
+                                StudentOrderBlockId = 3,
+                                StudentId = 8,
+                                StudentGroupFromId = 2,
+                                StudentGroupToId = 3
+                            }
+                        }
+                    }
+                }
+            },
+
+            new StudentOrderMockModel
+            {
+                Id = 3,
+                OrderNumber = "125",
+                StudentOrderType = StudentOrderType.ПереводВГруппу,
+                Blocks = new List<StudentOrderBlockMockModel>
+                {
+                    new StudentOrderBlockMockModel
+                    {
+                        Id = 4,
+                        StudentOrderId = 3,
+                        EducationDirectionId = 1,
+                        StudentOrderType = StudentOrderType.ПереводВГруппу,
+                        Students = new List<StudentOrderBlockStudentMockModel>
+                        {
+                            new StudentOrderBlockStudentMockModel
+                            {
+                                Id = 6,
+                                StudentOrderBlockId = 4,
+                                StudentId = 11,
+                                StudentGroupFromId = 3,
+                                StudentGroupToId = 1
+                            }
+                        }
+                    },
+                    new StudentOrderBlockMockModel
+                    {
+                        Id = 5,
+                        StudentOrderId = 3,
+                        EducationDirectionId = 1,
+                        StudentOrderType = StudentOrderType.ПереводВГруппу,
+                        Students = new List<StudentOrderBlockStudentMockModel>
+                        {
+                            new StudentOrderBlockStudentMockModel
+                            {
+                                Id = 7,
+                                StudentOrderBlockId = 5,
+                                StudentId = 12,
+                                StudentGroupFromId = 3,
+                                StudentGroupToId = 2
+                            },
+                            new StudentOrderBlockStudentMockModel
+                            {
+                                Id = 8,
+                                StudentOrderBlockId = 5,
+                                StudentId = 13,
+                                StudentGroupFromId = 3,
+                                StudentGroupToId = 2
+                            },
+                            new StudentOrderBlockStudentMockModel
+                            {
+                                Id = 9,
+                                StudentOrderBlockId = 5,
+                                StudentId = 14,
+                                StudentGroupFromId = 3,
+                                StudentGroupToId = 2
+                            }
+                        }
+                    }
+                }
+            },
+
+            new StudentOrderMockModel
+            {
+                Id = 4,
+                OrderNumber = "126",
+                StudentOrderType = StudentOrderType.ПереводВГруппу,
+                Blocks = new List<StudentOrderBlockMockModel>
+                {
+                    new StudentOrderBlockMockModel
+                    {
+                        Id = 6,
+                        StudentOrderId = 4,
+                        EducationDirectionId = 1,
+                        StudentOrderType = StudentOrderType.ПереводВГруппу,
+                        Students = new List<StudentOrderBlockStudentMockModel>
+                        {
+                            new StudentOrderBlockStudentMockModel
+                            {
+                                Id = 10,
+                                StudentOrderBlockId = 6,
+                                StudentId = 3,
+                                StudentGroupFromId = 1,
+                                StudentGroupToId = 3
+                            },
+                            new StudentOrderBlockStudentMockModel
+                            {
+                                Id = 11,
+                                StudentOrderBlockId = 6,
+                                StudentId = 4,
+                                StudentGroupFromId = 1,
+                                StudentGroupToId = 3
                             }
                         }
                     }

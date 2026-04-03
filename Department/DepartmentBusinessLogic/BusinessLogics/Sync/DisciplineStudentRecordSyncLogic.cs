@@ -27,7 +27,7 @@ namespace DepartmentBusinessLogic.BusinessLogics.Sync
 
         public async Task SyncDisciplineStudentRecordsAsync()
         {
-            var oneCRecords = await _oneCApiService.GetDisciplineStudentRecordsAsync();
+            var oneCRecords = await _oneCApiService.GetDisciplineStudentRecordsAsync(); // Получаем записи успеваемости из OneC
 
             var currentRecords = _disciplineStudentRecordStorage.GetFullList() ?? new List<DisciplineStudentRecordViewModel>();
             var currentDisciplines = _disciplineStorage.GetFullList() ?? new List<DisciplineViewModel>();
@@ -95,6 +95,31 @@ namespace DepartmentBusinessLogic.BusinessLogics.Sync
                         existingRecord.SubGroup = model.SubGroup;
                     }
                 }
+            }
+
+            DeleteRemovedDisciplineStudentRecords(oneCRecords, currentRecords);
+        }
+
+        private void DeleteRemovedDisciplineStudentRecords(
+            List<DepartmentContracts.Dtos.OneC.DisciplineStudentRecordOneCDto> oneCRecords,
+            List<DisciplineStudentRecordViewModel> currentRecords)
+        {
+            var oneCRecordIds = oneCRecords
+                .Select(x => x.Id)
+                .ToHashSet();
+
+            var recordsToDelete = currentRecords
+                .Where(x => !oneCRecordIds.Contains(x.Id))
+                .ToList();
+
+            foreach (var record in recordsToDelete)
+            {
+                _disciplineStudentRecordStorage.Delete(new DisciplineStudentRecordBindingModel
+                {
+                    Id = record.Id
+                });
+
+                currentRecords.Remove(record);
             }
         }
     }

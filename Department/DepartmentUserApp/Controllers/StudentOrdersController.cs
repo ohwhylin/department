@@ -13,16 +13,30 @@ namespace DepartmentUserApp.Controllers
         {
             try
             {
-                ViewBag.StudentOrdersList = APIClient.GetRequest<List<StudentOrderViewModel>>("api/core/StudentOrders/GetStudentOrderList");
+                ViewBag.StudentOrdersList =
+                    APIClient.GetRequest<List<StudentOrderViewModel>>("api/core/StudentOrders/GetStudentOrderList")
+                    ?? new List<StudentOrderViewModel>();
+
+                ViewBag.StudentOrderBlocksList =
+                    APIClient.GetRequest<List<StudentOrderBlockViewModel>>("api/core/StudentOrderBlocks/GetStudentOrderBlockList")
+                    ?? new List<StudentOrderBlockViewModel>();
+
+                ViewBag.StudentOrderBlockStudentsList =
+                    APIClient.GetRequest<List<StudentOrderBlockStudentViewModel>>("api/core/StudentOrderBlockStudents/GetStudentOrderBlockStudentList")
+                    ?? new List<StudentOrderBlockStudentViewModel>();
+
                 return View();
             }
             catch (Exception ex)
             {
                 TempData["Error"] = ex.Message;
                 ViewBag.StudentOrdersList = new List<StudentOrderViewModel>();
+                ViewBag.StudentOrderBlocksList = new List<StudentOrderBlockViewModel>();
+                ViewBag.StudentOrderBlockStudentsList = new List<StudentOrderBlockStudentViewModel>();
                 return View();
             }
         }
+
 
         [HttpGet]
         public IActionResult Details(int id)

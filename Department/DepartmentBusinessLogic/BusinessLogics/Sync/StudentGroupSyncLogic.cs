@@ -55,6 +55,31 @@ namespace DepartmentBusinessLogic.BusinessLogics.Sync
                     }
                 }
             }
+
+            DeleteRemovedStudentGroups(oneCGroups, currentGroups);
         }
+
+        private void DeleteRemovedStudentGroups(
+        List<DepartmentContracts.Dtos.OneC.StudentGroupOneCDto> oneCGroups,
+        List<StudentGroupViewModel> currentGroups)
+            {
+                var oneCGroupIds = oneCGroups
+                    .Select(x => x.Id)
+                    .ToHashSet();
+
+                var groupsToDelete = currentGroups
+                    .Where(x => !oneCGroupIds.Contains(x.Id))
+                    .ToList();
+
+                foreach (var group in groupsToDelete)
+                {
+                    _studentGroupStorage.Delete(new StudentGroupBindingModel
+                    {
+                        Id = group.Id
+                    });
+
+                    currentGroups.Remove(group);
+                }
+            }
     }
 }

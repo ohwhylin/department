@@ -7,6 +7,7 @@ using DepartmentBusinessLogic.Services.OneC;
 using DepartmentContracts.Configs;
 using DepartmentBusinessLogic.BusinessLogics.Sync;
 using DepartmentContracts.BusinessLogicsContracts.Sync;
+using DepartmentRestApi.BackgroundServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -47,6 +48,9 @@ builder.Services.AddTransient<IStudentOrderBlockStudentLogic, StudentOrderBlockS
 
 // один эска
 builder.Services.Configure<OneCConnectionConfig>(builder.Configuration.GetSection("OneCConnection"));
+builder.Services.Configure<AcademicPlanSyncScheduleConfig>(builder.Configuration.GetSection("AcademicPlanSyncSchedule"));
+builder.Services.AddHostedService<AcademicPlanSyncBackgroundService>();
+
 builder.Services.AddHttpClient<IOneCApiService, OneCApiService>();
 builder.Services.AddScoped<IAcademicPlanSyncLogic, AcademicPlanSyncLogic>();
 builder.Services.AddScoped<IStudentGroupSyncLogic, StudentGroupSyncLogic>();

@@ -107,6 +107,31 @@ namespace DepartmentBusinessLogic.BusinessLogics.Sync
                     }
                 }
             }
+
+            DeleteRemovedStudents(oneCStudents, currentStudents);
+        }
+
+        private void DeleteRemovedStudents(
+            List<DepartmentContracts.Dtos.OneC.StudentOneCDto> oneCStudents,
+            List<StudentViewModel> currentStudents)
+        {
+            var oneCStudentIds = oneCStudents
+                .Select(x => x.Id)
+                .ToHashSet();
+
+            var studentsToDelete = currentStudents
+                .Where(x => !oneCStudentIds.Contains(x.Id))
+                .ToList();
+
+            foreach (var student in studentsToDelete)
+            {
+                _studentStorage.Delete(new StudentBindingModel
+                {
+                    Id = student.Id
+                });
+
+                currentStudents.Remove(student);
+            }
         }
 
         private bool ByteArrayEquals(byte[]? first, byte[]? second)
