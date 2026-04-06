@@ -13,10 +13,12 @@ namespace DepartmentContracts.ViewModels
         [Column(title: "", width: 100)]
         public string Number { get; set; } = string.Empty;
         [Column(title: "", width: 100)]
-        public ClassroomTypes ClassroomType { get; set; }
+        public ClassroomTypes Type { get; set; }
         [Column(title: "", width: 100)]
         public int Capacity { get; set; }
         [Column(title: "", width: 100)]
         public bool NotUseInSchedule { get; set; }
+        [Column(title: "", width: 100)]
+        public bool HasProjector { get; set; }
     }
 }

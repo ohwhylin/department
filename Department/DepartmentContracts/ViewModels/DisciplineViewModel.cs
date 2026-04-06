@@ -21,5 +21,13 @@ namespace DepartmentContracts.ViewModels
         public string DisciplineDescription { get; set; } = string.Empty;
         [Column(title: "", width: 100)]
         public string DisciplineBlockBlueAsteriskName { get; set; } = string.Empty;
+        [Column(title: "", width: 100)]
+        public bool HasExam { get; set; }
+        [Column(title: "", width: 100)]
+        public bool HasCredit { get; set; }
+        [Column(title: "", width: 100)]
+        public bool HasCourseWork { get; set; }
+        [Column(title: "", width: 100)]
+        public bool HasCourseProject { get; set; }
     }
 }

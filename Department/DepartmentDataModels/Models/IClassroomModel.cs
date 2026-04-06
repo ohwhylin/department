@@ -9,8 +9,9 @@ namespace DepartmentDataModels.Models
     {
         int Id { get; }
         string Number { get; }
-        ClassroomTypes ClassroomType { get; }
+        ClassroomTypes Type { get; }
         int Capacity { get; }
         bool NotUseInSchedule { get; }
+        bool HasProjector { get; }
     }
 }

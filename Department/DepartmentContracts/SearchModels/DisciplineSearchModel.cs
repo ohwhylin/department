@@ -11,5 +11,9 @@ namespace DepartmentContracts.SearchModels
         public string? DisciplineShortName { get; set; }
         public string? DisciplineDescription { get; set; }
         public string? DisciplineBlockBlueAsteriskName { get; set; }
+        public bool? HasExam { get; set; }
+        public bool? HasCredit { get; set; }
+        public bool? HasCourseWork { get; set; }
+        public bool? HasCourseProject { get; set; }
     }
 }

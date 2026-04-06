@@ -13,5 +13,6 @@ namespace DepartmentDataModels.Models
         Semesters Semester { get; }
         string Variant { get; }
         int SubGroup { get; }
+        MarkType MarkType { get; }
     }
 }

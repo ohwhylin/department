@@ -12,5 +12,9 @@ namespace DepartmentDataModels.Models
         string DisciplineShortName { get; }
         string DisciplineDescription { get; }
         string DisciplineBlockBlueAsteriskName { get; }
+        bool HasExam { get; }
+        bool HasCredit { get; }
+        bool HasCourseWork { get; }
+        bool HasCourseProject { get; }
     }
 }

@@ -37,5 +37,9 @@ namespace DepartmentOneCMockApi.Models
         public string DisciplineDescription { get; set; } = string.Empty;
 
         public string DisciplineBlockBlueAsteriskName { get; set; } = string.Empty;
+        public bool HasExam { get; }
+        public bool HasCredit { get; }
+        public bool HasCourseWork { get; }
+        public bool HasCourseProject { get; }
     }
 }

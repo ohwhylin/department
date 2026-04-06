@@ -24,5 +24,7 @@ namespace DepartmentContracts.ViewModels
         public string Variant { get; set; } = string.Empty;
         [Column(title: "", width: 100)]
         public int SubGroup { get; set; }
+        [Column(title: "", width: 100)]
+        public MarkType MarkType { get; set; }
     }
 }

@@ -33,9 +33,9 @@
                                 <span asp-validation-for="Number" class="text-danger"></span>
                             </div>
                             <div class="mb-3">
-                                <label asp-for="ClassroomType" class="form-label">Classroom Type</label>
-                                <select asp-for="ClassroomType" class="form-select" asp-items="Html.GetEnumSelectList<ClassroomTypes>()"></select>
-                                <span asp-validation-for="ClassroomType" class="text-danger"></span>
+                                <label asp-for="Type" class="form-label">Classroom Type</label>
+                                <select asp-for="Type" class="form-select" asp-items="Html.GetEnumSelectList<ClassroomTypes>()"></select>
+                                <span asp-validation-for="Type" class="text-danger"></span>
                             </div>
                             <div class="mb-3">
                                 <label asp-for="Capacity" class="form-label">Capacity</label>
@@ -48,6 +48,13 @@
                                     <input asp-for="NotUseInSchedule" class="form-check-input" />
                                 </div>
                                 <span asp-validation-for="NotUseInSchedule" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="HasProjector" class="form-label">Наличие проектора</label>
+                                <div class="form-check">
+                                    <input asp-for="HasProjector" class="form-check-input" />
+                                </div>
+                                <span asp-validation-for="HasProjector" class="text-danger"></span>
                             </div>
                         </div>
                     </div>

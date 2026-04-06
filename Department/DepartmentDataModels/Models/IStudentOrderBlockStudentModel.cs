@@ -9,7 +9,7 @@ namespace DepartmentDataModels.Models
         int Id { get; }
         int StudentOrderBlockId { get; }
         int StudentId { get; }
-        int StudentGroupFromId { get; }
-        int StudentGroupToId { get; }
+        int? StudentGroupFromId { get; }
+        int? StudentGroupToId { get; }
     }
 }

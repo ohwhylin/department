@@ -24,7 +24,7 @@ namespace DepartmentDatabaseImplement.Models
 
         [DataMember]
         [Required]
-        public int Year { get; private set; }
+        public string Year { get; private set; } = string.Empty;
         [ForeignKey("AcademicPlanId")]
         public virtual List<AcademicPlanRecord> AcademicPlanRecords { get; set; }
 

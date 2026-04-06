@@ -9,8 +9,9 @@ namespace DepartmentContracts.BindingModels
     {
         public int Id { get; set; }
         public string Number { get; set; } = string.Empty;
-        public ClassroomTypes ClassroomType { get; set; }
+        public ClassroomTypes Type { get; set; }
         public int Capacity { get; set; }
         public bool NotUseInSchedule { get; set; }
+        public bool HasProjector { get; set; }
     }
 }

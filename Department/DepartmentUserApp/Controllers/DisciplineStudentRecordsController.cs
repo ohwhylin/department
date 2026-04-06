@@ -16,6 +16,7 @@ namespace DepartmentUserApp.Controllers
                 ViewBag.DisciplineStudentRecordsList = APIClient.GetRequest<List<DisciplineStudentRecordViewModel>>("api/core/DisciplineStudentRecords/GetDisciplineStudentRecordList");
                 ViewBag.DisciplinesList = APIClient.GetRequest<List<DisciplineViewModel>>("api/core/Disciplines/GetDisciplineList");
                 ViewBag.StudentsList = APIClient.GetRequest<List<StudentViewModel>>("api/core/Students/GetStudentList");
+                ViewBag.StudentGroupsList = APIClient.GetRequest<List<StudentGroupViewModel>>("api/core/StudentGroups/GetStudentGroupList");
                 return View();
             }
             catch (Exception ex)
@@ -24,6 +25,7 @@ namespace DepartmentUserApp.Controllers
                 ViewBag.DisciplineStudentRecordsList = new List<DisciplineStudentRecordViewModel>();
                 ViewBag.DisciplinesList = new List<DisciplineViewModel>();
                 ViewBag.StudentsList = new List<StudentViewModel>();
+                ViewBag.StudentGroupsList = new List<StudentGroupViewModel>();
                 return View();
             }
         }

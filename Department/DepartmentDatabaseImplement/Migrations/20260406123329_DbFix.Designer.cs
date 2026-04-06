@@ -3,6 +3,7 @@ using System;
 using DepartmentDatabaseImplement;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DepartmentDatabaseImplement.Migrations
 {
     [DbContext(typeof(DepartmentDatabase))]
-    partial class DepartmentDatabaseModelSnapshot : ModelSnapshot
+    [Migration("20260406123329_DbFix")]
+    partial class DbFix
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -210,9 +213,6 @@ namespace DepartmentDatabaseImplement.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<int>("DisciplineId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("MarkType")
                         .HasColumnType("integer");
 
                     b.Property<int>("Semester")

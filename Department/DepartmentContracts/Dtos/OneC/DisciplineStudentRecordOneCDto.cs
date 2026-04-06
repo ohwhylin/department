@@ -15,5 +15,6 @@ namespace DepartmentContracts.Dtos.OneC
         public string Variant { get; set; } = string.Empty;
 
         public int SubGroup { get; set; }
+        public MarkType MarkType { get; set; }
     }
 }

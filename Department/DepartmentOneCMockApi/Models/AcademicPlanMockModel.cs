@@ -10,7 +10,7 @@ namespace DepartmentOneCMockApi.Models
 
         public AcademicCourse AcademicCourses { get; set; }
 
-        public int Year { get; set; }
+        public string Year { get; set; } = string.Empty;
 
         public List<AcademicPlanRecordMockModel> AcademicPlanRecords { get; set; } = new();
     }

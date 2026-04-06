@@ -8,8 +8,9 @@ namespace DepartmentContracts.SearchModels
     {
         public int? Id { get; set; }
         public string? Number { get; set; }
-        public ClassroomTypes? ClassroomType { get; set; }
+        public ClassroomTypes? Type { get; set; }
         public int? Capacity { get; set; }
         public bool? NotUseInSchedule { get; set; }
+        public bool? HasProjector { get; set; }
     }
 }

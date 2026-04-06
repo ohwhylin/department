@@ -16,7 +16,7 @@ namespace DepartmentDataModels.Models
         string Email { get; }
         StudentState StudentState { get; }
         string Description { get; }
-        byte[] Photo { get; }
+        byte[]? Photo { get; }
         bool IsSteward { get; }
     }
 }

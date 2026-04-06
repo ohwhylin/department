@@ -10,6 +10,6 @@ namespace DepartmentDataModels.Models
         int Id { get; }
         int? EducationDirectionId { get; }
         AcademicCourse AcademicCourses { get; }
-        int Year { get; }
+        string Year { get; }
     }
 }

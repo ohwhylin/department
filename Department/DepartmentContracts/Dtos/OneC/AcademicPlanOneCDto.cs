@@ -10,7 +10,7 @@ namespace DepartmentContracts.Dtos.OneC
 
         public AcademicCourse AcademicCourses { get; set; }
 
-        public int Year { get; set; }
+        public string Year { get; set; }
 
         public List<AcademicPlanRecordOneCDto> AcademicPlanRecords { get; set; } = new();
     }

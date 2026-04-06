@@ -12,5 +12,6 @@ namespace DepartmentContracts.SearchModels
         public Semesters? Semester { get; set; }
         public string? Variant { get; set; }
         public int? SubGroup { get; set; }
+        public MarkType? MarkType { get; set; }
     }
 }

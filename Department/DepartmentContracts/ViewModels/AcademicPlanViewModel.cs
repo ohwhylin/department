@@ -17,6 +17,6 @@ namespace DepartmentContracts.ViewModels
         [Column(title: "", width: 100)]
         public AcademicCourse AcademicCourses { get; set; }
         [Column(title: "", width: 100)]
-        public int Year { get; set; }
+        public string Year { get; set; }
     }
 }

@@ -9,6 +9,6 @@ namespace DepartmentContracts.SearchModels
         public int? Id { get; set; }
         public int? EducationDirectionId { get; set; }
         public AcademicCourse? AcademicCourses { get; set; }
-        public int? Year { get; set; }
+        public string? Year { get; set; }
     }
 }

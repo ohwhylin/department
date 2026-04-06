@@ -30,7 +30,7 @@
                 Classroom Type
             </dt>
             <dd class="col-sm-8">
-                @Model.ClassroomType
+                @Model.Type
             </dd>
             <dt class="col-sm-4 text-muted">
                 Capacity
@@ -43,6 +43,12 @@
             </dt>
             <dd class="col-sm-8">
                 @Model.NotUseInSchedule
+            </dd>
+            <dt class="col-sm-4 text-muted">
+                Наличие проектора
+            </dt>
+            <dd class="col-sm-8">
+                @Model.HasProjector
             </dd>
         </dl>
     </div>

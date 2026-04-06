@@ -24,14 +24,12 @@ namespace DepartmentDatabaseImplement.Models
         public virtual Student Student { get; set; } = null!;
 
         [DataMember]
-        [Required]
-        public int StudentGroupFromId { get; private set; }
-        public virtual StudentGroup StudentGroupFrom { get; set; } = null!;
+        public int? StudentGroupFromId { get; private set; }
+        public virtual StudentGroup? StudentGroupFrom { get; set; } = null!;
 
         [DataMember]
-        [Required]
-        public int StudentGroupToId { get; private set; }
-        public virtual StudentGroup StudentGroupTo { get; set; } = null!;
+        public int? StudentGroupToId { get; private set; }
+        public virtual StudentGroup? StudentGroupTo { get; set; } = null!;
 
         public static StudentOrderBlockStudent? Create(StudentOrderBlockStudentBindingModel model)
         {

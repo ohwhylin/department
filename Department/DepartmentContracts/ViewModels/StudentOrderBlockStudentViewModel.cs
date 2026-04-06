@@ -18,12 +18,12 @@ namespace DepartmentContracts.ViewModels
         [Column(title: "", width: 100)]
         public string Student { get; set; } = string.Empty;
         [Column(visible: false)]
-        public int StudentGroupFromId { get; set; }
+        public int? StudentGroupFromId { get; set; }
         [Column(title: "", width: 100)]
-        public string StudentGroupFrom { get; set; } = string.Empty;
+        public string? StudentGroupFrom { get; set; } = string.Empty;
         [Column(visible: false)]
-        public int StudentGroupToId { get; set; }
+        public int? StudentGroupToId { get; set; }
         [Column(title: "", width: 100)]
-        public string StudentGroupTo { get; set; } = string.Empty;
+        public string? StudentGroupTo { get; set; } = string.Empty;
     }
 }

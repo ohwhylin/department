@@ -22,7 +22,7 @@ namespace DepartmentDataModels.Models
         Rank Rank { get; }
         Rank2 Rank2 { get; }
         string Description { get; }
-        byte[] Photo { get; }
+        byte[]? Photo { get; }
         bool OnlyForPrivate { get; }
     }
 }

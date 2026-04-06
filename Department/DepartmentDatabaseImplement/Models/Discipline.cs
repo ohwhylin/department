@@ -32,6 +32,22 @@ namespace DepartmentDatabaseImplement.Models
 
         [DataMember]
         [Required]
+        public bool HasExam { get; private set; }
+
+        [DataMember]
+        [Required]
+        public bool HasCredit { get; private set; }
+
+        [DataMember]
+        [Required]
+        public bool HasCourseWork { get; private set; }
+
+        [DataMember]
+        [Required]
+        public bool HasCourseProject { get; private set; }
+
+        [DataMember]
+        [Required]
         public string DisciplineBlockBlueAsteriskName { get; private set; } = string.Empty;
         [ForeignKey("DisciplineId")]
         public virtual List<DisciplineStudentRecord> DisciplineStudentRecords { get; set; }
@@ -49,6 +65,10 @@ namespace DepartmentDatabaseImplement.Models
                 DisciplineShortName = model.DisciplineShortName,
                 DisciplineDescription = model.DisciplineDescription,
                 DisciplineBlockBlueAsteriskName = model.DisciplineBlockBlueAsteriskName,
+                HasExam = model.HasExam,
+                HasCredit = model.HasCredit,
+                HasCourseWork = model.HasCourseWork,
+                HasCourseProject = model.HasCourseProject,
             };
         }
 
@@ -60,6 +80,10 @@ namespace DepartmentDatabaseImplement.Models
             DisciplineShortName = model.DisciplineShortName;
             DisciplineDescription = model.DisciplineDescription;
             DisciplineBlockBlueAsteriskName = model.DisciplineBlockBlueAsteriskName;
+            HasExam = model.HasExam;
+            HasCredit = model.HasCredit;
+            HasCourseWork = model.HasCourseWork;
+            HasCourseProject = model.HasCourseProject;
         }
 
         public DisciplineViewModel GetViewModel => new()
@@ -70,6 +94,10 @@ namespace DepartmentDatabaseImplement.Models
             DisciplineShortName = DisciplineShortName,
             DisciplineDescription = DisciplineDescription,
             DisciplineBlockBlueAsteriskName = DisciplineBlockBlueAsteriskName,
+            HasExam = HasExam,
+            HasCredit = HasCredit,
+            HasCourseWork = HasCourseWork,
+            HasCourseProject = HasCourseProject,
         };
     }
 }

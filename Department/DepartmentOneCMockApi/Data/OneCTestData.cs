@@ -12,7 +12,7 @@ namespace DepartmentOneCMockApi.Data
                 Id = 1,
                 EducationDirectionId = 1,
                 AcademicCourses = AcademicCourse.Course_1,
-                Year = 2030,
+                Year = "2030-2031",
                 AcademicPlanRecords = new List<AcademicPlanRecordMockModel>
                 {
                     new AcademicPlanRecordMockModel
@@ -83,7 +83,7 @@ namespace DepartmentOneCMockApi.Data
                 Id = 2,
                 EducationDirectionId = 1,
                 AcademicCourses = AcademicCourse.Course_2,
-                Year = 2024,
+                Year = "2024-2025",
                 AcademicPlanRecords = new List<AcademicPlanRecordMockModel>
                 {
                     new AcademicPlanRecordMockModel
@@ -134,7 +134,7 @@ namespace DepartmentOneCMockApi.Data
                 Id = 3,
                 EducationDirectionId = 1,
                 AcademicCourses = AcademicCourse.Course_3,
-                Year = 2025,
+                Year = "2025-2026",
                 AcademicPlanRecords = new List<AcademicPlanRecordMockModel>
                 {
                     new AcademicPlanRecordMockModel
@@ -205,7 +205,7 @@ namespace DepartmentOneCMockApi.Data
                 Id = 4,
                 EducationDirectionId = 1,
                 AcademicCourses = AcademicCourse.Course_4,
-                Year = 2025,
+                Year = "2025-2026",
                 AcademicPlanRecords = new List<AcademicPlanRecordMockModel>
                 {
                     new AcademicPlanRecordMockModel
@@ -500,7 +500,8 @@ namespace DepartmentOneCMockApi.Data
                 StudentId = 1,
                 Semester = Semesters.Первый,
                 Variant = "Экзамен",
-                SubGroup = 1
+                SubGroup = 1,
+                MarkType = MarkType.Отлично
             },
             new DisciplineStudentRecordMockModel
             {
@@ -509,9 +510,9 @@ namespace DepartmentOneCMockApi.Data
                 StudentId = 2,
                 Semester = Semesters.Второй,
                 Variant = "Зачет",
-                SubGroup = 1
+                SubGroup = 1,
+                MarkType = MarkType.Хорошо
             },
-            // Добавляем новые записи
             new DisciplineStudentRecordMockModel
             {
                 Id = 3,
@@ -519,7 +520,8 @@ namespace DepartmentOneCMockApi.Data
                 StudentId = 3,
                 Semester = Semesters.Первый,
                 Variant = "Экзамен",
-                SubGroup = 2
+                SubGroup = 2,
+                MarkType = MarkType.Удовлетворительно
             },
             new DisciplineStudentRecordMockModel
             {
@@ -528,7 +530,8 @@ namespace DepartmentOneCMockApi.Data
                 StudentId = 4,
                 Semester = Semesters.Второй,
                 Variant = "Зачет",
-                SubGroup = 2
+                SubGroup = 2,
+                MarkType = MarkType.Отлично
             },
             new DisciplineStudentRecordMockModel
             {
@@ -537,7 +540,8 @@ namespace DepartmentOneCMockApi.Data
                 StudentId = 5,
                 Semester = Semesters.Первый,
                 Variant = "Экзамен",
-                SubGroup = 3
+                SubGroup = 3,
+                MarkType = MarkType.Неявка
             },
             new DisciplineStudentRecordMockModel
             {
@@ -546,7 +550,89 @@ namespace DepartmentOneCMockApi.Data
                 StudentId = 6,
                 Semester = Semesters.Второй,
                 Variant = "Зачет",
-                SubGroup = 3
+                SubGroup = 3,
+                MarkType = MarkType.Хорошо
+            },
+
+            new DisciplineStudentRecordMockModel
+            {
+                Id = 7,
+                DisciplineId = 7,
+                StudentId = 7,
+                Semester = Semesters.Первый,
+                Variant = "Экзамен",
+                SubGroup = 1,
+                MarkType = MarkType.Неудовлетворительно
+            },
+            new DisciplineStudentRecordMockModel
+            {
+                Id = 8,
+                DisciplineId = 8,
+                StudentId = 8,
+                Semester = Semesters.Второй,
+                Variant = "Экзамен",
+                SubGroup = 1,
+                MarkType = MarkType.Хорошо
+            },
+            new DisciplineStudentRecordMockModel
+            {
+                Id = 9,
+                DisciplineId = 9,
+                StudentId = 9,
+                Semester = Semesters.Первый,
+                Variant = "Экзамен",
+                SubGroup = 2,
+                MarkType = MarkType.Отлично
+            },
+            new DisciplineStudentRecordMockModel
+            {
+                Id = 10,
+                DisciplineId = 10,
+                StudentId = 10,
+                Semester = Semesters.Второй,
+                Variant = "Зачет",
+                SubGroup = 2,
+                MarkType = MarkType.Удовлетворительно
+            },
+            new DisciplineStudentRecordMockModel
+            {
+                Id = 11,
+                DisciplineId = 11,
+                StudentId = 11,
+                Semester = Semesters.Второй,
+                Variant = "Зачет",
+                SubGroup = 1,
+                MarkType = MarkType.Хорошо
+            },
+            new DisciplineStudentRecordMockModel
+            {
+                Id = 12,
+                DisciplineId = 4,
+                StudentId = 12,
+                Semester = Semesters.Первый,
+                Variant = "Экзамен",
+                SubGroup = 1,
+                MarkType = MarkType.Отлично
+            },
+            new DisciplineStudentRecordMockModel
+            {
+                Id = 13,
+                DisciplineId = 5,
+                StudentId = 13,
+                Semester = Semesters.Второй,
+                Variant = "Экзамен",
+                SubGroup = 2,
+                MarkType = MarkType.Неудовлетворительно
+            },
+            new DisciplineStudentRecordMockModel
+            {
+                Id = 14,
+                DisciplineId = 6,
+                StudentId = 14,
+                Semester = Semesters.Первый,
+                Variant = "Зачет",
+                SubGroup = 2,
+                MarkType = MarkType.Неявка
             }
         };
 

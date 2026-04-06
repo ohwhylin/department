@@ -35,6 +35,9 @@ namespace DepartmentDatabaseImplement.Models
         [DataMember]
         [Required]
         public int SubGroup { get; private set; }
+        [DataMember]
+        [Required]
+        public MarkType MarkType { get; private set; }
 
         public static DisciplineStudentRecord? Create(DisciplineStudentRecordBindingModel model)
         {
@@ -47,6 +50,7 @@ namespace DepartmentDatabaseImplement.Models
                 Semester = model.Semester,
                 Variant = model.Variant,
                 SubGroup = model.SubGroup,
+                MarkType = model.MarkType,
             };
         }
 
@@ -58,6 +62,7 @@ namespace DepartmentDatabaseImplement.Models
             Semester = model.Semester;
             Variant = model.Variant;
             SubGroup = model.SubGroup;
+            MarkType = model.MarkType;
         }
 
         public DisciplineStudentRecordViewModel GetViewModel => new()
@@ -68,6 +73,7 @@ namespace DepartmentDatabaseImplement.Models
             Semester = Semester,
             Variant = Variant,
             SubGroup = SubGroup,
+            MarkType = MarkType,
         };
     }
 }

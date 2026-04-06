@@ -22,7 +22,7 @@ namespace DepartmentOneCMockApi.Models
 
         public string Description { get; set; } = string.Empty;
 
-        public byte[] Photo { get; set; } = Array.Empty<byte>();
+        public byte[]? Photo { get; set; } = Array.Empty<byte>();
 
         public bool IsSteward { get; set; }
     }

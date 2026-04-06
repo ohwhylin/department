@@ -20,7 +20,7 @@ namespace DepartmentDatabaseImplement.Models
 
         [DataMember]
         [Required]
-        public ClassroomTypes ClassroomType { get; private set; }
+        public ClassroomTypes Type { get; private set; }
 
         [DataMember]
         [Required]
@@ -29,6 +29,9 @@ namespace DepartmentDatabaseImplement.Models
         [DataMember]
         [Required]
         public bool NotUseInSchedule { get; private set; }
+        [DataMember]
+        [Required]
+        public bool HasProjector { get; private set; }
 
         public static Classroom? Create(ClassroomBindingModel model)
         {
@@ -37,9 +40,10 @@ namespace DepartmentDatabaseImplement.Models
             {
                 Id = model.Id,
                 Number = model.Number,
-                ClassroomType = model.ClassroomType,
+                Type = model.Type,
                 Capacity = model.Capacity,
                 NotUseInSchedule = model.NotUseInSchedule,
+                HasProjector = model.HasProjector,
             };
         }
 
@@ -47,18 +51,20 @@ namespace DepartmentDatabaseImplement.Models
         {
             if (model == null) return;
             Number = model.Number;
-            ClassroomType = model.ClassroomType;
+            Type = model.Type;
             Capacity = model.Capacity;
             NotUseInSchedule = model.NotUseInSchedule;
+            HasProjector = model.HasProjector;
         }
 
         public ClassroomViewModel GetViewModel => new()
         {
             Id = Id,
             Number = Number,
-            ClassroomType = ClassroomType,
+            Type = Type,
             Capacity = Capacity,
             NotUseInSchedule = NotUseInSchedule,
+            HasProjector = HasProjector,
         };
     }
 }
