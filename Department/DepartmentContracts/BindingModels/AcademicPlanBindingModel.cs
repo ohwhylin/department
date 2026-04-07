@@ -9,6 +9,7 @@ namespace DepartmentContracts.BindingModels
     {
         public int Id { get; set; }
         public int? EducationDirectionId { get; set; }
+        public EducationForm EducationForm { get; set; }
         public AcademicCourse AcademicCourses { get; set; }
         public string Year { get; set; }
     }

@@ -9,15 +9,19 @@ namespace DepartmentDataModels.Models
     {
         int Id { get; }
         int AcademicPlanId { get; }
-        int DisciplineId { get; }
-        int? AcademicPlanRecordParentId { get; }
-        bool InDepartment { get; }
-        Semesters Semester { get; }
+        string Index { get; }
+        string Name { get; }
+        int Semester { get; }
         int Zet { get; }
-        bool IsParent { get; }
-        bool IsChild { get; }
-        bool IsFacultative { get; }
-        bool IsUseInWorkload { get; }
-        bool IsActiveSemester { get; }
+        int AcademicHours { get; }
+        int? Exam { get; }
+        int? Pass { get; }
+        int? GradedPass { get; }
+        int? CourseWork { get; }
+        int? CourseProject { get; }
+        int? Rgr { get; }
+        int? Lectures { get; }
+        int? LaboratoryHours { get; }
+        int? PracticalHours { get; }
     }
 }

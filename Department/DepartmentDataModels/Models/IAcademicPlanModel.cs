@@ -9,6 +9,7 @@ namespace DepartmentDataModels.Models
     {
         int Id { get; }
         int? EducationDirectionId { get; }
+        EducationForm EducationForm { get; }
         AcademicCourse AcademicCourses { get; }
         string Year { get; }
     }

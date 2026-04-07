@@ -7,17 +7,21 @@ namespace DepartmentContracts.BindingModels
 {
     public class AcademicPlanRecordBindingModel : IAcademicPlanRecordModel
     {
-        public int Id { get; set; }
-        public int AcademicPlanId { get; set; }
-        public int DisciplineId { get; set; }
-        public int? AcademicPlanRecordParentId { get; set; }
-        public bool InDepartment { get; set; }
-        public Semesters Semester { get; set; }
-        public int Zet { get; set; }
-        public bool IsParent { get; set; }
-        public bool IsChild { get; set; }
-        public bool IsFacultative { get; set; }
-        public bool IsUseInWorkload { get; set; }
-        public bool IsActiveSemester { get; set; }
+        public int Id { get; }
+        public int AcademicPlanId { get; }
+        public string Index { get; }
+        public string Name { get; }
+        public int Semester { get; }
+        public int Zet { get; }
+        public int AcademicHours { get; }
+        public int? Exam { get; set; }
+        public int? Pass { get; set; }
+        public int? GradedPass { get; set; }
+        public int? CourseWork { get; set; }
+        public int? CourseProject { get; set; }
+        public int? Rgr { get; set; }
+        public int? Lectures { get; set; }
+        public int? LaboratoryHours { get; set; }
+        public int? PracticalHours { get; set; }
     }
 }

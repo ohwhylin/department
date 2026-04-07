@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using DepartmentContracts.ViewModels;
+using DepartmentDataModels.Enums;
 
 namespace DepartmentUserApp.Controllers
 {
@@ -10,29 +11,55 @@ namespace DepartmentUserApp.Controllers
         {
             try
             {
-                ViewBag.EducationDirectionCount =
-                    APIClient.GetRequest<List<EducationDirectionViewModel>>("api/core/EducationDirections/GetEducationDirectionList")?.Count ?? 0;
+                var educationDirections =
+                    APIClient.GetRequest<List<EducationDirectionViewModel>>("api/core/EducationDirections/GetEducationDirectionList")
+                    ?? new List<EducationDirectionViewModel>();
 
-                ViewBag.LecturerCount =
-                    APIClient.GetRequest<List<LecturerViewModel>>("api/core/Lecturers/GetLecturerList")?.Count ?? 0;
+                var lecturers =
+                    APIClient.GetRequest<List<LecturerViewModel>>("api/core/Lecturers/GetLecturerList")
+                    ?? new List<LecturerViewModel>();
 
-                ViewBag.StudentCount =
-                    APIClient.GetRequest<List<StudentViewModel>>("api/core/Students/GetStudentList")?.Count ?? 0;
+                var students =
+                    APIClient.GetRequest<List<StudentViewModel>>("api/core/Students/GetStudentList")
+                    ?? new List<StudentViewModel>();
 
-                ViewBag.StudentGroupCount =
-                    APIClient.GetRequest<List<StudentGroupViewModel>>("api/core/StudentGroups/GetStudentGroupList")?.Count ?? 0;
+                var studentGroups =
+                    APIClient.GetRequest<List<StudentGroupViewModel>>("api/core/StudentGroups/GetStudentGroupList")
+                    ?? new List<StudentGroupViewModel>();
 
-                ViewBag.DisciplineCount =
-                    APIClient.GetRequest<List<DisciplineViewModel>>("api/core/Disciplines/GetDisciplineList")?.Count ?? 0;
+                var disciplines =
+                    APIClient.GetRequest<List<DisciplineViewModel>>("api/core/Disciplines/GetDisciplineList")
+                    ?? new List<DisciplineViewModel>();
 
-                ViewBag.AcademicPlanCount =
-                    APIClient.GetRequest<List<AcademicPlanViewModel>>("api/core/AcademicPlans/GetAcademicPlanList")?.Count ?? 0;
+                var academicPlans =
+                    APIClient.GetRequest<List<AcademicPlanViewModel>>("api/core/AcademicPlans/GetAcademicPlanList")
+                    ?? new List<AcademicPlanViewModel>();
 
-                ViewBag.StudentOrderCount =
-                    APIClient.GetRequest<List<StudentOrderViewModel>>("api/core/StudentOrders/GetStudentOrderList")?.Count ?? 0;
+                var studentOrders =
+                    APIClient.GetRequest<List<StudentOrderViewModel>>("api/core/StudentOrders/GetStudentOrderList")
+                    ?? new List<StudentOrderViewModel>();
 
-                ViewBag.ClassroomCount =
-                    APIClient.GetRequest<List<ClassroomViewModel>>("api/core/Classrooms/GetClassroomList")?.Count ?? 0;
+                var classrooms =
+                    APIClient.GetRequest<List<ClassroomViewModel>>("api/core/Classrooms/GetClassroomList")
+                    ?? new List<ClassroomViewModel>();
+
+                var disciplineStudentRecords =
+                    APIClient.GetRequest<List<DisciplineStudentRecordViewModel>>("api/core/DisciplineStudentRecords/GetDisciplineStudentRecordList")
+                    ?? new List<DisciplineStudentRecordViewModel>();
+
+                ViewBag.EducationDirectionCount = educationDirections.Count;
+                ViewBag.LecturerCount = lecturers.Count;
+                ViewBag.StudentCount = students.Count;
+                ViewBag.StudentGroupCount = studentGroups.Count;
+                ViewBag.DisciplineCount = disciplines.Count;
+                ViewBag.AcademicPlanCount = academicPlans.Count;
+                ViewBag.StudentOrderCount = studentOrders.Count;
+                ViewBag.ClassroomCount = classrooms.Count;
+
+                ViewBag.DisciplineStudentRecordCount = disciplineStudentRecords.Count;
+                ViewBag.UnsatisfactoryCount = disciplineStudentRecords.Count(x => x.MarkType == MarkType.Неудовлетворительно);
+                ViewBag.AbsentCount = disciplineStudentRecords.Count(x => x.MarkType == MarkType.Неявка);
+                ViewBag.AcademicLeaveCount = students.Count(x => x.StudentState == StudentState.Академ);
             }
             catch (Exception ex)
             {
@@ -46,6 +73,11 @@ namespace DepartmentUserApp.Controllers
                 ViewBag.AcademicPlanCount = 0;
                 ViewBag.StudentOrderCount = 0;
                 ViewBag.ClassroomCount = 0;
+
+                ViewBag.DisciplineStudentRecordCount = 0;
+                ViewBag.UnsatisfactoryCount = 0;
+                ViewBag.AbsentCount = 0;
+                ViewBag.AcademicLeaveCount = 0;
             }
 
             return View();
