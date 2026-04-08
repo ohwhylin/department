@@ -41,12 +41,6 @@ namespace DepartmentDatabaseImplement
                 .HasForeignKey(x => x.CuratorId)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            modelBuilder.Entity<AcademicPlanRecord>()
-                .HasOne(x => x.AcademicPlanRecordParent)
-                .WithMany(x => x.AcademicPlanRecords)
-                .HasForeignKey(x => x.AcademicPlanRecordParentId)
-                .OnDelete(DeleteBehavior.NoAction);
-
             modelBuilder.Entity<StudentOrderBlockStudent>()
                 .HasOne(x => x.StudentGroupFrom)
                 .WithMany(x => x.StudentFromOrderBlockStudents)

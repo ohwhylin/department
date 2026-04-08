@@ -24,6 +24,10 @@ namespace DepartmentDatabaseImplement.Models
 
         [DataMember]
         [Required]
+        public EducationForm EducationForm { get; private set; }
+
+        [DataMember]
+        [Required]
         public string Year { get; private set; } = string.Empty;
         [ForeignKey("AcademicPlanId")]
         public virtual List<AcademicPlanRecord> AcademicPlanRecords { get; set; }
@@ -36,6 +40,7 @@ namespace DepartmentDatabaseImplement.Models
                 Id = model.Id,
                 EducationDirectionId = model.EducationDirectionId,
                 AcademicCourses = model.AcademicCourses,
+                EducationForm = model.EducationForm,
                 Year = model.Year,
             };
         }
@@ -45,6 +50,7 @@ namespace DepartmentDatabaseImplement.Models
             if (model == null) return;
             EducationDirectionId = model.EducationDirectionId;
             AcademicCourses = model.AcademicCourses;
+            EducationForm = model.EducationForm;
             Year = model.Year;
         }
 
@@ -53,7 +59,9 @@ namespace DepartmentDatabaseImplement.Models
             Id = Id,
             EducationDirectionId = EducationDirectionId,
             AcademicCourses = AcademicCourses,
+            EducationForm = EducationForm,
             Year = Year,
         };
+
     }
 }

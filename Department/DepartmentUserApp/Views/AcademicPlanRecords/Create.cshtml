@@ -39,78 +39,74 @@
                                 <span asp-validation-for="AcademicPlanId" class="text-danger"></span>
                             </div>
                             <div class="mb-3">
-                                <label asp-for="DisciplineId" class="form-label">Discipline Id</label>
-                                <select asp-for="DisciplineId" class="form-select">
-                                    <option value="">Выберите значение</option>
-                                    @foreach (var item in ViewBag.DisciplinesList)
-                                    {
-                                        <option value="@item.Id">@GetDisplayValue(item)</option>
-                                    }
-                                </select>
-                                <span asp-validation-for="DisciplineId" class="text-danger"></span>
+                                <label asp-for="Index" class="form-label">Индекс</label>
+                                <input asp-for="Index" class="form-control" />
+                                <span asp-validation-for="Index" class="text-danger"></span>
                             </div>
                             <div class="mb-3">
-                                <label asp-for="AcademicPlanRecordParentId" class="form-label">Academic Plan Record Parent Id</label>
-                                <select asp-for="AcademicPlanRecordParentId" class="form-select">
-                                    <option value="">Выберите значение</option>
-                                    @foreach (var item in ViewBag.AcademicPlanRecordsList)
-                                    {
-                                        <option value="@item.Id">@GetDisplayValue(item)</option>
-                                    }
-                                </select>
-                                <span asp-validation-for="AcademicPlanRecordParentId" class="text-danger"></span>
+                                <label asp-for="Name" class="form-label">Название</label>
+                                <input asp-for="Name" class="form-control" />
+                                <span asp-validation-for="Name" class="text-danger"></span>
                             </div>
                             <div class="mb-3">
-                                <label asp-for="InDepartment" class="form-label">In Department</label>
-                                <div class="form-check">
-                                    <input asp-for="InDepartment" class="form-check-input" />
-                                </div>
-                                <span asp-validation-for="InDepartment" class="text-danger"></span>
-                            </div>
-                            <div class="mb-3">
-                                <label asp-for="Semester" class="form-label">Semester</label>
-                                <select asp-for="Semester" class="form-select" asp-items="Html.GetEnumSelectList<Semesters>()"></select>
+                                <label asp-for="Semester" class="form-label">Семестр</label>
+                                <input asp-for="Semester" class="form-control" type="number" />
                                 <span asp-validation-for="Semester" class="text-danger"></span>
                             </div>
                             <div class="mb-3">
-                                <label asp-for="Zet" class="form-label">Zet</label>
-                                <input asp-for="Zet" class="form-control" />
+                                <label asp-for="Zet" class="form-label">ZET</label>
+                                <input asp-for="Zet" class="form-control" type="number" />
                                 <span asp-validation-for="Zet" class="text-danger"></span>
                             </div>
                             <div class="mb-3">
-                                <label asp-for="IsParent" class="form-label">Is Parent</label>
-                                <div class="form-check">
-                                    <input asp-for="IsParent" class="form-check-input" />
-                                </div>
-                                <span asp-validation-for="IsParent" class="text-danger"></span>
+                                <label asp-for="AcademicHours" class="form-label">Академические часы</label>
+                                <input asp-for="AcademicHours" class="form-control" type="number" />
+                                <span asp-validation-for="AcademicHours" class="text-danger"></span>
                             </div>
                             <div class="mb-3">
-                                <label asp-for="IsChild" class="form-label">Is Child</label>
-                                <div class="form-check">
-                                    <input asp-for="IsChild" class="form-check-input" />
-                                </div>
-                                <span asp-validation-for="IsChild" class="text-danger"></span>
+                                <label asp-for="Exam" class="form-label">Экзамен</label>
+                                <input asp-for="Exam" class="form-control" type="number" />
+                                <span asp-validation-for="Exam" class="text-danger"></span>
                             </div>
                             <div class="mb-3">
-                                <label asp-for="IsFacultative" class="form-label">Is Facultative</label>
-                                <div class="form-check">
-                                    <input asp-for="IsFacultative" class="form-check-input" />
-                                </div>
-                                <span asp-validation-for="IsFacultative" class="text-danger"></span>
+                                <label asp-for="Pass" class="form-label">Зачет</label>
+                                <input asp-for="Pass" class="form-control" type="number" />
+                                <span asp-validation-for="Pass" class="text-danger"></span>
                             </div>
                             <div class="mb-3">
-                                <label asp-for="IsUseInWorkload" class="form-label">Is Use In Workload</label>
-                                <div class="form-check">
-                                    <input asp-for="IsUseInWorkload" class="form-check-input" />
-                                </div>
-                                <span asp-validation-for="IsUseInWorkload" class="text-danger"></span>
+                                <label asp-for="GradedPass" class="form-label">Дифференцированный зачет</label>
+                                <input asp-for="GradedPass" class="form-control" type="number" />
+                                <span asp-validation-for="GradedPass" class="text-danger"></span>
                             </div>
                             <div class="mb-3">
-                                <label asp-for="IsActiveSemester" class="form-label">Is Active Semester</label>
-                                <div class="form-check">
-                                    <input asp-for="IsActiveSemester" class="form-check-input" />
-                                </div>
-                                <span asp-validation-for="IsActiveSemester" class="text-danger"></span>
+                                <label asp-for="CourseWork" class="form-label">Курсовая работа</label>
+                                <input asp-for="CourseWork" class="form-control" type="number" />
+                                <span asp-validation-for="CourseWork" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="CourseProject" class="form-label">Курсовой проект</label>
+                                <input asp-for="CourseProject" class="form-control" type="number" />
+                                <span asp-validation-for="CourseProject" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="Rgr" class="form-label">РГР</label>
+                                <input asp-for="Rgr" class="form-control" type="number" />
+                                <span asp-validation-for="Rgr" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="Lectures" class="form-label">Лекции</label>
+                                <input asp-for="Lectures" class="form-control" type="number" />
+                                <span asp-validation-for="Lectures" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="LaboratoryHours" class="form-label">Лабораторные часы</label>
+                                <input asp-for="LaboratoryHours" class="form-control" type="number" />
+                                <span asp-validation-for="LaboratoryHours" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="PracticalHours" class="form-label">Практические часы</label>
+                                <input asp-for="PracticalHours" class="form-control" type="number" />
+                                <span asp-validation-for="PracticalHours" class="text-danger"></span>
                             </div>
                         </div>
                     </div>
@@ -142,4 +138,6 @@
         return type.GetProperty("Id")?.GetValue(item)?.ToString() ?? string.Empty;
     }
 }
-@section Scripts { <partial name="_ValidationScriptsPartial" /> }
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+ }

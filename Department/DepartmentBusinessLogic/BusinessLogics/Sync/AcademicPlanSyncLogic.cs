@@ -10,22 +10,16 @@ namespace DepartmentBusinessLogic.BusinessLogics.Sync
     {
         private readonly IOneCApiService _oneCApiService;
         private readonly IAcademicPlanStorage _academicPlanStorage;
-        private readonly IDisciplineStorage _disciplineStorage;
         private readonly IAcademicPlanRecordStorage _academicPlanRecordStorage;
-        private readonly IDisciplineBlockStorage _disciplineBlockStorage;
 
         public AcademicPlanSyncLogic(
             IOneCApiService oneCApiService,
             IAcademicPlanStorage academicPlanStorage,
-            IDisciplineStorage disciplineStorage,
-            IAcademicPlanRecordStorage academicPlanRecordStorage,
-            IDisciplineBlockStorage disciplineBlockStorage)
+            IAcademicPlanRecordStorage academicPlanRecordStorage)
         {
             _oneCApiService = oneCApiService;
             _academicPlanStorage = academicPlanStorage;
-            _disciplineStorage = disciplineStorage;
             _academicPlanRecordStorage = academicPlanRecordStorage;
-            _disciplineBlockStorage = disciplineBlockStorage;
         }
 
         public async Task SyncAcademicPlansAsync()
@@ -33,9 +27,7 @@ namespace DepartmentBusinessLogic.BusinessLogics.Sync
             var oneCAcademicPlans = await _oneCApiService.GetAcademicPlansAsync();
 
             var currentAcademicPlans = _academicPlanStorage.GetFullList() ?? new List<AcademicPlanViewModel>();
-            var currentDisciplines = _disciplineStorage.GetFullList() ?? new List<DisciplineViewModel>();
             var currentAcademicPlanRecords = _academicPlanRecordStorage.GetFullList() ?? new List<AcademicPlanRecordViewModel>();
-            var currentDisciplineBlocks = _disciplineBlockStorage.GetFullList() ?? new List<DisciplineBlockViewModel>();
 
             foreach (var oneCPlan in oneCAcademicPlans)
             {
@@ -48,7 +40,6 @@ namespace DepartmentBusinessLogic.BusinessLogics.Sync
 
                 foreach (var oneCRecord in oneCPlan.AcademicPlanRecords)
                 {
-                    SyncDiscipline(oneCRecord, currentDisciplines, currentDisciplineBlocks);
                     SyncAcademicPlanRecord(oneCRecord, currentAcademicPlanRecords);
                 }
             }
@@ -60,49 +51,49 @@ namespace DepartmentBusinessLogic.BusinessLogics.Sync
         private void DeleteRemovedAcademicPlanRecords(
         List<DepartmentContracts.Dtos.OneC.AcademicPlanOneCDto> oneCAcademicPlans,
         List<AcademicPlanRecordViewModel> currentAcademicPlanRecords)
+        {
+            var oneCRecordIds = oneCAcademicPlans
+                .SelectMany(x => x.AcademicPlanRecords ?? new List<DepartmentContracts.Dtos.OneC.AcademicPlanRecordOneCDto>())
+                .Select(x => x.Id)
+                .ToHashSet();
+
+            var recordsToDelete = currentAcademicPlanRecords
+                .Where(x => !oneCRecordIds.Contains(x.Id))
+                .ToList();
+
+            foreach (var record in recordsToDelete)
             {
-                var oneCRecordIds = oneCAcademicPlans
-                    .SelectMany(x => x.AcademicPlanRecords ?? new List<DepartmentContracts.Dtos.OneC.AcademicPlanRecordOneCDto>())
-                    .Select(x => x.Id)
-                    .ToHashSet();
-
-                var recordsToDelete = currentAcademicPlanRecords
-                    .Where(x => !oneCRecordIds.Contains(x.Id))
-                    .ToList();
-
-                foreach (var record in recordsToDelete)
+                _academicPlanRecordStorage.Delete(new AcademicPlanRecordBindingModel
                 {
-                    _academicPlanRecordStorage.Delete(new AcademicPlanRecordBindingModel
-                    {
-                        Id = record.Id
-                    });
+                    Id = record.Id
+                });
 
-                    currentAcademicPlanRecords.Remove(record);
-                }
+                currentAcademicPlanRecords.Remove(record);
             }
+        }
 
         private void DeleteRemovedAcademicPlans(
         List<DepartmentContracts.Dtos.OneC.AcademicPlanOneCDto> oneCAcademicPlans,
         List<AcademicPlanViewModel> currentAcademicPlans)
+        {
+            var oneCPlanIds = oneCAcademicPlans
+                .Select(x => x.Id)
+                .ToHashSet();
+
+            var plansToDelete = currentAcademicPlans
+                .Where(x => !oneCPlanIds.Contains(x.Id))
+                .ToList();
+
+            foreach (var plan in plansToDelete)
             {
-                var oneCPlanIds = oneCAcademicPlans
-                    .Select(x => x.Id)
-                    .ToHashSet();
-
-                var plansToDelete = currentAcademicPlans
-                    .Where(x => !oneCPlanIds.Contains(x.Id))
-                    .ToList();
-
-                foreach (var plan in plansToDelete)
+                _academicPlanStorage.Delete(new AcademicPlanBindingModel
                 {
-                    _academicPlanStorage.Delete(new AcademicPlanBindingModel
-                    {
-                        Id = plan.Id
-                    });
+                    Id = plan.Id
+                });
 
-                    currentAcademicPlans.Remove(plan);
-                }
+                currentAcademicPlans.Remove(plan);
             }
+        }
 
         private void SyncAcademicPlan(
             DepartmentContracts.Dtos.OneC.AcademicPlanOneCDto oneCPlan,
@@ -148,66 +139,6 @@ namespace DepartmentBusinessLogic.BusinessLogics.Sync
             }
         }
 
-        private void SyncDiscipline(
-            DepartmentContracts.Dtos.OneC.AcademicPlanRecordOneCDto oneCRecord,
-            List<DisciplineViewModel> currentDisciplines,
-            List<DisciplineBlockViewModel> currentDisciplineBlocks)
-        {
-            var existingBlock = currentDisciplineBlocks.FirstOrDefault(x => x.Id == oneCRecord.DisciplineBlockId);
-            if (existingBlock == null)
-            {
-                throw new InvalidOperationException(
-                    $"Не найден блок дисциплин с Id = {oneCRecord.DisciplineBlockId} для дисциплины '{oneCRecord.DisciplineName}'.");
-            }
-
-            var existingDiscipline = currentDisciplines.FirstOrDefault(x => x.Id == oneCRecord.DisciplineId);
-
-            var disciplineModel = new DisciplineBindingModel
-            {
-                Id = oneCRecord.DisciplineId,
-                DisciplineBlockId = oneCRecord.DisciplineBlockId,
-                DisciplineName = oneCRecord.DisciplineName,
-                DisciplineShortName = oneCRecord.DisciplineShortName,
-                DisciplineDescription = oneCRecord.DisciplineDescription,
-                DisciplineBlockBlueAsteriskName = oneCRecord.DisciplineBlockBlueAsteriskName
-            };
-
-            if (existingDiscipline == null)
-            {
-                _disciplineStorage.Insert(disciplineModel);
-
-                currentDisciplines.Add(new DisciplineViewModel
-                {
-                    Id = disciplineModel.Id,
-                    DisciplineBlockId = disciplineModel.DisciplineBlockId,
-                    DisciplineName = disciplineModel.DisciplineName,
-                    DisciplineShortName = disciplineModel.DisciplineShortName,
-                    DisciplineDescription = disciplineModel.DisciplineDescription,
-                    DisciplineBlockBlueAsteriskName = disciplineModel.DisciplineBlockBlueAsteriskName
-                });
-            }
-            else
-            {
-                var needUpdate =
-                    existingDiscipline.DisciplineBlockId != oneCRecord.DisciplineBlockId ||
-                    existingDiscipline.DisciplineName != oneCRecord.DisciplineName ||
-                    existingDiscipline.DisciplineShortName != oneCRecord.DisciplineShortName ||
-                    existingDiscipline.DisciplineDescription != oneCRecord.DisciplineDescription ||
-                    existingDiscipline.DisciplineBlockBlueAsteriskName != oneCRecord.DisciplineBlockBlueAsteriskName;
-
-                if (needUpdate)
-                {
-                    _disciplineStorage.Update(disciplineModel);
-
-                    existingDiscipline.DisciplineBlockId = disciplineModel.DisciplineBlockId;
-                    existingDiscipline.DisciplineName = disciplineModel.DisciplineName;
-                    existingDiscipline.DisciplineShortName = disciplineModel.DisciplineShortName;
-                    existingDiscipline.DisciplineDescription = disciplineModel.DisciplineDescription;
-                    existingDiscipline.DisciplineBlockBlueAsteriskName = disciplineModel.DisciplineBlockBlueAsteriskName;
-                }
-            }
-        }
-
         private void SyncAcademicPlanRecord(
             DepartmentContracts.Dtos.OneC.AcademicPlanRecordOneCDto oneCRecord,
             List<AcademicPlanRecordViewModel> currentAcademicPlanRecords)
@@ -218,16 +149,20 @@ namespace DepartmentBusinessLogic.BusinessLogics.Sync
             {
                 Id = oneCRecord.Id,
                 AcademicPlanId = oneCRecord.AcademicPlanId,
-                DisciplineId = oneCRecord.DisciplineId,
-                AcademicPlanRecordParentId = oneCRecord.AcademicPlanRecordParentId,
-                InDepartment = oneCRecord.InDepartment,
+                Index = oneCRecord.Index,
+                Name = oneCRecord.Name,
                 Semester = oneCRecord.Semester,
                 Zet = oneCRecord.Zet,
-                IsParent = oneCRecord.IsParent,
-                IsChild = oneCRecord.IsChild,
-                IsFacultative = oneCRecord.IsFacultative,
-                IsUseInWorkload = oneCRecord.IsUseInWorkload,
-                IsActiveSemester = oneCRecord.IsActiveSemester
+                AcademicHours = oneCRecord.AcademicHours,
+                Exam = oneCRecord.Exam,
+                Pass = oneCRecord.Pass,
+                GradedPass = oneCRecord.GradedPass,
+                CourseWork = oneCRecord.CourseWork,
+                CourseProject = oneCRecord.CourseProject,
+                Rgr = oneCRecord.Rgr,
+                Lectures = oneCRecord.Lectures,
+                LaboratoryHours = oneCRecord.LaboratoryHours,
+                PracticalHours = oneCRecord.PracticalHours
             };
 
             if (existingRecord == null)
@@ -238,48 +173,60 @@ namespace DepartmentBusinessLogic.BusinessLogics.Sync
                 {
                     Id = recordModel.Id,
                     AcademicPlanId = recordModel.AcademicPlanId,
-                    DisciplineId = recordModel.DisciplineId,
-                    AcademicPlanRecordParentId = recordModel.AcademicPlanRecordParentId,
-                    InDepartment = recordModel.InDepartment,
+                    Index = recordModel.Index,
+                    Name = recordModel.Name,
                     Semester = recordModel.Semester,
                     Zet = recordModel.Zet,
-                    IsParent = recordModel.IsParent,
-                    IsChild = recordModel.IsChild,
-                    IsFacultative = recordModel.IsFacultative,
-                    IsUseInWorkload = recordModel.IsUseInWorkload,
-                    IsActiveSemester = recordModel.IsActiveSemester
+                    AcademicHours = recordModel.AcademicHours,
+                    Exam = recordModel.Exam,
+                    Pass = recordModel.Pass,
+                    GradedPass = recordModel.GradedPass,
+                    CourseWork = recordModel.CourseWork,
+                    CourseProject = recordModel.CourseProject,
+                    Rgr = recordModel.Rgr,
+                    Lectures = recordModel.Lectures,
+                    LaboratoryHours = recordModel.LaboratoryHours,
+                    PracticalHours = recordModel.PracticalHours
                 });
             }
             else
             {
                 var needUpdate =
                     existingRecord.AcademicPlanId != oneCRecord.AcademicPlanId ||
-                    existingRecord.DisciplineId != oneCRecord.DisciplineId ||
-                    existingRecord.AcademicPlanRecordParentId != oneCRecord.AcademicPlanRecordParentId ||
-                    existingRecord.InDepartment != oneCRecord.InDepartment ||
+                    existingRecord.Index != oneCRecord.Index ||
+                    existingRecord.Name != oneCRecord.Name ||
                     existingRecord.Semester != oneCRecord.Semester ||
                     existingRecord.Zet != oneCRecord.Zet ||
-                    existingRecord.IsParent != oneCRecord.IsParent ||
-                    existingRecord.IsChild != oneCRecord.IsChild ||
-                    existingRecord.IsFacultative != oneCRecord.IsFacultative ||
-                    existingRecord.IsUseInWorkload != oneCRecord.IsUseInWorkload ||
-                    existingRecord.IsActiveSemester != oneCRecord.IsActiveSemester;
+                    existingRecord.AcademicHours != oneCRecord.AcademicHours ||
+                    existingRecord.Exam != oneCRecord.Exam ||
+                    existingRecord.Pass != oneCRecord.Pass ||
+                    existingRecord.GradedPass != oneCRecord.GradedPass ||
+                    existingRecord.CourseWork != oneCRecord.CourseWork ||
+                    existingRecord.CourseProject != oneCRecord.CourseProject ||
+                    existingRecord.Rgr != oneCRecord.Rgr ||
+                    existingRecord.Lectures != oneCRecord.Lectures ||
+                    existingRecord.LaboratoryHours != oneCRecord.LaboratoryHours ||
+                    existingRecord.PracticalHours != oneCRecord.PracticalHours;
 
                 if (needUpdate)
                 {
                     _academicPlanRecordStorage.Update(recordModel);
 
                     existingRecord.AcademicPlanId = recordModel.AcademicPlanId;
-                    existingRecord.DisciplineId = recordModel.DisciplineId;
-                    existingRecord.AcademicPlanRecordParentId = recordModel.AcademicPlanRecordParentId;
-                    existingRecord.InDepartment = recordModel.InDepartment;
+                    existingRecord.Index = recordModel.Index;
+                    existingRecord.Name = recordModel.Name;
                     existingRecord.Semester = recordModel.Semester;
                     existingRecord.Zet = recordModel.Zet;
-                    existingRecord.IsParent = recordModel.IsParent;
-                    existingRecord.IsChild = recordModel.IsChild;
-                    existingRecord.IsFacultative = recordModel.IsFacultative;
-                    existingRecord.IsUseInWorkload = recordModel.IsUseInWorkload;
-                    existingRecord.IsActiveSemester = recordModel.IsActiveSemester;
+                    existingRecord.AcademicHours = recordModel.AcademicHours;
+                    existingRecord.Exam = recordModel.Exam;
+                    existingRecord.Pass = recordModel.Pass;
+                    existingRecord.GradedPass = recordModel.GradedPass;
+                    existingRecord.CourseWork = recordModel.CourseWork;
+                    existingRecord.CourseProject = recordModel.CourseProject;
+                    existingRecord.Rgr = recordModel.Rgr;
+                    existingRecord.Lectures = recordModel.Lectures;
+                    existingRecord.LaboratoryHours = recordModel.LaboratoryHours;
+                    existingRecord.PracticalHours = recordModel.PracticalHours;
                 }
             }
         }

@@ -95,11 +95,31 @@
                                             Запись учебного плана №@record.Id
                                         </div>
                                         <div class="entity-meta">
-                                            <span class="meta-chip">Дисциплина: @record.Discipline</span>
+                                            <span class="meta-chip">Индекс: @record.Index</span>
+                                            <span class="meta-chip">Название: @record.Name</span>
                                             <span class="meta-chip">Семестр: @record.Semester</span>
                                             <span class="meta-chip">ZET: @record.Zet</span>
-                                            <span class="meta-chip">Кафедра: @(record.InDepartment ? "Да" : "Нет")</span>
-                                            <span class="meta-chip">Активен: @(record.IsActiveSemester ? "Да" : "Нет")</span>
+                                            <span class="meta-chip">Часы: @record.AcademicHours</span>
+                                            @if (record.Exam.HasValue)
+                                            {
+                                                <span class="meta-chip">Экзамен: @record.Exam</span>
+                                            }
+                                            @if (record.Pass.HasValue)
+                                            {
+                                                <span class="meta-chip">Зачет: @record.Pass</span>
+                                            }
+                                            @if (record.GradedPass.HasValue)
+                                            {
+                                                <span class="meta-chip">Дифф. зачет: @record.GradedPass</span>
+                                            }
+                                            @if (record.CourseWork.HasValue)
+                                            {
+                                                <span class="meta-chip">Курсовая работа: @record.CourseWork</span>
+                                            }
+                                            @if (record.CourseProject.HasValue)
+                                            {
+                                                <span class="meta-chip">Курсовой проект: @record.CourseProject</span>
+                                            }
                                         </div>
                                     </div>
 

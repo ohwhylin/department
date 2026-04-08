@@ -17,8 +17,6 @@ namespace DepartmentDatabaseImplement.Implements
             using var context = new DepartmentDatabase();
             var query = context.Set<AcademicPlanRecord>().AsQueryable();
             query = query.Include(x => x.AcademicPlan);
-            query = query.Include(x => x.Discipline);
-            query = query.Include(x => x.AcademicPlanRecordParent);
             return query
                 .ToList()
                 .Select(x => MapToViewModel(x))
@@ -30,8 +28,6 @@ namespace DepartmentDatabaseImplement.Implements
             using var context = new DepartmentDatabase();
             var query = context.Set<AcademicPlanRecord>().AsQueryable();
             query = query.Include(x => x.AcademicPlan);
-            query = query.Include(x => x.Discipline);
-            query = query.Include(x => x.AcademicPlanRecordParent);
             return query
                 .ToList()
                 .Select(x => MapToViewModel(x))
@@ -44,8 +40,6 @@ namespace DepartmentDatabaseImplement.Implements
             using var context = new DepartmentDatabase();
             var query = context.Set<AcademicPlanRecord>().AsQueryable();
             query = query.Include(x => x.AcademicPlan);
-            query = query.Include(x => x.Discipline);
-            query = query.Include(x => x.AcademicPlanRecordParent);
             return query
                 .FirstOrDefault(x => (model.Id.HasValue && x.Id == model.Id))
                 is null ? null : MapToViewModel(query.FirstOrDefault(x => (model.Id.HasValue && x.Id == model.Id))!);
@@ -60,8 +54,6 @@ namespace DepartmentDatabaseImplement.Implements
             context.SaveChanges();
             var saved = context.Set<AcademicPlanRecord>()
                 .Include(x => x.AcademicPlan)
-                .Include(x => x.Discipline)
-                .Include(x => x.AcademicPlanRecordParent)
                 .FirstOrDefault(x => x.Id == newElement.Id);
             return saved == null ? null : MapToViewModel(saved);
         }
@@ -71,16 +63,12 @@ namespace DepartmentDatabaseImplement.Implements
             using var context = new DepartmentDatabase();
             var element = context.Set<AcademicPlanRecord>().AsQueryable();
             element = element.Include(x => x.AcademicPlan);
-            element = element.Include(x => x.Discipline);
-            element = element.Include(x => x.AcademicPlanRecordParent);
             var dbElement = element.FirstOrDefault(x => x.Id == model.Id);
             if (dbElement == null) return null;
             dbElement.Update(model);
             context.SaveChanges();
             context.Entry(dbElement).Reload();
             context.Entry(dbElement).Reference(x => x.AcademicPlan).Load();
-            context.Entry(dbElement).Reference(x => x.Discipline).Load();
-            context.Entry(dbElement).Reference(x => x.AcademicPlanRecordParent).Load();
             return MapToViewModel(dbElement);
         }
 
@@ -89,8 +77,6 @@ namespace DepartmentDatabaseImplement.Implements
             using var context = new DepartmentDatabase();
             var element = context.Set<AcademicPlanRecord>().AsQueryable();
             element = element.Include(x => x.AcademicPlan);
-            element = element.Include(x => x.Discipline);
-            element = element.Include(x => x.AcademicPlanRecordParent);
             var dbElement = element.FirstOrDefault(x => x.Id == model.Id);
             if (dbElement == null) return null;
             context.Set<AcademicPlanRecord>().Remove(dbElement);
@@ -102,8 +88,6 @@ namespace DepartmentDatabaseImplement.Implements
         {
             var vm = entity.GetViewModel;
             vm.AcademicPlan = entity.AcademicPlan == null ? string.Empty : entity.AcademicPlan.Id.ToString();
-            vm.Discipline = entity.Discipline == null ? string.Empty : entity.Discipline.Id.ToString();
-            vm.AcademicPlanRecord = entity.AcademicPlanRecordParent == null ? string.Empty : entity.AcademicPlanRecordParent.Id.ToString();
             return vm;
         }
     }

@@ -8,7 +8,7 @@
     <div class="app-card-header">
         <h2 class="app-card-title">Подробнее о AcademicPlanRecord</h2>
         <div class="d-flex gap-2">
-            <a class="btn btn-sm btn-light" asp-controller="AcademicPlanRecords" asp-action="Update">Изменить</a>
+            <a class="btn btn-sm btn-light" asp-controller="AcademicPlanRecords" asp-action="Update" asp-route-id="@Model.Id">Изменить</a>
             <a class="btn btn-sm btn-light" asp-controller="AcademicPlanRecords" asp-action="List">К списку</a>
         </div>
     </div>
@@ -27,64 +27,88 @@
                 @Model.AcademicPlan
             </dd>
             <dt class="col-sm-4 text-muted">
-                Discipline
+                Индекс
             </dt>
             <dd class="col-sm-8">
-                @Model.Discipline
+                @Model.Index
             </dd>
             <dt class="col-sm-4 text-muted">
-                AcademicPlanRecord
+                Название
             </dt>
             <dd class="col-sm-8">
-                @Model.AcademicPlanRecord
+                @Model.Name
             </dd>
             <dt class="col-sm-4 text-muted">
-                In Department
-            </dt>
-            <dd class="col-sm-8">
-                @Model.InDepartment
-            </dd>
-            <dt class="col-sm-4 text-muted">
-                Semester
+                Семестр
             </dt>
             <dd class="col-sm-8">
                 @Model.Semester
             </dd>
             <dt class="col-sm-4 text-muted">
-                Zet
+                ZET
             </dt>
             <dd class="col-sm-8">
                 @Model.Zet
             </dd>
             <dt class="col-sm-4 text-muted">
-                Is Parent
+                Академические часы
             </dt>
             <dd class="col-sm-8">
-                @Model.IsParent
+                @Model.AcademicHours
             </dd>
             <dt class="col-sm-4 text-muted">
-                Is Child
+                Экзамен
             </dt>
             <dd class="col-sm-8">
-                @Model.IsChild
+                @Model.Exam
             </dd>
             <dt class="col-sm-4 text-muted">
-                Is Facultative
+                Зачет
             </dt>
             <dd class="col-sm-8">
-                @Model.IsFacultative
+                @Model.Pass
             </dd>
             <dt class="col-sm-4 text-muted">
-                Is Use In Workload
+                Дифференцированный зачет
             </dt>
             <dd class="col-sm-8">
-                @Model.IsUseInWorkload
+                @Model.GradedPass
             </dd>
             <dt class="col-sm-4 text-muted">
-                Is Active Semester
+                Курсовая работа
             </dt>
             <dd class="col-sm-8">
-                @Model.IsActiveSemester
+                @Model.CourseWork
+            </dd>
+            <dt class="col-sm-4 text-muted">
+                Курсовой проект
+            </dt>
+            <dd class="col-sm-8">
+                @Model.CourseProject
+            </dd>
+            <dt class="col-sm-4 text-muted">
+                РГР
+            </dt>
+            <dd class="col-sm-8">
+                @Model.Rgr
+            </dd>
+            <dt class="col-sm-4 text-muted">
+                Лекции
+            </dt>
+            <dd class="col-sm-8">
+                @Model.Lectures
+            </dd>
+            <dt class="col-sm-4 text-muted">
+                Лабораторные часы
+            </dt>
+            <dd class="col-sm-8">
+                @Model.LaboratoryHours
+            </dd>
+            <dt class="col-sm-4 text-muted">
+                Практические часы
+            </dt>
+            <dd class="col-sm-8">
+                @Model.PracticalHours
             </dd>
         </dl>
     </div>

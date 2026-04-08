@@ -89,10 +89,6 @@ namespace DepartmentBusinessLogic.BusinessLogics
             if (!withParams) return;
             if (model.AcademicPlanId <= 0)
                 throw new ArgumentNullException("", nameof(model.AcademicPlanId));
-            if (model.DisciplineId <= 0)
-                throw new ArgumentNullException("", nameof(model.DisciplineId));
-            if (model.AcademicPlanRecordParentId <= 0)
-                throw new ArgumentNullException("", nameof(model.AcademicPlanRecordParentId));
         }
     }
 }

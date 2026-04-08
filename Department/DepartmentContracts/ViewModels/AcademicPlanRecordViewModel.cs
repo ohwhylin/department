@@ -14,20 +14,36 @@ namespace DepartmentContracts.ViewModels
         public int AcademicPlanId { get; set; }
         [Column(title: "", width: 100)]
         public string AcademicPlan { get; set; } = string.Empty;
-        [Column(visible: false)]
-        public int DisciplineId { get; set; }
         [Column(title: "", width: 100)]
-        public string Discipline { get; set; } = string.Empty;
-        [Column(visible: false)]
-        public int? AcademicPlanRecordParentId { get; set; }
+        public string Index { get; set; } = string.Empty;
         [Column(title: "", width: 100)]
-        public string AcademicPlanRecord { get; set; } = string.Empty;
+        public string Name { get; set; } = string.Empty;
         [Column(title: "", width: 100)]
         public bool InDepartment { get; set; }
         [Column(title: "", width: 100)]
-        public Semesters Semester { get; set; }
+        public int Semester { get; set; }
         [Column(title: "", width: 100)]
         public int Zet { get; set; }
+        [Column(title: "", width: 100)]
+        public int AcademicHours { get; set; }
+        [Column(title: "", width: 100)]
+        public int? Exam { get; set; }
+        [Column(title: "", width: 100)]
+        public int? Pass { get; set; }
+        [Column(title: "", width: 100)]
+        public int? GradedPass { get; set; }
+        [Column(title: "", width: 100)]
+        public int? CourseWork { get; set; }
+        [Column(title: "", width: 100)]
+        public int? CourseProject { get; set; }
+        [Column(title: "", width: 100)]
+        public int? Rgr { get; set; }
+        [Column(title: "", width: 100)]
+        public int? Lectures { get; set; }
+        [Column(title: "", width: 100)]
+        public int? LaboratoryHours { get; set; }
+        [Column(title: "", width: 100)]
+        public int? PracticalHours { get; set; }
         [Column(title: "", width: 100)]
         public bool IsParent { get; set; }
         [Column(title: "", width: 100)]

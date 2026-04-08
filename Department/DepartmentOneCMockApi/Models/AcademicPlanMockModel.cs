@@ -8,6 +8,8 @@ namespace DepartmentOneCMockApi.Models
 
         public int? EducationDirectionId { get; set; }
 
+        public EducationForm EducationForm { get; set; }
+
         public AcademicCourse AcademicCourses { get; set; }
 
         public string Year { get; set; } = string.Empty;

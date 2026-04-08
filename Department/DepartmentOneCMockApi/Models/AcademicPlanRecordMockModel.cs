@@ -8,38 +8,32 @@ namespace DepartmentOneCMockApi.Models
 
         public int AcademicPlanId { get; set; }
 
-        public int DisciplineId { get; set; }
+        public string Index { get; set; } = string.Empty;
 
-        public int? AcademicPlanRecordParentId { get; set; }
+        public string Name { get; set; } = string.Empty;
 
-        public bool InDepartment { get; set; }
-
-        public Semesters Semester { get; set; }
+        public int Semester { get; set; }
 
         public int Zet { get; set; }
 
-        public bool IsParent { get; set; }
+        public int AcademicHours { get; set; }
 
-        public bool IsChild { get; set; }
+        public int? Exam { get; set; }
 
-        public bool IsFacultative { get; set; }
+        public int? Pass { get; set; }
 
-        public bool IsUseInWorkload { get; set; }
+        public int? GradedPass { get; set; }
 
-        public bool IsActiveSemester { get; set; }
+        public int? CourseWork { get; set; }
 
-        public int DisciplineBlockId { get; set; }
+        public int? CourseProject { get; set; }
 
-        public string DisciplineName { get; set; } = string.Empty;
+        public int? Rgr { get; set; }
 
-        public string DisciplineShortName { get; set; } = string.Empty;
+        public int? Lectures { get; set; }
 
-        public string DisciplineDescription { get; set; } = string.Empty;
+        public int? LaboratoryHours { get; set; }
 
-        public string DisciplineBlockBlueAsteriskName { get; set; } = string.Empty;
-        public bool HasExam { get; }
-        public bool HasCredit { get; }
-        public bool HasCourseWork { get; }
-        public bool HasCourseProject { get; }
+        public int? PracticalHours { get; set; }
     }
 }
