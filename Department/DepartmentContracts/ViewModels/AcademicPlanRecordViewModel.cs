@@ -54,5 +54,9 @@ namespace DepartmentContracts.ViewModels
         public bool IsUseInWorkload { get; set; }
         [Column(title: "", width: 100)]
         public bool IsActiveSemester { get; set; }
+
+
+        [Column(visible: false)]
+        public int? DisciplineId { get; set; }
     }
 }

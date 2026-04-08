@@ -8,6 +8,30 @@ namespace DepartmentOneCMockApi.Models
 
         public int AcademicPlanId { get; set; }
 
+        public int? DisciplineId { get; set; }
+
+        public int DisciplineBlockId { get; set; }
+
+        public string DisciplineBlockTitle { get; set; } = string.Empty;
+
+        public string DisciplineBlockBlueAsteriskName { get; set; } = string.Empty;
+
+        public bool DisciplineBlockUseForGrouping { get; set; }
+
+        public int DisciplineBlockOrder { get; set; }
+
+        public string DisciplineShortName { get; set; } = string.Empty;
+
+        public string DisciplineDescription { get; set; } = string.Empty;
+
+        public bool HasExam { get; set; }
+
+        public bool HasCredit { get; set; }
+
+        public bool HasCourseWork { get; set; }
+
+        public bool HasCourseProject { get; set; }
+
         public string Index { get; set; } = string.Empty;
 
         public string Name { get; set; } = string.Empty;

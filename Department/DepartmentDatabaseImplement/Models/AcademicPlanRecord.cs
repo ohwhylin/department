@@ -18,6 +18,10 @@ namespace DepartmentDatabaseImplement.Models
         [Required]
         public int AcademicPlanId { get; private set; }
         public virtual AcademicPlan AcademicPlan { get; set; } = null!;
+
+        [DataMember]
+        public int? DisciplineId { get; private set; }
+        public virtual Discipline? Discipline { get; set; } = null!;
         [DataMember]
         [Required]
         public virtual string Index { get; private set; } = string.Empty;
@@ -75,6 +79,7 @@ namespace DepartmentDatabaseImplement.Models
                 Lectures = model.Lectures,
                 LaboratoryHours = model.LaboratoryHours,
                 PracticalHours = model.PracticalHours,
+                DisciplineId = model.DisciplineId,
             };
         }
 
@@ -96,6 +101,7 @@ namespace DepartmentDatabaseImplement.Models
             Lectures = model.Lectures;
             LaboratoryHours = model.LaboratoryHours;
             PracticalHours = model.PracticalHours;
+            DisciplineId = model.DisciplineId;
         }
 
         public AcademicPlanRecordViewModel GetViewModel => new()
@@ -116,6 +122,7 @@ namespace DepartmentDatabaseImplement.Models
             Lectures = Lectures,
             LaboratoryHours = LaboratoryHours,
             PracticalHours = PracticalHours,
+            DisciplineId = DisciplineId,
         };
     }
 }

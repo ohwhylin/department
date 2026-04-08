@@ -23,5 +23,8 @@ namespace DepartmentDataModels.Models
         int? Lectures { get; }
         int? LaboratoryHours { get; }
         int? PracticalHours { get; }
+
+
+        int? DisciplineId { get; }
     }
 }
