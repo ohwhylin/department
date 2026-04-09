@@ -9,6 +9,7 @@ namespace DepartmentContracts.Dtos.OneC
         public int? EducationDirectionId { get; set; }
 
         public AcademicCourse AcademicCourses { get; set; }
+        public EducationForm EducationForm { get; set; }
 
         public string Year { get; set; }
 
