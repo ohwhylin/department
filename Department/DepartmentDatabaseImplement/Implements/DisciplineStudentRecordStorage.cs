@@ -94,8 +94,8 @@ namespace DepartmentDatabaseImplement.Implements
         private static DisciplineStudentRecordViewModel MapToViewModel(DisciplineStudentRecord entity)
         {
             var vm = entity.GetViewModel;
-            vm.Discipline = entity.Discipline == null ? string.Empty : entity.Discipline.Id.ToString();
-            vm.Student = entity.Student == null ? string.Empty : entity.Student.Id.ToString();
+            vm.Discipline = entity.Discipline == null ? string.Empty : entity.Discipline.DisciplineName;
+            vm.Student = entity.Student == null ? string.Empty : entity.Student.LastName;
             return vm;
         }
     }

@@ -92,7 +92,7 @@ namespace DepartmentDatabaseImplement.Implements
         private static DisciplineViewModel MapToViewModel(Discipline entity)
         {
             var vm = entity.GetViewModel;
-            vm.DisciplineBlock = entity.DisciplineBlock == null ? string.Empty : entity.DisciplineBlock.Id.ToString();
+            vm.DisciplineBlock = entity.DisciplineBlock == null ? string.Empty : entity.DisciplineBlock.Title;
             return vm;
         }
     }

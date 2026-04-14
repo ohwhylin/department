@@ -13,7 +13,10 @@ namespace DepartmentUserApp.Controllers
         {
             try
             {
-                ViewBag.ClassroomsList = APIClient.GetRequest<List<ClassroomViewModel>>("api/core/Classrooms/GetClassroomList");
+                ViewBag.ClassroomsList =
+                    APIClient.GetRequest<List<ClassroomViewModel>>(
+                        "api/core/Classrooms/GetClassroomList");
+
                 return View();
             }
             catch (Exception ex)
@@ -35,7 +38,9 @@ namespace DepartmentUserApp.Controllers
                     return RedirectToAction("List");
                 }
 
-                var item = APIClient.GetRequest<ClassroomViewModel>($"api/core/Classrooms/GetClassroom?id={id}");
+                var item = APIClient.GetRequest<ClassroomViewModel>(
+                    $"api/core/Classrooms/GetClassroom?id={id}");
+
                 if (item == null)
                 {
                     TempData["Error"] = "Запись не найдена";
@@ -86,18 +91,41 @@ namespace DepartmentUserApp.Controllers
         }
 
         [HttpGet]
-        public IActionResult Update()
+        public IActionResult Update(int id)
         {
             try
             {
-                ViewBag.ClassroomsList = APIClient.GetRequest<List<ClassroomViewModel>>("api/core/Classrooms/GetClassroomList");
-                return View();
+                if (id <= 0)
+                {
+                    TempData["Error"] = "Некорректный идентификатор";
+                    return RedirectToAction("List");
+                }
+
+                var item = APIClient.GetRequest<ClassroomViewModel>(
+                    $"api/core/Classrooms/GetClassroom?id={id}");
+
+                if (item == null)
+                {
+                    TempData["Error"] = "Запись не найдена";
+                    return RedirectToAction("List");
+                }
+
+                var model = new ClassroomBindingModel
+                {
+                    Id = item.Id,
+                    Number = item.Number,
+                    Type = item.Type,
+                    Capacity = item.Capacity,
+                    NotUseInSchedule = item.NotUseInSchedule,
+                    HasProjector = item.HasProjector
+                };
+
+                return View(model);
             }
             catch (Exception ex)
             {
                 TempData["Error"] = ex.Message;
-                ViewBag.ClassroomsList = new List<ClassroomViewModel>();
-                return View();
+                return RedirectToAction("List");
             }
         }
 
@@ -108,7 +136,6 @@ namespace DepartmentUserApp.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    ViewBag.ClassroomsList = APIClient.GetRequest<List<ClassroomViewModel>>("api/core/Classrooms/GetClassroomList");
                     return View(model);
                 }
 
@@ -118,17 +145,25 @@ namespace DepartmentUserApp.Controllers
             catch (Exception ex)
             {
                 TempData["Error"] = ex.Message;
-                ViewBag.ClassroomsList = APIClient.GetRequest<List<ClassroomViewModel>>("api/core/Classrooms/GetClassroomList");
                 return View(model);
             }
         }
 
         [HttpGet]
-        public IActionResult Delete()
+        public IActionResult Delete(int? id)
         {
             try
             {
-                ViewBag.ClassroomsList = APIClient.GetRequest<List<ClassroomViewModel>>("api/core/Classrooms/GetClassroomList");
+                var list = APIClient.GetRequest<List<ClassroomViewModel>>(
+                    "api/core/Classrooms/GetClassroomList");
+
+                ViewBag.ClassroomsList = list ?? new List<ClassroomViewModel>();
+
+                if (id.HasValue && id.Value > 0)
+                {
+                    ViewBag.SelectedId = id.Value;
+                }
+
                 return View();
             }
             catch (Exception ex)
@@ -150,17 +185,19 @@ namespace DepartmentUserApp.Controllers
                     return RedirectToAction("Delete");
                 }
 
-                APIClient.PostRequest("api/core/Classrooms/ClassroomDelete", new ClassroomBindingModel
-                {
-                    Id = id
-                });
+                APIClient.PostRequest(
+                    "api/core/Classrooms/ClassroomDelete",
+                    new ClassroomBindingModel
+                    {
+                        Id = id
+                    });
 
                 return RedirectToAction("List");
             }
             catch (Exception ex)
             {
                 TempData["Error"] = ex.Message;
-                return RedirectToAction("Delete");
+                return RedirectToAction("Delete", new { id });
             }
         }
     }

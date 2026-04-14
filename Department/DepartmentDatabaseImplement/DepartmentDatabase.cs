@@ -22,7 +22,7 @@ namespace DepartmentDatabaseImplement
 
                 if (string.IsNullOrWhiteSpace(connectionString))
                 {
-                    connectionString = "Host=localhost;Port=5433;Database=department_db;Username=department_user;Password=123456";
+                    connectionString = "Host=localhost;Port=5543;Database=department_db;Username=department_user;Password=123456";
                 }
 
                 optionsBuilder.UseNpgsql(connectionString);

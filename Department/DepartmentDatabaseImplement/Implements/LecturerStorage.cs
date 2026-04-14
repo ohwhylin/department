@@ -99,8 +99,8 @@ namespace DepartmentDatabaseImplement.Implements
         private static LecturerViewModel MapToViewModel(Lecturer entity)
         {
             var vm = entity.GetViewModel;
-            vm.LecturerStudyPost = entity.LecturerStudyPost == null ? string.Empty : entity.LecturerStudyPost.Id.ToString();
-            vm.LecturerDepartmentPost = entity.LecturerDepartmentPost == null ? string.Empty : entity.LecturerDepartmentPost.Id.ToString();
+            vm.LecturerStudyPost = entity.LecturerStudyPost == null ? string.Empty : entity.LecturerStudyPost.StudyPostTitle;
+            vm.LecturerDepartmentPost = entity.LecturerDepartmentPost == null ? string.Empty : entity.LecturerDepartmentPost.DepartmentPostTitle;
             return vm;
         }
     }

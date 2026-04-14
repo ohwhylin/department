@@ -13,7 +13,10 @@ namespace DepartmentUserApp.Controllers
         {
             try
             {
-                ViewBag.EducationDirectionsList = APIClient.GetRequest<List<EducationDirectionViewModel>>("api/core/EducationDirections/GetEducationDirectionList");
+                ViewBag.EducationDirectionsList =
+                    APIClient.GetRequest<List<EducationDirectionViewModel>>(
+                        "api/core/EducationDirections/GetEducationDirectionList");
+
                 return View();
             }
             catch (Exception ex)
@@ -35,7 +38,9 @@ namespace DepartmentUserApp.Controllers
                     return RedirectToAction("List");
                 }
 
-                var item = APIClient.GetRequest<EducationDirectionViewModel>($"api/core/EducationDirections/GetEducationDirection?id={id}");
+                var item = APIClient.GetRequest<EducationDirectionViewModel>(
+                    $"api/core/EducationDirections/GetEducationDirection?id={id}");
+
                 if (item == null)
                 {
                     TempData["Error"] = "Запись не найдена";
@@ -86,18 +91,42 @@ namespace DepartmentUserApp.Controllers
         }
 
         [HttpGet]
-        public IActionResult Update()
+        public IActionResult Update(int id)
         {
             try
             {
-                ViewBag.EducationDirectionsList = APIClient.GetRequest<List<EducationDirectionViewModel>>("api/core/EducationDirections/GetEducationDirectionList");
-                return View();
+                if (id <= 0)
+                {
+                    TempData["Error"] = "Некорректный идентификатор";
+                    return RedirectToAction("List");
+                }
+
+                var item = APIClient.GetRequest<EducationDirectionViewModel>(
+                    $"api/core/EducationDirections/GetEducationDirection?id={id}");
+
+                if (item == null)
+                {
+                    TempData["Error"] = "Запись не найдена";
+                    return RedirectToAction("List");
+                }
+
+                var model = new EducationDirectionBindingModel
+                {
+                    Id = item.Id,
+                    Cipher = item.Cipher,
+                    ShortName = item.ShortName,
+                    Title = item.Title,
+                    Profile = item.Profile,
+                    Qualification = item.Qualification,
+                    Description = item.Description
+                };
+
+                return View(model);
             }
             catch (Exception ex)
             {
                 TempData["Error"] = ex.Message;
-                ViewBag.EducationDirectionsList = new List<EducationDirectionViewModel>();
-                return View();
+                return RedirectToAction("List");
             }
         }
 
@@ -108,7 +137,6 @@ namespace DepartmentUserApp.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    ViewBag.EducationDirectionsList = APIClient.GetRequest<List<EducationDirectionViewModel>>("api/core/EducationDirections/GetEducationDirectionList");
                     return View(model);
                 }
 
@@ -118,17 +146,25 @@ namespace DepartmentUserApp.Controllers
             catch (Exception ex)
             {
                 TempData["Error"] = ex.Message;
-                ViewBag.EducationDirectionsList = APIClient.GetRequest<List<EducationDirectionViewModel>>("api/core/EducationDirections/GetEducationDirectionList");
                 return View(model);
             }
         }
 
         [HttpGet]
-        public IActionResult Delete()
+        public IActionResult Delete(int? id)
         {
             try
             {
-                ViewBag.EducationDirectionsList = APIClient.GetRequest<List<EducationDirectionViewModel>>("api/core/EducationDirections/GetEducationDirectionList");
+                var list = APIClient.GetRequest<List<EducationDirectionViewModel>>(
+                    "api/core/EducationDirections/GetEducationDirectionList");
+
+                ViewBag.EducationDirectionsList = list ?? new List<EducationDirectionViewModel>();
+
+                if (id.HasValue && id.Value > 0)
+                {
+                    ViewBag.SelectedId = id.Value;
+                }
+
                 return View();
             }
             catch (Exception ex)
@@ -150,18 +186,21 @@ namespace DepartmentUserApp.Controllers
                     return RedirectToAction("Delete");
                 }
 
-                APIClient.PostRequest("api/core/EducationDirections/EducationDirectionDelete", new EducationDirectionBindingModel
-                {
-                    Id = id
-                });
+                APIClient.PostRequest("api/core/EducationDirections/EducationDirectionDelete",
+                    new EducationDirectionBindingModel
+                    {
+                        Id = id
+                    });
 
                 return RedirectToAction("List");
             }
             catch (Exception ex)
             {
                 TempData["Error"] = ex.Message;
-                return RedirectToAction("Delete");
+                return RedirectToAction("Delete", new { id });
             }
         }
     }
 }
+
+

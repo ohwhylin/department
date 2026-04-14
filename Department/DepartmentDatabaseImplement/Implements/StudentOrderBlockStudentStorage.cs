@@ -108,10 +108,23 @@ namespace DepartmentDatabaseImplement.Implements
         private static StudentOrderBlockStudentViewModel MapToViewModel(StudentOrderBlockStudent entity)
         {
             var vm = entity.GetViewModel;
-            vm.StudentOrderBlock = entity.StudentOrderBlock == null ? string.Empty : entity.StudentOrderBlock.Id.ToString();
-            vm.Student = entity.Student == null ? string.Empty : entity.Student.Id.ToString();
-            vm.StudentGroupFrom = entity.StudentGroupFrom == null ? string.Empty : entity.StudentGroupFrom.Id.ToString();
-            vm.StudentGroupTo = entity.StudentGroupTo == null ? string.Empty : entity.StudentGroupTo.Id.ToString();
+
+            vm.StudentOrderBlock = entity.StudentOrderBlock == null
+                ? string.Empty
+                : entity.StudentOrderBlock.StudentOrderType.ToString();
+
+            vm.Student = entity.Student == null
+                ? string.Empty
+                : $"{entity.Student.LastName} {entity.Student.FirstName} {entity.Student.Patronymic}".Trim();
+
+            vm.StudentGroupFrom = entity.StudentGroupFrom == null
+                ? string.Empty
+                : entity.StudentGroupFrom.GroupName;
+
+            vm.StudentGroupTo = entity.StudentGroupTo == null
+                ? string.Empty
+                : entity.StudentGroupTo.GroupName;
+
             return vm;
         }
     }

@@ -92,7 +92,7 @@ namespace DepartmentDatabaseImplement.Implements
         private static StudentViewModel MapToViewModel(Student entity)
         {
             var vm = entity.GetViewModel;
-            vm.StudentGroup = entity.StudentGroup == null ? string.Empty : entity.StudentGroup.Id.ToString();
+            vm.StudentGroup = entity.StudentGroup == null ? string.Empty : entity.StudentGroup.GroupName;
             return vm;
         }
     }

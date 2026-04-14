@@ -1,13 +1,12 @@
 @model DepartmentContracts.BindingModels.LecturerStudyPostBindingModel
-@using Microsoft.AspNetCore.Mvc.Rendering
-@using DepartmentDataModels.Enums
+
 @{
-    ViewData["Title"] = "Создание LecturerStudyPost";
+    ViewData["Title"] = "Добавление учебной должности";
 }
 
 <div class="form-shell">
     <div class="form-shell__header">
-        <h2 class="form-shell__title">Добавление LecturerStudyPost</h2>
+        <h2 class="form-shell__title">Добавление учебной должности</h2>
         <a class="btn btn-sm btn-light" asp-controller="LecturerStudyPosts" asp-action="List">К списку</a>
     </div>
 
@@ -25,15 +24,17 @@
                             Основные данные
                         </button>
                     </h2>
+
                     <div id="createMainBlock" class="accordion-collapse collapse show">
                         <div class="accordion-body">
                             <div class="mb-3">
-                                <label asp-for="StudyPostTitle" class="form-label">Study Post Title</label>
+                                <label asp-for="StudyPostTitle" class="form-label">Наименование учебной должности</label>
                                 <input asp-for="StudyPostTitle" class="form-control" />
                                 <span asp-validation-for="StudyPostTitle" class="text-danger"></span>
                             </div>
+
                             <div class="mb-3">
-                                <label asp-for="Hours" class="form-label">Hours</label>
+                                <label asp-for="Hours" class="form-label">Количество часов</label>
                                 <input asp-for="Hours" class="form-control" />
                                 <span asp-validation-for="Hours" class="text-danger"></span>
                             </div>
@@ -50,21 +51,6 @@
     </div>
 </div>
 
-@functions {
-    public string GetDisplayValue(object item)
-    {
-        var type = item.GetType();
-        foreach (var propName in new[] { "Name", "Title", "GroupName", "DisciplineName", "OrderNumber", "DepartmentPostTitle", "StudyPostTitle", "Cipher", "ShortName" })
-        {
-            var prop = type.GetProperty(propName);
-            var value = prop?.GetValue(item)?.ToString();
-            if (!string.IsNullOrWhiteSpace(value)) return value;
-        }
-        var firstName = type.GetProperty("FirstName")?.GetValue(item)?.ToString();
-        var lastName = type.GetProperty("LastName")?.GetValue(item)?.ToString();
-        if (!string.IsNullOrWhiteSpace(firstName) || !string.IsNullOrWhiteSpace(lastName))
-            return ($"{lastName} {firstName}").Trim();
-        return type.GetProperty("Id")?.GetValue(item)?.ToString() ?? string.Empty;
-    }
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
 }
-@section Scripts { <partial name="_ValidationScriptsPartial" /> }

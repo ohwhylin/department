@@ -1,13 +1,13 @@
 @model DepartmentContracts.BindingModels.LecturerBindingModel
-@using Microsoft.AspNetCore.Mvc.Rendering
 @using DepartmentDataModels.Enums
+
 @{
-    ViewData["Title"] = "Создание Lecturer";
+    ViewData["Title"] = "Добавление преподавателя";
 }
 
 <div class="form-shell">
     <div class="form-shell__header">
-        <h2 class="form-shell__title">Добавление Lecturer</h2>
+        <h2 class="form-shell__title">Добавление преподавателя</h2>
         <a class="btn btn-sm btn-light" asp-controller="Lecturers" asp-action="List">К списку</a>
     </div>
 
@@ -25,10 +25,11 @@
                             Основные данные
                         </button>
                     </h2>
+
                     <div id="createMainBlock" class="accordion-collapse collapse show">
                         <div class="accordion-body">
                             <div class="mb-3">
-                                <label asp-for="LecturerStudyPostId" class="form-label">Lecturer Study Post Id</label>
+                                <label asp-for="LecturerStudyPostId" class="form-label">Учебная должность</label>
                                 <select asp-for="LecturerStudyPostId" class="form-select">
                                     <option value="">Выберите значение</option>
                                     @foreach (var item in ViewBag.LecturerStudyPostsList)
@@ -38,8 +39,9 @@
                                 </select>
                                 <span asp-validation-for="LecturerStudyPostId" class="text-danger"></span>
                             </div>
+
                             <div class="mb-3">
-                                <label asp-for="LecturerDepartmentPostId" class="form-label">Lecturer Department Post Id</label>
+                                <label asp-for="LecturerDepartmentPostId" class="form-label">Кафедральная должность</label>
                                 <select asp-for="LecturerDepartmentPostId" class="form-select">
                                     <option value="">Выберите значение</option>
                                     @foreach (var item in ViewBag.LecturerDepartmentPostsList)
@@ -49,28 +51,33 @@
                                 </select>
                                 <span asp-validation-for="LecturerDepartmentPostId" class="text-danger"></span>
                             </div>
+
                             <div class="mb-3">
-                                <label asp-for="FirstName" class="form-label">First Name</label>
-                                <input asp-for="FirstName" class="form-control" />
-                                <span asp-validation-for="FirstName" class="text-danger"></span>
-                            </div>
-                            <div class="mb-3">
-                                <label asp-for="LastName" class="form-label">Last Name</label>
+                                <label asp-for="LastName" class="form-label">Фамилия</label>
                                 <input asp-for="LastName" class="form-control" />
                                 <span asp-validation-for="LastName" class="text-danger"></span>
                             </div>
+
                             <div class="mb-3">
-                                <label asp-for="Patronymic" class="form-label">Patronymic</label>
+                                <label asp-for="FirstName" class="form-label">Имя</label>
+                                <input asp-for="FirstName" class="form-control" />
+                                <span asp-validation-for="FirstName" class="text-danger"></span>
+                            </div>
+
+                            <div class="mb-3">
+                                <label asp-for="Patronymic" class="form-label">Отчество</label>
                                 <input asp-for="Patronymic" class="form-control" />
                                 <span asp-validation-for="Patronymic" class="text-danger"></span>
                             </div>
-                            <div class="mb-3">
-                                <label asp-for="Abbreviation" class="form-label">Abbreviation</label>
+
+                            @*<div class="mb-3">
+                                <label asp-for="Abbreviation" class="form-label">Сокращение</label>
                                 <input asp-for="Abbreviation" class="form-control" />
                                 <span asp-validation-for="Abbreviation" class="text-danger"></span>
-                            </div>
+                            </div>*@
+
                             <div class="mb-3">
-                                <label asp-for="DateBirth" class="form-label">Date Birth</label>
+                                <label asp-for="DateBirth" class="form-label">Дата рождения</label>
 
                                 <input id="dateBirthUi"
                                        type="date"
@@ -82,48 +89,56 @@
 
                                 <span asp-validation-for="DateBirth" class="text-danger"></span>
                             </div>
+
                             <div class="mb-3">
-                                <label asp-for="Address" class="form-label">Address</label>
+                                <label asp-for="Address" class="form-label">Адрес</label>
                                 <input asp-for="Address" class="form-control" />
                                 <span asp-validation-for="Address" class="text-danger"></span>
                             </div>
+
                             <div class="mb-3">
-                                <label asp-for="Email" class="form-label">Email</label>
+                                <label asp-for="Email" class="form-label">Электронная почта</label>
                                 <input asp-for="Email" class="form-control" />
                                 <span asp-validation-for="Email" class="text-danger"></span>
                             </div>
+
                             <div class="mb-3">
-                                <label asp-for="MobileNumber" class="form-label">Mobile Number</label>
+                                <label asp-for="MobileNumber" class="form-label">Мобильный телефон</label>
                                 <input asp-for="MobileNumber" class="form-control" />
                                 <span asp-validation-for="MobileNumber" class="text-danger"></span>
                             </div>
+
                             <div class="mb-3">
-                                <label asp-for="HomeNumber" class="form-label">Home Number</label>
+                                <label asp-for="HomeNumber" class="form-label">Домашний телефон</label>
                                 <input asp-for="HomeNumber" class="form-control" />
                                 <span asp-validation-for="HomeNumber" class="text-danger"></span>
                             </div>
-                            <div class="mb-3">
-                                <label asp-for="Rank" class="form-label">Rank</label>
+
+                            @*<div class="mb-3">
+                                <label asp-for="Rank" class="form-label">Учёная степень</label>
                                 <select asp-for="Rank" class="form-select" asp-items="Html.GetEnumSelectList<Rank>()"></select>
                                 <span asp-validation-for="Rank" class="text-danger"></span>
-                            </div>
+                            </div>*@
+
                             <div class="mb-3">
-                                <label asp-for="Rank2" class="form-label">Rank2</label>
+                                <label asp-for="Rank2" class="form-label">Учёная степень</label>
                                 <select asp-for="Rank2" class="form-select" asp-items="Html.GetEnumSelectList<Rank2>()"></select>
                                 <span asp-validation-for="Rank2" class="text-danger"></span>
                             </div>
+
                             <div class="mb-3">
-                                <label asp-for="Description" class="form-label">Description</label>
-                                <input asp-for="Description" class="form-control" />
+                                <label asp-for="Description" class="form-label">Описание</label>
+                                <textarea asp-for="Description" class="form-control" rows="3"></textarea>
                                 <span asp-validation-for="Description" class="text-danger"></span>
                             </div>
-                            <div class="mb-3">
-                                <label asp-for="OnlyForPrivate" class="form-label">Only For Private</label>
-                                <div class="form-check">
-                                    <input asp-for="OnlyForPrivate" class="form-check-input" />
-                                </div>
-                                <span asp-validation-for="OnlyForPrivate" class="text-danger"></span>
+
+                            <div class="form-check mb-3">
+                                <input asp-for="OnlyForPrivate" class="form-check-input" />
+                                <label asp-for="OnlyForPrivate" class="form-check-label">
+                                    Только для внутреннего использования
+                                </label>
                             </div>
+                            <span asp-validation-for="OnlyForPrivate" class="text-danger"></span>
                         </div>
                     </div>
                 </div>
@@ -141,19 +156,31 @@
     public string GetDisplayValue(object item)
     {
         var type = item.GetType();
+
         foreach (var propName in new[] { "Name", "Title", "GroupName", "DisciplineName", "OrderNumber", "DepartmentPostTitle", "StudyPostTitle", "Cipher", "ShortName" })
         {
             var prop = type.GetProperty(propName);
             var value = prop?.GetValue(item)?.ToString();
-            if (!string.IsNullOrWhiteSpace(value)) return value;
+            if (!string.IsNullOrWhiteSpace(value))
+            {
+                return value;
+            }
         }
+
         var firstName = type.GetProperty("FirstName")?.GetValue(item)?.ToString();
         var lastName = type.GetProperty("LastName")?.GetValue(item)?.ToString();
-        if (!string.IsNullOrWhiteSpace(firstName) || !string.IsNullOrWhiteSpace(lastName))
-            return ($"{lastName} {firstName}").Trim();
+        var patronymic = type.GetProperty("Patronymic")?.GetValue(item)?.ToString();
+
+        var fio = $"{lastName} {firstName} {patronymic}".Trim();
+        if (!string.IsNullOrWhiteSpace(fio))
+        {
+            return fio;
+        }
+
         return type.GetProperty("Id")?.GetValue(item)?.ToString() ?? string.Empty;
     }
 }
+
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 
@@ -178,7 +205,7 @@
                     if (!ui || !hidden) return;
 
                     hidden.value = ui.value
-                        ? `${ui.value}T00:00:00Z`
+                        ? `${ui.value}T00:00:00`
                         : "";
                 });
             }

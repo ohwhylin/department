@@ -99,8 +99,8 @@ namespace DepartmentDatabaseImplement.Implements
         private static StudentGroupViewModel MapToViewModel(StudentGroup entity)
         {
             var vm = entity.GetViewModel;
-            vm.EducationDirection = entity.EducationDirection == null ? string.Empty : entity.EducationDirection.Id.ToString();
-            vm.Curator = entity.Curator == null ? string.Empty : entity.Curator.Id.ToString();
+            vm.EducationDirection = entity.EducationDirection == null ? string.Empty : entity.EducationDirection.Title;
+            vm.Curator = entity.Curator == null ? string.Empty : entity.Curator.LastName;
             return vm;
         }
     }

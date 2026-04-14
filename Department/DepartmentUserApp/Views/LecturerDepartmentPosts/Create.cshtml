@@ -1,13 +1,12 @@
 @model DepartmentContracts.BindingModels.LecturerDepartmentPostBindingModel
-@using Microsoft.AspNetCore.Mvc.Rendering
-@using DepartmentDataModels.Enums
+
 @{
-    ViewData["Title"] = "Создание LecturerDepartmentPost";
+    ViewData["Title"] = "Добавление кафедральной должности";
 }
 
 <div class="form-shell">
     <div class="form-shell__header">
-        <h2 class="form-shell__title">Добавление LecturerDepartmentPost</h2>
+        <h2 class="form-shell__title">Добавление кафедральной должности</h2>
         <a class="btn btn-sm btn-light" asp-controller="LecturerDepartmentPosts" asp-action="List">К списку</a>
     </div>
 
@@ -25,15 +24,17 @@
                             Основные данные
                         </button>
                     </h2>
+
                     <div id="createMainBlock" class="accordion-collapse collapse show">
                         <div class="accordion-body">
                             <div class="mb-3">
-                                <label asp-for="DepartmentPostTitle" class="form-label">Department Post Title</label>
+                                <label asp-for="DepartmentPostTitle" class="form-label">Наименование кафедральной должности</label>
                                 <input asp-for="DepartmentPostTitle" class="form-control" />
                                 <span asp-validation-for="DepartmentPostTitle" class="text-danger"></span>
                             </div>
+
                             <div class="mb-3">
-                                <label asp-for="Order" class="form-label">Order</label>
+                                <label asp-for="Order" class="form-label">Порядок отображения</label>
                                 <input asp-for="Order" class="form-control" />
                                 <span asp-validation-for="Order" class="text-danger"></span>
                             </div>
@@ -50,21 +51,6 @@
     </div>
 </div>
 
-@functions {
-    public string GetDisplayValue(object item)
-    {
-        var type = item.GetType();
-        foreach (var propName in new[] { "Name", "Title", "GroupName", "DisciplineName", "OrderNumber", "DepartmentPostTitle", "StudyPostTitle", "Cipher", "ShortName" })
-        {
-            var prop = type.GetProperty(propName);
-            var value = prop?.GetValue(item)?.ToString();
-            if (!string.IsNullOrWhiteSpace(value)) return value;
-        }
-        var firstName = type.GetProperty("FirstName")?.GetValue(item)?.ToString();
-        var lastName = type.GetProperty("LastName")?.GetValue(item)?.ToString();
-        if (!string.IsNullOrWhiteSpace(firstName) || !string.IsNullOrWhiteSpace(lastName))
-            return ($"{lastName} {firstName}").Trim();
-        return type.GetProperty("Id")?.GetValue(item)?.ToString() ?? string.Empty;
-    }
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
 }
-@section Scripts { <partial name="_ValidationScriptsPartial" /> }

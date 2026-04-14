@@ -13,7 +13,10 @@ namespace DepartmentUserApp.Controllers
         {
             try
             {
-                ViewBag.LecturerStudyPostsList = APIClient.GetRequest<List<LecturerStudyPostViewModel>>("api/core/LecturerStudyPosts/GetLecturerStudyPostList");
+                ViewBag.LecturerStudyPostsList =
+                    APIClient.GetRequest<List<LecturerStudyPostViewModel>>(
+                        "api/core/LecturerStudyPosts/GetLecturerStudyPostList");
+
                 return View();
             }
             catch (Exception ex)
@@ -35,7 +38,9 @@ namespace DepartmentUserApp.Controllers
                     return RedirectToAction("List");
                 }
 
-                var item = APIClient.GetRequest<LecturerStudyPostViewModel>($"api/core/LecturerStudyPosts/GetLecturerStudyPost?id={id}");
+                var item = APIClient.GetRequest<LecturerStudyPostViewModel>(
+                    $"api/core/LecturerStudyPosts/GetLecturerStudyPost?id={id}");
+
                 if (item == null)
                 {
                     TempData["Error"] = "Запись не найдена";
@@ -75,7 +80,10 @@ namespace DepartmentUserApp.Controllers
                     return View(model);
                 }
 
-                APIClient.PostRequest("api/core/LecturerStudyPosts/LecturerStudyPostCreate", model);
+                APIClient.PostRequest(
+                    "api/core/LecturerStudyPosts/LecturerStudyPostCreate",
+                    model);
+
                 return RedirectToAction("List");
             }
             catch (Exception ex)
@@ -86,18 +94,38 @@ namespace DepartmentUserApp.Controllers
         }
 
         [HttpGet]
-        public IActionResult Update()
+        public IActionResult Update(int id)
         {
             try
             {
-                ViewBag.LecturerStudyPostsList = APIClient.GetRequest<List<LecturerStudyPostViewModel>>("api/core/LecturerStudyPosts/GetLecturerStudyPostList");
-                return View();
+                if (id <= 0)
+                {
+                    TempData["Error"] = "Некорректный идентификатор";
+                    return RedirectToAction("List");
+                }
+
+                var item = APIClient.GetRequest<LecturerStudyPostViewModel>(
+                    $"api/core/LecturerStudyPosts/GetLecturerStudyPost?id={id}");
+
+                if (item == null)
+                {
+                    TempData["Error"] = "Запись не найдена";
+                    return RedirectToAction("List");
+                }
+
+                var model = new LecturerStudyPostBindingModel
+                {
+                    Id = item.Id,
+                    StudyPostTitle = item.StudyPostTitle,
+                    Hours = item.Hours
+                };
+
+                return View(model);
             }
             catch (Exception ex)
             {
                 TempData["Error"] = ex.Message;
-                ViewBag.LecturerStudyPostsList = new List<LecturerStudyPostViewModel>();
-                return View();
+                return RedirectToAction("List");
             }
         }
 
@@ -108,27 +136,37 @@ namespace DepartmentUserApp.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    ViewBag.LecturerStudyPostsList = APIClient.GetRequest<List<LecturerStudyPostViewModel>>("api/core/LecturerStudyPosts/GetLecturerStudyPostList");
                     return View(model);
                 }
 
-                APIClient.PostRequest("api/core/LecturerStudyPosts/LecturerStudyPostUpdate", model);
+                APIClient.PostRequest(
+                    "api/core/LecturerStudyPosts/LecturerStudyPostUpdate",
+                    model);
+
                 return RedirectToAction("List");
             }
             catch (Exception ex)
             {
                 TempData["Error"] = ex.Message;
-                ViewBag.LecturerStudyPostsList = APIClient.GetRequest<List<LecturerStudyPostViewModel>>("api/core/LecturerStudyPosts/GetLecturerStudyPostList");
                 return View(model);
             }
         }
 
         [HttpGet]
-        public IActionResult Delete()
+        public IActionResult Delete(int? id)
         {
             try
             {
-                ViewBag.LecturerStudyPostsList = APIClient.GetRequest<List<LecturerStudyPostViewModel>>("api/core/LecturerStudyPosts/GetLecturerStudyPostList");
+                var list = APIClient.GetRequest<List<LecturerStudyPostViewModel>>(
+                    "api/core/LecturerStudyPosts/GetLecturerStudyPostList");
+
+                ViewBag.LecturerStudyPostsList = list ?? new List<LecturerStudyPostViewModel>();
+
+                if (id.HasValue && id.Value > 0)
+                {
+                    ViewBag.SelectedId = id.Value;
+                }
+
                 return View();
             }
             catch (Exception ex)
@@ -150,17 +188,19 @@ namespace DepartmentUserApp.Controllers
                     return RedirectToAction("Delete");
                 }
 
-                APIClient.PostRequest("api/core/LecturerStudyPosts/LecturerStudyPostDelete", new LecturerStudyPostBindingModel
-                {
-                    Id = id
-                });
+                APIClient.PostRequest(
+                    "api/core/LecturerStudyPosts/LecturerStudyPostDelete",
+                    new LecturerStudyPostBindingModel
+                    {
+                        Id = id
+                    });
 
                 return RedirectToAction("List");
             }
             catch (Exception ex)
             {
                 TempData["Error"] = ex.Message;
-                return RedirectToAction("Delete");
+                return RedirectToAction("Delete", new { id });
             }
         }
     }

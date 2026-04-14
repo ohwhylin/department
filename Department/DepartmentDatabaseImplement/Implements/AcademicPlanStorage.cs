@@ -87,7 +87,7 @@ namespace DepartmentDatabaseImplement.Implements
         private static AcademicPlanViewModel MapToViewModel(AcademicPlan entity)
         {
             var vm = entity.GetViewModel;
-            vm.EducationDirection = entity.EducationDirection == null ? string.Empty : entity.EducationDirection.Id.ToString();
+            vm.EducationDirection = entity.EducationDirection == null ? string.Empty : entity.EducationDirection.Title;
             return vm;
         }
     }

@@ -1,44 +1,86 @@
 @{
     ViewData["Title"] = "DisciplineBlocks";
+
+    var blocks = ViewBag.DisciplineBlocksList as IEnumerable<dynamic> ?? new List<dynamic>();
+    var search = Context.Request.Query["search"].ToString();
+
+    var filtered = blocks.Where(x =>
+        string.IsNullOrWhiteSpace(search)
+        || (x.Title?.ToString().ToLower().Contains(search.ToLower()) ?? false)
+        || (x.DisciplineBlockBlueAsteriskName?.ToString().ToLower().Contains(search.ToLower()) ?? false)
+    ).ToList();
 }
 
 <div class="list-shell">
     <div class="list-head">
         <div>
-            <h2 class="list-title">Список DisciplineBlocks</h2>
-            <div class="list-sub">Управление сущностью DisciplineBlock</div>
-        </div>
-        <div class="d-flex gap-2">
-            <a class="btn btn-app-primary" asp-controller="DisciplineBlocks" asp-action="Create">Добавить</a>
+            <h2 class="list-title">Список блоков дисциплин</h2>
         </div>
     </div>
 
-    @if (ViewBag.DisciplineBlocksList != null)
+    <form method="get" class="p-3 d-flex gap-2 flex-wrap">
+        <input type="text"
+               name="search"
+               value="@search"
+               class="form-control"
+               placeholder="Поиск по названию блока"
+               style="max-width: 300px;" />
+
+        <button type="submit" class="btn btn-app-outline">Применить</button>
+
+        <a class="btn btn-app-outline"
+           asp-controller="DisciplineBlocks"
+           asp-action="List">
+            Сбросить
+        </a>
+    </form>
+
+    @if (TempData["Error"] != null)
     {
-        @foreach (var item in ViewBag.DisciplineBlocksList)
+        <div class="p-3 pt-0">
+            <div class="alert alert-danger mb-0">@TempData["Error"]</div>
+        </div>
+    }
+
+    @if (filtered.Count > 0)
+    {
+        @foreach (var item in filtered)
         {
             <div class="entity-row">
                 <div class="entity-accent"></div>
+
                 <div class="entity-content">
                     <div class="entity-main">
-                        <h5 class="entity-title">@item.Title</h5>
-                        <div class="entity-meta">
-                            <span class="meta-chip">Id: @item.Id</span>
-                            <span class="meta-chip">@item.Title</span>
-                            <span class="meta-chip">@item.DisciplineBlockBlueAsteriskName</span>
-                            <span class="meta-chip">@item.DisciplineBlockUseForGrouping</span>
-                            <span class="meta-chip">@item.DisciplineBlockOrder</span>
+                        <h5 class="entity-title">@(string.IsNullOrWhiteSpace(item.Title?.ToString()) ? "—" : item.Title)</h5>
+
+                        <div class="entity-meta d-flex flex-column gap-1">
+                            <div><strong>Наименование блока:</strong> @(string.IsNullOrWhiteSpace(item.Title?.ToString()) ? "—" : item.Title)</div>
+                            <div><strong>Обозначение:</strong> @(string.IsNullOrWhiteSpace(item.DisciplineBlockBlueAsteriskName?.ToString()) ? "—" : item.DisciplineBlockBlueAsteriskName)</div>
+                            <div><strong>Используется для группировки:</strong> @(item.DisciplineBlockUseForGrouping ? "Да" : "Нет")</div>
+                            <div><strong>Порядок отображения:</strong> @item.DisciplineBlockOrder</div>
                         </div>
                     </div>
                 </div>
+
                 <div class="entity-actions">
                     <div class="actions-stack">
-                        <a class="btn btn-sm btn-app-outline" asp-controller="DisciplineBlocks" asp-action="Details" asp-route-id="@item.Id">Подробнее</a>
-                        <a class="btn btn-sm btn-app-outline" asp-controller="DisciplineBlocks" asp-action="Update">Изменить</a>
-                        <a class="btn btn-sm btn-app-outline" asp-controller="DisciplineBlocks" asp-action="Delete">Удалить</a>
+                        <a class="btn btn-sm btn-app-outline"
+                   asp-controller="DisciplineBlocks"
+                   asp-action="Details"
+                   asp-route-id="@item.Id">
+                            Подробнее
+                        </a>
                     </div>
                 </div>
             </div>
         }
+    }
+    else
+    {
+        <div class="p-3">
+            <div class="alert alert-secondary mb-0">
+                По заданным параметрам блоки дисциплин не найдены.
+            </div>
+        </div>
     }
 </div>

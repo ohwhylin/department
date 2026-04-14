@@ -94,8 +94,8 @@ namespace DepartmentDatabaseImplement.Implements
         private static StudentOrderBlockViewModel MapToViewModel(StudentOrderBlock entity)
         {
             var vm = entity.GetViewModel;
-            vm.StudentOrder = entity.StudentOrder == null ? string.Empty : entity.StudentOrder.Id.ToString();
-            vm.EducationDirection = entity.EducationDirection == null ? string.Empty : entity.EducationDirection.Id.ToString();
+            vm.StudentOrder = entity.StudentOrder == null ? string.Empty : entity.StudentOrder.OrderNumber;
+            vm.EducationDirection = entity.EducationDirection == null ? string.Empty : entity.EducationDirection.Title;
             return vm;
         }
     }

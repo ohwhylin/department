@@ -13,28 +13,58 @@ namespace DepartmentOneCMockApi.Data
                 EducationDirectionId = 1,
                 EducationForm = EducationForm.Очная,
                 AcademicCourses = AcademicCourse.Course_1,
-                Year = "2030-2031",
+                Year = "2022-2026",
                 AcademicPlanRecords = new List<AcademicPlanRecordMockModel>
                 {
-                    new AcademicPlanRecordMockModel
+                    new()
                     {
                         Id = 1,
                         AcademicPlanId = 1,
                         DisciplineId = 1,
                         DisciplineBlockId = 1,
-                        DisciplineBlockTitle = "Блок 1. Обязательная часть",
+                        DisciplineBlockTitle = "Программная инженерия и разработка ПО",
                         DisciplineBlockBlueAsteriskName = "",
                         DisciplineBlockUseForGrouping = true,
                         DisciplineBlockOrder = 1,
                         DisciplineShortName = "Программирование",
-                        DisciplineDescription = "Основы программирования",
+                        DisciplineDescription = "Основы программирования на C#",
                         HasExam = true,
                         HasCredit = false,
                         HasCourseWork = false,
                         HasCourseProject = false,
-
                         Index = "Б1.О.01",
                         Name = "Программирование",
+                        Semester = 1,
+                        Zet = 4,
+                        AcademicHours = 144,
+                        Exam = 1,
+                        Pass = null,
+                        GradedPass = null,
+                        CourseWork = null,
+                        CourseProject = null,
+                        Rgr = null,
+                        Lectures = 48,
+                        LaboratoryHours = 48,
+                        PracticalHours = 48
+                    },
+                    new()
+                    {
+                        Id = 2,
+                        AcademicPlanId = 1,
+                        DisciplineId = 2,
+                        DisciplineBlockId = 1,
+                        DisciplineBlockTitle = "Фундаментальная и математическая подготовка",
+                        DisciplineBlockBlueAsteriskName = "",
+                        DisciplineBlockUseForGrouping = true,
+                        DisciplineBlockOrder = 1,
+                        DisciplineShortName = "Матан",
+                        DisciplineDescription = "Базовый курс математического анализа",
+                        HasExam = true,
+                        HasCredit = false,
+                        HasCourseWork = false,
+                        HasCourseProject = false,
+                        Index = "Б1.О.02",
+                        Name = "Математический анализ",
                         Semester = 1,
                         Zet = 3,
                         AcademicHours = 108,
@@ -45,27 +75,26 @@ namespace DepartmentOneCMockApi.Data
                         CourseProject = null,
                         Rgr = null,
                         Lectures = 36,
-                        LaboratoryHours = 36,
-                        PracticalHours = 36
+                        LaboratoryHours = 0,
+                        PracticalHours = 72
                     },
-                    new AcademicPlanRecordMockModel
+                    new()
                     {
-                        Id = 2,
+                        Id = 3,
                         AcademicPlanId = 1,
-                        DisciplineId = 2,
+                        DisciplineId = 3,
                         DisciplineBlockId = 1,
-                        DisciplineBlockTitle = "Блок 1. Обязательная часть",
+                        DisciplineBlockTitle = "Фундаментальная и математическая подготовка",
                         DisciplineBlockBlueAsteriskName = "",
                         DisciplineBlockUseForGrouping = true,
                         DisciplineBlockOrder = 1,
-                        DisciplineShortName = "Базы данных",
-                        DisciplineDescription = "Технологии работы с базами данных",
+                        DisciplineShortName = "БД",
+                        DisciplineDescription = "Введение в реляционные базы данных",
                         HasExam = false,
                         HasCredit = true,
                         HasCourseWork = false,
                         HasCourseProject = false,
-
-                        Index = "Б1.О.02",
+                        Index = "Б1.О.03",
                         Name = "Базы данных",
                         Semester = 2,
                         Zet = 4,
@@ -79,38 +108,6 @@ namespace DepartmentOneCMockApi.Data
                         Lectures = 48,
                         LaboratoryHours = 48,
                         PracticalHours = 48
-                    },
-                    new AcademicPlanRecordMockModel
-                    {
-                        Id = 3,
-                        AcademicPlanId = 1,
-                        DisciplineId = 3,
-                        DisciplineBlockId = 1,
-                        DisciplineBlockTitle = "Блок 1. Обязательная часть",
-                        DisciplineBlockBlueAsteriskName = "",
-                        DisciplineBlockUseForGrouping = true,
-                        DisciplineBlockOrder = 1,
-                        DisciplineShortName = "Матан",
-                        DisciplineDescription = "Базовый курс математического анализа",
-                        HasExam = true,
-                        HasCredit = false,
-                        HasCourseWork = false,
-                        HasCourseProject = false,
-
-                        Index = "Б1.О.03",
-                        Name = "Математический анализ",
-                        Semester = 2,
-                        Zet = 2,
-                        AcademicHours = 72,
-                        Exam = 1,
-                        Pass = null,
-                        GradedPass = null,
-                        CourseWork = null,
-                        CourseProject = null,
-                        Rgr = null,
-                        Lectures = 24,
-                        LaboratoryHours = 0,
-                        PracticalHours = 48
                     }
                 }
             },
@@ -121,16 +118,16 @@ namespace DepartmentOneCMockApi.Data
                 EducationDirectionId = 1,
                 EducationForm = EducationForm.Очная,
                 AcademicCourses = AcademicCourse.Course_2,
-                Year = "2024-2025",
+                Year = "2022-2026",
                 AcademicPlanRecords = new List<AcademicPlanRecordMockModel>
                 {
-                    new AcademicPlanRecordMockModel
+                    new()
                     {
                         Id = 4,
                         AcademicPlanId = 2,
                         DisciplineId = 4,
                         DisciplineBlockId = 1,
-                        DisciplineBlockTitle = "Блок 1. Обязательная часть",
+                        DisciplineBlockTitle = "Программная инженерия и разработка ПО",
                         DisciplineBlockBlueAsteriskName = "",
                         DisciplineBlockUseForGrouping = true,
                         DisciplineBlockOrder = 1,
@@ -140,7 +137,6 @@ namespace DepartmentOneCMockApi.Data
                         HasCredit = false,
                         HasCourseWork = false,
                         HasCourseProject = false,
-
                         Index = "Б1.О.04",
                         Name = "Алгоритмы и структуры данных",
                         Semester = 1,
@@ -156,31 +152,61 @@ namespace DepartmentOneCMockApi.Data
                         LaboratoryHours = 48,
                         PracticalHours = 48
                     },
-                    new AcademicPlanRecordMockModel
+                    new()
                     {
                         Id = 5,
                         AcademicPlanId = 2,
                         DisciplineId = 5,
                         DisciplineBlockId = 1,
-                        DisciplineBlockTitle = "Блок 1. Обязательная часть",
+                        DisciplineBlockTitle = "Программная инженерия и разработка ПО",
+                        DisciplineBlockBlueAsteriskName = "",
+                        DisciplineBlockUseForGrouping = true,
+                        DisciplineBlockOrder = 1,
+                        DisciplineShortName = "ООП",
+                        DisciplineDescription = "Объектно-ориентированное программирование",
+                        HasExam = true,
+                        HasCredit = false,
+                        HasCourseWork = true,
+                        HasCourseProject = false,
+                        Index = "Б1.О.05",
+                        Name = "Объектно-ориентированное программирование",
+                        Semester = 1,
+                        Zet = 5,
+                        AcademicHours = 180,
+                        Exam = 1,
+                        Pass = null,
+                        GradedPass = null,
+                        CourseWork = 1,
+                        CourseProject = null,
+                        Rgr = null,
+                        Lectures = 60,
+                        LaboratoryHours = 60,
+                        PracticalHours = 60
+                    },
+                    new()
+                    {
+                        Id = 6,
+                        AcademicPlanId = 2,
+                        DisciplineId = 6,
+                        DisciplineBlockId = 1,
+                        DisciplineBlockTitle = "Системное и сетевое администрирование",
                         DisciplineBlockBlueAsteriskName = "",
                         DisciplineBlockUseForGrouping = true,
                         DisciplineBlockOrder = 1,
                         DisciplineShortName = "ОС",
-                        DisciplineDescription = "Основы современных операционных систем",
+                        DisciplineDescription = "Операционные системы",
                         HasExam = false,
-                        HasCredit = true,
+                        HasCredit = false,
                         HasCourseWork = false,
                         HasCourseProject = false,
-
-                        Index = "Б1.О.05",
+                        Index = "Б1.О.06",
                         Name = "Операционные системы",
                         Semester = 2,
                         Zet = 3,
                         AcademicHours = 108,
                         Exam = null,
-                        Pass = 1,
-                        GradedPass = null,
+                        Pass = null,
+                        GradedPass = 1,
                         CourseWork = null,
                         CourseProject = null,
                         Rgr = null,
@@ -197,27 +223,26 @@ namespace DepartmentOneCMockApi.Data
                 EducationDirectionId = 1,
                 EducationForm = EducationForm.Очная,
                 AcademicCourses = AcademicCourse.Course_3,
-                Year = "2025-2026",
+                Year = "2022-2026",
                 AcademicPlanRecords = new List<AcademicPlanRecordMockModel>
                 {
-                    new AcademicPlanRecordMockModel
+                    new()
                     {
-                        Id = 6,
+                        Id = 7,
                         AcademicPlanId = 3,
-                        DisciplineId = 6,
+                        DisciplineId = 7,
                         DisciplineBlockId = 1,
-                        DisciplineBlockTitle = "Блок 1. Обязательная часть",
+                        DisciplineBlockTitle = "Системное и сетевое администрирование",
                         DisciplineBlockBlueAsteriskName = "",
                         DisciplineBlockUseForGrouping = true,
                         DisciplineBlockOrder = 1,
                         DisciplineShortName = "Сети",
-                        DisciplineDescription = "Проектирование и администрирование компьютерных сетей",
+                        DisciplineDescription = "Сетевые технологии",
                         HasExam = true,
                         HasCredit = false,
                         HasCourseWork = false,
                         HasCourseProject = true,
-
-                        Index = "Б1.О.06",
+                        Index = "Б1.О.07",
                         Name = "Сетевые технологии",
                         Semester = 1,
                         Zet = 5,
@@ -232,24 +257,23 @@ namespace DepartmentOneCMockApi.Data
                         LaboratoryHours = 60,
                         PracticalHours = 60
                     },
-                    new AcademicPlanRecordMockModel
+                    new()
                     {
-                        Id = 7,
+                        Id = 8,
                         AcademicPlanId = 3,
-                        DisciplineId = 7,
+                        DisciplineId = 8,
                         DisciplineBlockId = 1,
-                        DisciplineBlockTitle = "Блок 1. Обязательная часть",
+                        DisciplineBlockTitle = "Системное и сетевое администрирование",
                         DisciplineBlockBlueAsteriskName = "",
                         DisciplineBlockUseForGrouping = true,
                         DisciplineBlockOrder = 1,
                         DisciplineShortName = "ИБ",
-                        DisciplineDescription = "Основы защиты информации",
+                        DisciplineDescription = "Информационная безопасность",
                         HasExam = false,
-                        HasCredit = true,
+                        HasCredit = false,
                         HasCourseWork = false,
                         HasCourseProject = false,
-
-                        Index = "Б1.О.07",
+                        Index = "Б1.О.08",
                         Name = "Информационная безопасность",
                         Semester = 1,
                         Zet = 3,
@@ -264,31 +288,30 @@ namespace DepartmentOneCMockApi.Data
                         LaboratoryHours = 36,
                         PracticalHours = 36
                     },
-                    new AcademicPlanRecordMockModel
+                    new()
                     {
-                        Id = 8,
+                        Id = 9,
                         AcademicPlanId = 3,
-                        DisciplineId = 8,
+                        DisciplineId = 9,
                         DisciplineBlockId = 1,
-                        DisciplineBlockTitle = "Блок 1. Обязательная часть",
+                        DisciplineBlockTitle = "Программная инженерия и разработка ПО",
                         DisciplineBlockBlueAsteriskName = "",
                         DisciplineBlockUseForGrouping = true,
                         DisciplineBlockOrder = 1,
                         DisciplineShortName = "Проектирование ИС",
-                        DisciplineDescription = "Методы проектирования и моделирования информационных систем",
+                        DisciplineDescription = "Проектирование информационных систем",
                         HasExam = false,
                         HasCredit = true,
                         HasCourseWork = false,
                         HasCourseProject = false,
-
-                        Index = "Б1.О.08",
+                        Index = "Б1.О.09",
                         Name = "Проектирование информационных систем",
                         Semester = 2,
                         Zet = 4,
                         AcademicHours = 144,
                         Exam = null,
-                        Pass = null,
-                        GradedPass = 1,
+                        Pass = 1,
+                        GradedPass = null,
                         CourseWork = null,
                         CourseProject = null,
                         Rgr = 1,
@@ -305,27 +328,26 @@ namespace DepartmentOneCMockApi.Data
                 EducationDirectionId = 1,
                 EducationForm = EducationForm.Очная,
                 AcademicCourses = AcademicCourse.Course_4,
-                Year = "2025-2026",
+                Year = "2022-2026",
                 AcademicPlanRecords = new List<AcademicPlanRecordMockModel>
                 {
-                    new AcademicPlanRecordMockModel
+                    new()
                     {
-                        Id = 9,
+                        Id = 10,
                         AcademicPlanId = 4,
-                        DisciplineId = 9,
+                        DisciplineId = 10,
                         DisciplineBlockId = 1,
-                        DisciplineBlockTitle = "Блок 1. Обязательная часть",
+                        DisciplineBlockTitle = "Программная инженерия и разработка ПО",
                         DisciplineBlockBlueAsteriskName = "",
                         DisciplineBlockUseForGrouping = true,
                         DisciplineBlockOrder = 1,
                         DisciplineShortName = "ML",
-                        DisciplineDescription = "Введение в машинное обучение",
+                        DisciplineDescription = "Машинное обучение",
                         HasExam = true,
                         HasCredit = false,
                         HasCourseWork = true,
                         HasCourseProject = false,
-
-                        Index = "Б1.О.09",
+                        Index = "Б1.О.10",
                         Name = "Машинное обучение",
                         Semester = 1,
                         Zet = 6,
@@ -340,24 +362,23 @@ namespace DepartmentOneCMockApi.Data
                         LaboratoryHours = 72,
                         PracticalHours = 72
                     },
-                    new AcademicPlanRecordMockModel
+                    new()
                     {
-                        Id = 10,
+                        Id = 11,
                         AcademicPlanId = 4,
-                        DisciplineId = 10,
+                        DisciplineId = 11,
                         DisciplineBlockId = 1,
-                        DisciplineBlockTitle = "Блок 1. Обязательная часть",
+                        DisciplineBlockTitle = "Управление и проектная деятельность",
                         DisciplineBlockBlueAsteriskName = "",
                         DisciplineBlockUseForGrouping = true,
                         DisciplineBlockOrder = 1,
                         DisciplineShortName = "ИТ-проекты",
-                        DisciplineDescription = "Методологии и практики управления ИТ-проектами",
+                        DisciplineDescription = "Управление ИТ-проектами",
                         HasExam = false,
-                        HasCredit = true,
+                        HasCredit = false,
                         HasCourseWork = false,
                         HasCourseProject = false,
-
-                        Index = "Б1.О.10",
+                        Index = "Б1.О.11",
                         Name = "Управление ИТ-проектами",
                         Semester = 2,
                         Zet = 4,
@@ -372,23 +393,22 @@ namespace DepartmentOneCMockApi.Data
                         LaboratoryHours = 0,
                         PracticalHours = 96
                     },
-                    new AcademicPlanRecordMockModel
+                    new()
                     {
-                        Id = 11,
+                        Id = 12,
                         AcademicPlanId = 4,
-                        DisciplineId = 11,
+                        DisciplineId = 12,
                         DisciplineBlockId = 2,
                         DisciplineBlockTitle = "Факультативные дисциплины",
                         DisciplineBlockBlueAsteriskName = "*",
                         DisciplineBlockUseForGrouping = false,
                         DisciplineBlockOrder = 2,
                         DisciplineShortName = "Cloud",
-                        DisciplineDescription = "Современные облачные платформы и сервисы",
+                        DisciplineDescription = "Облачные технологии",
                         HasExam = false,
                         HasCredit = true,
                         HasCourseWork = false,
                         HasCourseProject = false,
-
                         Index = "ФТД.01",
                         Name = "Облачные технологии",
                         Semester = 2,
@@ -410,375 +430,154 @@ namespace DepartmentOneCMockApi.Data
 
         public static List<StudentGroupMockModel> StudentGroups => new()
         {
-            new StudentGroupMockModel
+            new()
             {
                 Id = 1,
                 EducationDirectionId = 1,
                 CuratorId = 1,
-                GroupName = "ПИбд-41",
-                Course = AcademicCourse.Course_4
+                GroupName = "ПИбд-11",
+                Course = AcademicCourse.Course_1
             },
-            new StudentGroupMockModel
+            new()
             {
                 Id = 2,
+                EducationDirectionId = 1,
+                CuratorId = 2,
+                GroupName = "ПИбд-21",
+                Course = AcademicCourse.Course_2
+            },
+            new()
+            {
+                Id = 3,
                 EducationDirectionId = 1,
                 CuratorId = 2,
                 GroupName = "ПИбд-31",
                 Course = AcademicCourse.Course_3
             },
-            new StudentGroupMockModel
+            new()
             {
-                Id = 3,
+                Id = 4,
                 EducationDirectionId = 1,
-                CuratorId = 2,
-                GroupName = "ПИбд-21",
-                Course = AcademicCourse.Course_2
+                CuratorId = 3,
+                GroupName = "ПИбд-41",
+                Course = AcademicCourse.Course_4
             }
         };
 
         public static List<StudentMockModel> Students => new()
         {
-            // Группа ПИбд-41 (5 студентов)
-            new StudentMockModel
-            {
-                Id = 1,
-                StudentGroupId = 1,
-                NumberOfBook = "10001",
-                FirstName = "Александр",
-                LastName = "Кузнецов",
-                Patronymic = "Андреевич",
-                Email = "a.kuznetsov@university.ru",
-                StudentState = StudentState.Учится,
-                Description = "",
-                IsSteward = true
-            },
-            new StudentMockModel
-            {
-                Id = 2,
-                StudentGroupId = 1,
-                NumberOfBook = "10002",
-                FirstName = "Екатерина",
-                LastName = "Смирнова",
-                Patronymic = "Дмитриевна",
-                Email = "e.smirnova@university.ru",
-                StudentState = StudentState.Учится,
-                Description = "",
-                IsSteward = false
-            },
-            new StudentMockModel
-            {
-                Id = 3,
-                StudentGroupId = 1,
-                NumberOfBook = "10003",
-                FirstName = "Дмитрий",
-                LastName = "Волков",
-                Patronymic = "Сергеевич",
-                Email = "d.volkov@university.ru",
-                StudentState = StudentState.Учится,
-                Description = "",
-                IsSteward = false
-            },
-            new StudentMockModel
-            {
-                Id = 4,
-                StudentGroupId = 1,
-                NumberOfBook = "10004",
-                FirstName = "Анна",
-                LastName = "Морозова",
-                Patronymic = "Игоревна",
-                Email = "a.morozova@university.ru",
-                StudentState = StudentState.Учится,
-                Description = "",
-                IsSteward = false
-            },
-            new StudentMockModel
-            {
-                Id = 5,
-                StudentGroupId = 1,
-                NumberOfBook = "10005",
-                FirstName = "Максим",
-                LastName = "Новиков",
-                Patronymic = "Владимирович",
-                Email = "m.novikov@university.ru",
-                StudentState = StudentState.Академ,
-                Description = "",
-                IsSteward = false
-            },
+            // ПИбд-11
+            new() { Id = 1, StudentGroupId = 1, NumberOfBook = "22001", FirstName = "Алина", LastName = "Кузнецова", Patronymic = "Сергеевна", Email = "a.kuznetsova@university.ru", StudentState = StudentState.Учится, Description = "Староста группы", IsSteward = true },
+            new() { Id = 2, StudentGroupId = 1, NumberOfBook = "22002", FirstName = "Илья", LastName = "Громов", Patronymic = "Андреевич", Email = "i.gromov@university.ru", StudentState = StudentState.Учится, Description = "", IsSteward = false },
+            new() { Id = 3, StudentGroupId = 1, NumberOfBook = "22003", FirstName = "Полина", LastName = "Фролова", Patronymic = "Олеговна", Email = "p.frolova@university.ru", StudentState = StudentState.Учится, Description = "", IsSteward = false },
+            new() { Id = 4, StudentGroupId = 1, NumberOfBook = "22004", FirstName = "Егор", LastName = "Савельев", Patronymic = "Игоревич", Email = "e.saveliev@university.ru", StudentState = StudentState.Учится, Description = "", IsSteward = false },
 
-            // Группа ПИбд-31 (5 студентов)
-            new StudentMockModel
-            {
-                Id = 6,
-                StudentGroupId = 2,
-                NumberOfBook = "10006",
-                FirstName = "Ольга",
-                LastName = "Федорова",
-                Patronymic = "Алексеевна",
-                Email = "o.fedorova@university.ru",
-                StudentState = StudentState.Учится,
-                Description = "",
-                IsSteward = true
-            },
-            new StudentMockModel
-            {
-                Id = 7,
-                StudentGroupId = 2,
-                NumberOfBook = "10007",
-                FirstName = "Сергей",
-                LastName = "Михайлов",
-                Patronymic = "Петрович",
-                Email = "s.mikhailov@university.ru",
-                StudentState = StudentState.Учится,
-                Description = "",
-                IsSteward = false
-            },
-            new StudentMockModel
-            {
-                Id = 8,
-                StudentGroupId = 2,
-                NumberOfBook = "10008",
-                FirstName = "Татьяна",
-                LastName = "Егорова",
-                Patronymic = "Николаевна",
-                Email = "t.egorova@university.ru",
-                StudentState = StudentState.Учится,
-                Description = "",
-                IsSteward = false
-            },
-            new StudentMockModel
-            {
-                Id = 9,
-                StudentGroupId = 2,
-                NumberOfBook = "10009",
-                FirstName = "Андрей",
-                LastName = "Козлов",
-                Patronymic = "Валерьевич",
-                Email = "a.kozlov@university.ru",
-                StudentState = StudentState.Учится,
-                Description = "",
-                IsSteward = false
-            },
-            new StudentMockModel
-            {
-                Id = 10,
-                StudentGroupId = 2,
-                NumberOfBook = "10010",
-                FirstName = "Юлия",
-                LastName = "Соколова",
-                Patronymic = "Викторовна",
-                Email = "y.sokolova@university.ru",
-                StudentState = StudentState.Учится,
-                Description = "",
-                IsSteward = false
-            },
+            // ПИбд-21
+            new() { Id = 5, StudentGroupId = 2, NumberOfBook = "21001", FirstName = "Мария", LastName = "Орлова", Patronymic = "Павловна", Email = "m.orlova@university.ru", StudentState = StudentState.Учится, Description = "Староста группы", IsSteward = true },
+            new() { Id = 6, StudentGroupId = 2, NumberOfBook = "21002", FirstName = "Даниил", LastName = "Мельников", Patronymic = "Ильич", Email = "d.melnikov@university.ru", StudentState = StudentState.Учится, Description = "", IsSteward = false },
+            new() { Id = 7, StudentGroupId = 2, NumberOfBook = "21003", FirstName = "Виктория", LastName = "Ершова", Patronymic = "Максимовна", Email = "v.ershova@university.ru", StudentState = StudentState.Академ, Description = "Академический отпуск с весеннего семестра", IsSteward = false },
+            new() { Id = 8, StudentGroupId = 2, NumberOfBook = "21004", FirstName = "Артем", LastName = "Белов", Patronymic = "Денисович", Email = "a.belov@university.ru", StudentState = StudentState.Учится, Description = "", IsSteward = false },
 
-            // Группа ПИбд-21 (4 студента)
-            new StudentMockModel
-            {
-                Id = 11,
-                StudentGroupId = 3,
-                NumberOfBook = "10011",
-                FirstName = "Никита",
-                LastName = "Лебедев",
-                Patronymic = "Александрович",
-                Email = "n.lebedev@university.ru",
-                StudentState = StudentState.Учится,
-                Description = "",
-                IsSteward = true
-            },
-            new StudentMockModel
-            {
-                Id = 12,
-                StudentGroupId = 3,
-                NumberOfBook = "10012",
-                FirstName = "Мария",
-                LastName = "Павлова",
-                Patronymic = "Андреевна",
-                Email = "m.pavlova@university.ru",
-                StudentState = StudentState.Учится,
-                Description = "",
-                IsSteward = false
-            },
-            new StudentMockModel
-            {
-                Id = 13,
-                StudentGroupId = 3,
-                NumberOfBook = "10013",
-                FirstName = "Артем",
-                LastName = "Семенов",
-                Patronymic = "Иванович",
-                Email = "a.semenov@university.ru",
-                StudentState = StudentState.Учится,
-                Description = "",
-                IsSteward = false
-            },
-            new StudentMockModel
-            {
-                Id = 14,
-                StudentGroupId = 3,
-                NumberOfBook = "10014",
-                FirstName = "Елена",
-                LastName = "Тихонова",
-                Patronymic = "Сергеевна",
-                Email = "e.tikhonova@university.ru",
-                StudentState = StudentState.Учится,
-                Description = "",
-                IsSteward = false
-            }
+            // ПИбд-31
+            new() { Id = 9, StudentGroupId = 3, NumberOfBook = "20001", FirstName = "Наталья", LastName = "Соколова", Patronymic = "Игоревна", Email = "n.sokolova@university.ru", StudentState = StudentState.Учится, Description = "Староста группы", IsSteward = true },
+            new() { Id = 10, StudentGroupId = 3, NumberOfBook = "20002", FirstName = "Кирилл", LastName = "Поляков", Patronymic = "Романович", Email = "k.polyakov@university.ru", StudentState = StudentState.Учится, Description = "Есть академическая задолженность", IsSteward = false },
+            new() { Id = 11, StudentGroupId = 3, NumberOfBook = "20003", FirstName = "Елизавета", LastName = "Комарова", Patronymic = "Васильевна", Email = "e.komarova@university.ru", StudentState = StudentState.Учится, Description = "", IsSteward = false },
+            new() { Id = 12, StudentGroupId = 3, NumberOfBook = "20004", FirstName = "Степан", LastName = "Жуков", Patronymic = "Петрович", Email = "s.zhukov@university.ru", StudentState = StudentState.Учится, Description = "", IsSteward = false },
+
+            // ПИбд-41
+            new() { Id = 13, StudentGroupId = 4, NumberOfBook = "19001", FirstName = "Анна", LastName = "Тарасова", Patronymic = "Дмитриевна", Email = "a.tarasova@university.ru", StudentState = StudentState.Учится, Description = "Староста группы", IsSteward = true },
+            new() { Id = 14, StudentGroupId = 4, NumberOfBook = "19002", FirstName = "Максим", LastName = "Киселев", Patronymic = "Алексеевич", Email = "m.kiselev@university.ru", StudentState = StudentState.Учится, Description = "", IsSteward = false },
+            new() { Id = 15, StudentGroupId = 4, NumberOfBook = "19003", FirstName = "Дарья", LastName = "Миронова", Patronymic = "Станиславовна", Email = "d.mironova@university.ru", StudentState = StudentState.Учится, Description = "", IsSteward = false },
+            new() { Id = 16, StudentGroupId = 4, NumberOfBook = "19004", FirstName = "Павел", LastName = "Логинов", Patronymic = "Евгеньевич", Email = "p.loginov@university.ru", StudentState = StudentState.Учится, Description = "Фигурирует в приказе на отчисление", IsSteward = false }
         };
 
-        public static List<DisciplineStudentRecordMockModel> DisciplineStudentRecords => new()
+        public static List<DisciplineStudentRecordMockModel> DisciplineStudentRecords => GenerateDisciplineStudentRecords();
+
+        private static List<DisciplineStudentRecordMockModel> GenerateDisciplineStudentRecords()
         {
-            new DisciplineStudentRecordMockModel
-            {
-                Id = 1,
-                DisciplineId = 1,
-                StudentId = 1,
-                Semester = Semesters.Первый,
-                Variant = "Экзамен",
-                SubGroup = 1,
-                MarkType = MarkType.Отлично
-            },
-            new DisciplineStudentRecordMockModel
-            {
-                Id = 2,
-                DisciplineId = 2,
-                StudentId = 2,
-                Semester = Semesters.Второй,
-                Variant = "Зачет",
-                SubGroup = 1,
-                MarkType = MarkType.Хорошо
-            },
-            new DisciplineStudentRecordMockModel
-            {
-                Id = 3,
-                DisciplineId = 3,
-                StudentId = 3,
-                Semester = Semesters.Первый,
-                Variant = "Экзамен",
-                SubGroup = 2,
-                MarkType = MarkType.Удовлетворительно
-            },
-            new DisciplineStudentRecordMockModel
-            {
-                Id = 4,
-                DisciplineId = 4,
-                StudentId = 4,
-                Semester = Semesters.Второй,
-                Variant = "Зачет",
-                SubGroup = 2,
-                MarkType = MarkType.Отлично
-            },
-            new DisciplineStudentRecordMockModel
-            {
-                Id = 5,
-                DisciplineId = 5,
-                StudentId = 5,
-                Semester = Semesters.Первый,
-                Variant = "Экзамен",
-                SubGroup = 3,
-                MarkType = MarkType.Неявка
-            },
-            new DisciplineStudentRecordMockModel
-            {
-                Id = 6,
-                DisciplineId = 6,
-                StudentId = 6,
-                Semester = Semesters.Второй,
-                Variant = "Зачет",
-                SubGroup = 3,
-                MarkType = MarkType.Хорошо
-            },
+            var result = new List<DisciplineStudentRecordMockModel>();
+            var recordByDisciplineId = AcademicPlans
+                .SelectMany(x => x.AcademicPlanRecords)
+                .ToDictionary(x => x.DisciplineId ?? 0, x => x);
 
-            new DisciplineStudentRecordMockModel
+            var groupById = StudentGroups.ToDictionary(x => x.Id, x => x);
+
+            int id = 1;
+
+            foreach (var student in Students)
             {
-                Id = 7,
-                DisciplineId = 7,
-                StudentId = 7,
-                Semester = Semesters.Первый,
-                Variant = "Экзамен",
-                SubGroup = 1,
-                MarkType = MarkType.Неудовлетворительно
-            },
-            new DisciplineStudentRecordMockModel
-            {
-                Id = 8,
-                DisciplineId = 8,
-                StudentId = 8,
-                Semester = Semesters.Второй,
-                Variant = "Экзамен",
-                SubGroup = 1,
-                MarkType = MarkType.Хорошо
-            },
-            new DisciplineStudentRecordMockModel
-            {
-                Id = 9,
-                DisciplineId = 9,
-                StudentId = 9,
-                Semester = Semesters.Первый,
-                Variant = "Экзамен",
-                SubGroup = 2,
-                MarkType = MarkType.Отлично
-            },
-            new DisciplineStudentRecordMockModel
-            {
-                Id = 10,
-                DisciplineId = 10,
-                StudentId = 10,
-                Semester = Semesters.Второй,
-                Variant = "Зачет",
-                SubGroup = 2,
-                MarkType = MarkType.Удовлетворительно
-            },
-            new DisciplineStudentRecordMockModel
-            {
-                Id = 11,
-                DisciplineId = 11,
-                StudentId = 11,
-                Semester = Semesters.Второй,
-                Variant = "Зачет",
-                SubGroup = 1,
-                MarkType = MarkType.Хорошо
-            },
-            new DisciplineStudentRecordMockModel
-            {
-                Id = 12,
-                DisciplineId = 4,
-                StudentId = 12,
-                Semester = Semesters.Первый,
-                Variant = "Экзамен",
-                SubGroup = 1,
-                MarkType = MarkType.Отлично
-            },
-            new DisciplineStudentRecordMockModel
-            {
-                Id = 13,
-                DisciplineId = 5,
-                StudentId = 13,
-                Semester = Semesters.Второй,
-                Variant = "Экзамен",
-                SubGroup = 2,
-                MarkType = MarkType.Неудовлетворительно
-            },
-            new DisciplineStudentRecordMockModel
-            {
-                Id = 14,
-                DisciplineId = 6,
-                StudentId = 14,
-                Semester = Semesters.Первый,
-                Variant = "Зачет",
-                SubGroup = 2,
-                MarkType = MarkType.Неявка
+                if (!student.StudentGroupId.HasValue || !groupById.TryGetValue(student.StudentGroupId.Value, out var group))
+                    continue;
+
+                var disciplineIds = group.Course switch
+                {
+                    AcademicCourse.Course_1 => Enumerable.Range(1, 3),
+                    AcademicCourse.Course_2 => Enumerable.Range(1, 6),
+                    AcademicCourse.Course_3 => Enumerable.Range(1, 9),
+                    AcademicCourse.Course_4 => Enumerable.Range(1, 12),
+                    _ => Enumerable.Empty<int>()
+                };
+
+                foreach (var disciplineId in disciplineIds)
+                {
+                    var planRecord = recordByDisciplineId[disciplineId];
+
+                    var variant =
+                        planRecord.Exam == 1 ? "Экзамен" :
+                        planRecord.GradedPass == 1 ? "Дифф. зачет" :
+                        planRecord.Pass == 1 ? "Зачет" :
+                        "Аттестация";
+
+                    var semester = planRecord.Semester == 1
+                        ? Semesters.Первый
+                        : Semesters.Второй;
+
+                    var mark = GetDemoMark(student, disciplineId);
+
+                    result.Add(new DisciplineStudentRecordMockModel
+                    {
+                        Id = id++,
+                        DisciplineId = disciplineId,
+                        StudentId = student.Id,
+                        Semester = semester,
+                        Variant = variant,
+                        SubGroup = ((student.Id - 1) % 2) + 1,
+                        MarkType = mark
+                    });
+                }
             }
-        };
+
+            return result;
+        }
+
+        private static MarkType GetDemoMark(StudentMockModel student, int disciplineId)
+        {
+            if (student.StudentState == StudentState.Академ && disciplineId >= 5)
+                return MarkType.Неявка;
+
+            if (student.Id == 10 && (disciplineId == 5 || disciplineId == 8))
+                return MarkType.Неудовлетворительно;
+
+            var marks = new[]
+            {
+                MarkType.Отлично,
+                MarkType.Хорошо,
+                MarkType.Удовлетворительно,
+                MarkType.Хорошо,
+                MarkType.Отлично
+            };
+
+            return marks[(student.Id + disciplineId) % marks.Length];
+        }
+
 
         public static List<StudentOrderMockModel> StudentOrders => new()
         {
             new StudentOrderMockModel
             {
                 Id = 1,
-                OrderNumber = "123",
-                StudentOrderType = StudentOrderType.ПереводВГруппу,
+                OrderNumber = "201-к",
+                StudentOrderType = StudentOrderType.Зачисление,
                 Blocks = new List<StudentOrderBlockMockModel>
                 {
                     new StudentOrderBlockMockModel
@@ -786,43 +585,13 @@ namespace DepartmentOneCMockApi.Data
                         Id = 1,
                         StudentOrderId = 1,
                         EducationDirectionId = 1,
-                        StudentOrderType = StudentOrderType.ПереводВГруппу,
+                        StudentOrderType = StudentOrderType.Зачисление,
                         Students = new List<StudentOrderBlockStudentMockModel>
                         {
-                            new StudentOrderBlockStudentMockModel
-                            {
-                                Id = 1,
-                                StudentOrderBlockId = 1,
-                                StudentId = 1,
-                                StudentGroupFromId = 1,
-                                StudentGroupToId = 2
-                            },
-                            new StudentOrderBlockStudentMockModel
-                            {
-                                Id = 2,
-                                StudentOrderBlockId = 1,
-                                StudentId = 2,
-                                StudentGroupFromId = 1,
-                                StudentGroupToId = 2
-                            }
-                        }
-                    },
-                    new StudentOrderBlockMockModel
-                    {
-                        Id = 2,
-                        StudentOrderId = 1,
-                        EducationDirectionId = 1,
-                        StudentOrderType = StudentOrderType.ПереводВГруппу,
-                        Students = new List<StudentOrderBlockStudentMockModel>
-                        {
-                            new StudentOrderBlockStudentMockModel
-                            {
-                                Id = 3,
-                                StudentOrderBlockId = 2,
-                                StudentId = 6,
-                                StudentGroupFromId = 2,
-                                StudentGroupToId = 1
-                            }
+                            new() { Id = 1, StudentOrderBlockId = 1, StudentId = 1, StudentGroupFromId = null, StudentGroupToId = 1 },
+                            new() { Id = 2, StudentOrderBlockId = 1, StudentId = 2, StudentGroupFromId = null, StudentGroupToId = 1 },
+                            new() { Id = 3, StudentOrderBlockId = 1, StudentId = 3, StudentGroupFromId = null, StudentGroupToId = 1 },
+                            new() { Id = 4, StudentOrderBlockId = 1, StudentId = 4, StudentGroupFromId = null, StudentGroupToId = 1 }
                         }
                     }
                 }
@@ -831,34 +600,19 @@ namespace DepartmentOneCMockApi.Data
             new StudentOrderMockModel
             {
                 Id = 2,
-                OrderNumber = "124",
-                StudentOrderType = StudentOrderType.ПереводВГруппу,
+                OrderNumber = "57-лс",
+                StudentOrderType = StudentOrderType.ВАкадем,
                 Blocks = new List<StudentOrderBlockMockModel>
                 {
                     new StudentOrderBlockMockModel
                     {
-                        Id = 3,
+                        Id = 2,
                         StudentOrderId = 2,
                         EducationDirectionId = 1,
-                        StudentOrderType = StudentOrderType.ПереводВГруппу,
+                        StudentOrderType = StudentOrderType.ВАкадем,
                         Students = new List<StudentOrderBlockStudentMockModel>
                         {
-                            new StudentOrderBlockStudentMockModel
-                            {
-                                Id = 4,
-                                StudentOrderBlockId = 3,
-                                StudentId = 7,
-                                StudentGroupFromId = 2,
-                                StudentGroupToId = 3
-                            },
-                            new StudentOrderBlockStudentMockModel
-                            {
-                                Id = 5,
-                                StudentOrderBlockId = 3,
-                                StudentId = 8,
-                                StudentGroupFromId = 2,
-                                StudentGroupToId = 3
-                            }
+                            new() { Id = 5, StudentOrderBlockId = 2, StudentId = 7, StudentGroupFromId = 2, StudentGroupToId = null }
                         }
                     }
                 }
@@ -867,60 +621,19 @@ namespace DepartmentOneCMockApi.Data
             new StudentOrderMockModel
             {
                 Id = 3,
-                OrderNumber = "125",
-                StudentOrderType = StudentOrderType.ПереводВГруппу,
+                OrderNumber = "74-лс",
+                StudentOrderType = StudentOrderType.ИзАкадема,
                 Blocks = new List<StudentOrderBlockMockModel>
                 {
                     new StudentOrderBlockMockModel
                     {
-                        Id = 4,
+                        Id = 3,
                         StudentOrderId = 3,
                         EducationDirectionId = 1,
-                        StudentOrderType = StudentOrderType.ПереводВГруппу,
+                        StudentOrderType = StudentOrderType.ИзАкадема,
                         Students = new List<StudentOrderBlockStudentMockModel>
                         {
-                            new StudentOrderBlockStudentMockModel
-                            {
-                                Id = 6,
-                                StudentOrderBlockId = 4,
-                                StudentId = 11,
-                                StudentGroupFromId = 3,
-                                StudentGroupToId = 1
-                            }
-                        }
-                    },
-                    new StudentOrderBlockMockModel
-                    {
-                        Id = 5,
-                        StudentOrderId = 3,
-                        EducationDirectionId = 1,
-                        StudentOrderType = StudentOrderType.ПереводВГруппу,
-                        Students = new List<StudentOrderBlockStudentMockModel>
-                        {
-                            new StudentOrderBlockStudentMockModel
-                            {
-                                Id = 7,
-                                StudentOrderBlockId = 5,
-                                StudentId = 12,
-                                StudentGroupFromId = 3,
-                                StudentGroupToId = 2
-                            },
-                            new StudentOrderBlockStudentMockModel
-                            {
-                                Id = 8,
-                                StudentOrderBlockId = 5,
-                                StudentId = 13,
-                                StudentGroupFromId = 3,
-                                StudentGroupToId = 2
-                            },
-                            new StudentOrderBlockStudentMockModel
-                            {
-                                Id = 9,
-                                StudentOrderBlockId = 5,
-                                StudentId = 14,
-                                StudentGroupFromId = 3,
-                                StudentGroupToId = 2
-                            }
+                            new() { Id = 6, StudentOrderBlockId = 3, StudentId = 7, StudentGroupFromId = null, StudentGroupToId = 2 }
                         }
                     }
                 }
@@ -929,34 +642,150 @@ namespace DepartmentOneCMockApi.Data
             new StudentOrderMockModel
             {
                 Id = 4,
-                OrderNumber = "126",
+                OrderNumber = "88-п",
                 StudentOrderType = StudentOrderType.ПереводВГруппу,
                 Blocks = new List<StudentOrderBlockMockModel>
                 {
                     new StudentOrderBlockMockModel
                     {
-                        Id = 6,
+                        Id = 4,
                         StudentOrderId = 4,
                         EducationDirectionId = 1,
                         StudentOrderType = StudentOrderType.ПереводВГруппу,
                         Students = new List<StudentOrderBlockStudentMockModel>
                         {
-                            new StudentOrderBlockStudentMockModel
-                            {
-                                Id = 10,
-                                StudentOrderBlockId = 6,
-                                StudentId = 3,
-                                StudentGroupFromId = 1,
-                                StudentGroupToId = 3
-                            },
-                            new StudentOrderBlockStudentMockModel
-                            {
-                                Id = 11,
-                                StudentOrderBlockId = 6,
-                                StudentId = 4,
-                                StudentGroupFromId = 1,
-                                StudentGroupToId = 3
-                            }
+                            new() { Id = 7, StudentOrderBlockId = 4, StudentId = 12, StudentGroupFromId = 3, StudentGroupToId = 2 },
+                            new() { Id = 8, StudentOrderBlockId = 4, StudentId = 10, StudentGroupFromId = 3, StudentGroupToId = 4 }
+                        }
+                    }
+                }
+            },
+
+            // 5. Восстановление студента
+            new StudentOrderMockModel
+            {
+                Id = 5,
+                OrderNumber = "96-в",
+                StudentOrderType = StudentOrderType.Восстановить,
+                Blocks = new List<StudentOrderBlockMockModel>
+                {
+                    new StudentOrderBlockMockModel
+                    {
+                        Id = 5,
+                        StudentOrderId = 5,
+                        EducationDirectionId = 1,
+                        StudentOrderType = StudentOrderType.Восстановить,
+                        Students = new List<StudentOrderBlockStudentMockModel>
+                        {
+                            new() { Id = 9, StudentOrderBlockId = 5, StudentId = 15, StudentGroupFromId = null, StudentGroupToId = 4 }
+                        }
+                    }
+                }
+            },
+
+            new StudentOrderMockModel
+            {
+                Id = 6,
+                OrderNumber = "103-лс",
+                StudentOrderType = StudentOrderType.ОтчислитьЗаНеуспевамость,
+                Blocks = new List<StudentOrderBlockMockModel>
+                {
+                    new StudentOrderBlockMockModel
+                    {
+                        Id = 6,
+                        StudentOrderId = 6,
+                        EducationDirectionId = 1,
+                        StudentOrderType = StudentOrderType.ОтчислитьЗаНеуспевамость,
+                        Students = new List<StudentOrderBlockStudentMockModel>
+                        {
+                            new() { Id = 10, StudentOrderBlockId = 6, StudentId = 16, StudentGroupFromId = 4, StudentGroupToId = null }
+                        }
+                    }
+                }
+            },
+
+            new StudentOrderMockModel
+            {
+                Id = 7,
+                OrderNumber = "111-лс",
+                StudentOrderType = StudentOrderType.ОтчислитьПоСобственному,
+                Blocks = new List<StudentOrderBlockMockModel>
+                {
+                    new StudentOrderBlockMockModel
+                    {
+                        Id = 7,
+                        StudentOrderId = 7,
+                        EducationDirectionId = 1,
+                        StudentOrderType = StudentOrderType.ОтчислитьПоСобственному,
+                        Students = new List<StudentOrderBlockStudentMockModel>
+                        {
+                            new() { Id = 11, StudentOrderBlockId = 7, StudentId = 8, StudentGroupFromId = 2, StudentGroupToId = null }
+                        }
+                    }
+                }
+            },
+
+            new StudentOrderMockModel
+            {
+                Id = 8,
+                OrderNumber = "125-комб",
+                StudentOrderType = StudentOrderType.ПереводВГруппу,
+                Blocks = new List<StudentOrderBlockMockModel>
+                {
+                    new StudentOrderBlockMockModel
+                    {
+                        Id = 8,
+                        StudentOrderId = 8,
+                        EducationDirectionId = 1,
+                        StudentOrderType = StudentOrderType.ПереводВГруппу,
+                        Students = new List<StudentOrderBlockStudentMockModel>
+                        {
+                            new() { Id = 12, StudentOrderBlockId = 8, StudentId = 5, StudentGroupFromId = 2, StudentGroupToId = 3 },
+                            new() { Id = 13, StudentOrderBlockId = 8, StudentId = 6, StudentGroupFromId = 2, StudentGroupToId = 3 }
+                        }
+                    },
+                    new StudentOrderBlockMockModel
+                    {
+                        Id = 9,
+                        StudentOrderId = 8,
+                        EducationDirectionId = 1,
+                        StudentOrderType = StudentOrderType.ВАкадем,
+                        Students = new List<StudentOrderBlockStudentMockModel>
+                        {
+                            new() { Id = 14, StudentOrderBlockId = 9, StudentId = 11, StudentGroupFromId = 3, StudentGroupToId = null }
+                        }
+                    },
+                    new StudentOrderBlockMockModel
+                    {
+                        Id = 10,
+                        StudentOrderId = 8,
+                        EducationDirectionId = 1,
+                        StudentOrderType = StudentOrderType.ОтчислитьЗаНеуспевамость,
+                        Students = new List<StudentOrderBlockStudentMockModel>
+                        {
+                            new() { Id = 15, StudentOrderBlockId = 10, StudentId = 10, StudentGroupFromId = 4, StudentGroupToId = null }
+                        }
+                    }
+                }
+            },
+
+            new StudentOrderMockModel
+            {
+                Id = 9,
+                OrderNumber = "131-р",
+                StudentOrderType = StudentOrderType.ПереводВГруппу,
+                Blocks = new List<StudentOrderBlockMockModel>
+                {
+                    new StudentOrderBlockMockModel
+                    {
+                        Id = 11,
+                        StudentOrderId = 9,
+                        EducationDirectionId = 1,
+                        StudentOrderType = StudentOrderType.ПереводВГруппу,
+                        Students = new List<StudentOrderBlockStudentMockModel>
+                        {
+                            new() { Id = 16, StudentOrderBlockId = 11, StudentId = 1, StudentGroupFromId = 1, StudentGroupToId = 2 },
+                            new() { Id = 17, StudentOrderBlockId = 11, StudentId = 2, StudentGroupFromId = 1, StudentGroupToId = 2 }
                         }
                     }
                 }

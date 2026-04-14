@@ -1,14 +1,12 @@
 @model DepartmentContracts.BindingModels.LecturerDepartmentPostBindingModel
-@using Microsoft.AspNetCore.Mvc.Rendering
-@using DepartmentDataModels.Enums
-@using Newtonsoft.Json
+
 @{
-    ViewData["Title"] = "Изменение LecturerDepartmentPost";
+    ViewData["Title"] = "Редактирование кафедральной должности";
 }
 
 <div class="form-shell">
     <div class="form-shell__header">
-        <h2 class="form-shell__title">Изменение LecturerDepartmentPost</h2>
+        <h2 class="form-shell__title">Редактирование кафедральной должности</h2>
         <a class="btn btn-sm btn-light" asp-controller="LecturerDepartmentPosts" asp-action="List">К списку</a>
     </div>
 
@@ -19,20 +17,20 @@
         }
 
         <form method="post">
+            <input type="hidden" asp-for="Id" />
+
             <div class="mb-3">
-                <label asp-for="Id" class="form-label">Запись</label>
-                <select asp-for="Id" class="form-select" asp-items='@(new SelectList(ViewBag.LecturerDepartmentPostsList, "Id", "Id"))'></select>
-            </div>
-            <div class="mb-3">
-                <label asp-for="DepartmentPostTitle" class="form-label">Department Post Title</label>
+                <label asp-for="DepartmentPostTitle" class="form-label">Наименование кафедральной должности</label>
                 <input asp-for="DepartmentPostTitle" class="form-control" />
                 <span asp-validation-for="DepartmentPostTitle" class="text-danger"></span>
             </div>
+
             <div class="mb-3">
-                <label asp-for="Order" class="form-label">Order</label>
+                <label asp-for="Order" class="form-label">Порядок отображения</label>
                 <input asp-for="Order" class="form-control" />
                 <span asp-validation-for="Order" class="text-danger"></span>
             </div>
+
             <div class="mt-3 d-flex gap-2">
                 <button type="submit" class="btn btn-app-primary">Сохранить</button>
                 <a class="btn btn-app-outline" asp-controller="LecturerDepartmentPosts" asp-action="List">Отмена</a>
@@ -41,40 +39,6 @@
     </div>
 </div>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const entities = @Html.Raw(JsonConvert.SerializeObject(ViewBag.LecturerDepartmentPostsList));
-        const idSelect = document.getElementById('Id');
-        function fillFields() {
-            const selected = entities.find(x => x.Id == idSelect.value);
-            if (!selected) return;
-            const elDepartmentPostTitle = document.getElementById('DepartmentPostTitle');
-            if (elDepartmentPostTitle) elDepartmentPostTitle.value = selected.DepartmentPostTitle ?? '';
-            const elOrder = document.getElementById('Order');
-            if (elOrder) elOrder.value = selected.Order ?? '';
-        }
-        if (idSelect) {
-            idSelect.addEventListener('change', fillFields);
-            fillFields();
-        }
-    });
-</script>
-
-@functions {
-    public string GetDisplayValue(object item)
-    {
-        var type = item.GetType();
-        foreach (var propName in new[] { "Name", "Title", "GroupName", "DisciplineName", "OrderNumber", "DepartmentPostTitle", "StudyPostTitle", "Cipher", "ShortName" })
-        {
-            var prop = type.GetProperty(propName);
-            var value = prop?.GetValue(item)?.ToString();
-            if (!string.IsNullOrWhiteSpace(value)) return value;
-        }
-        var firstName = type.GetProperty("FirstName")?.GetValue(item)?.ToString();
-        var lastName = type.GetProperty("LastName")?.GetValue(item)?.ToString();
-        if (!string.IsNullOrWhiteSpace(firstName) || !string.IsNullOrWhiteSpace(lastName))
-            return ($"{lastName} {firstName}").Trim();
-        return type.GetProperty("Id")?.GetValue(item)?.ToString() ?? string.Empty;
-    }
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
 }
-@section Scripts { <partial name="_ValidationScriptsPartial" /> }

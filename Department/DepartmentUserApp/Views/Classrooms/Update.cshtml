@@ -1,14 +1,13 @@
 @model DepartmentContracts.BindingModels.ClassroomBindingModel
-@using Microsoft.AspNetCore.Mvc.Rendering
 @using DepartmentDataModels.Enums
-@using Newtonsoft.Json
+
 @{
-    ViewData["Title"] = "Изменение Classroom";
+    ViewData["Title"] = "Редактирование аудитории";
 }
 
 <div class="form-shell">
     <div class="form-shell__header">
-        <h2 class="form-shell__title">Изменение Classroom</h2>
+        <h2 class="form-shell__title">Редактирование аудитории</h2>
         <a class="btn btn-sm btn-light" asp-controller="Classrooms" asp-action="List">К списку</a>
     </div>
 
@@ -19,39 +18,42 @@
         }
 
         <form method="post">
+            <input type="hidden" asp-for="Id" />
+
             <div class="mb-3">
-                <label asp-for="Id" class="form-label">Запись</label>
-                <select asp-for="Id" class="form-select" asp-items='@(new SelectList(ViewBag.ClassroomsList, "Id", "Id"))'></select>
-            </div>
-            <div class="mb-3">
-                <label asp-for="Number" class="form-label">Number</label>
+                <label asp-for="Number" class="form-label">Номер аудитории</label>
                 <input asp-for="Number" class="form-control" />
                 <span asp-validation-for="Number" class="text-danger"></span>
             </div>
+
             <div class="mb-3">
-                <label asp-for="Type" class="form-label">Classroom Type</label>
+                <label asp-for="Type" class="form-label">Тип аудитории</label>
                 <select asp-for="Type" class="form-select" asp-items="Html.GetEnumSelectList<ClassroomTypes>()"></select>
                 <span asp-validation-for="Type" class="text-danger"></span>
             </div>
+
             <div class="mb-3">
-                <label asp-for="Capacity" class="form-label">Capacity</label>
+                <label asp-for="Capacity" class="form-label">Вместимость</label>
                 <input asp-for="Capacity" class="form-control" />
                 <span asp-validation-for="Capacity" class="text-danger"></span>
             </div>
-            <div class="mb-3">
-                <label asp-for="NotUseInSchedule" class="form-label">Not Use In Schedule</label>
-                <div class="form-check">
-                    <input asp-for="NotUseInSchedule" class="form-check-input" />
-                </div>
-                <span asp-validation-for="NotUseInSchedule" class="text-danger"></span>
+
+            <div class="form-check mb-3">
+                <input asp-for="NotUseInSchedule" class="form-check-input" />
+                <label asp-for="NotUseInSchedule" class="form-check-label">
+                    Не участвует в расписании
+                </label>
             </div>
-            <div class="mb-3">
-                <label asp-for="HasProjector" class="form-label">Наличие проектора</label>
-                <div class="form-check">
-                    <input asp-for="HasProjector" class="form-check-input" />
-                </div>
-                <span asp-validation-for="HasProjector" class="text-danger"></span>
+            <span asp-validation-for="NotUseInSchedule" class="text-danger"></span>
+
+            <div class="form-check mb-3">
+                <input asp-for="HasProjector" class="form-check-input" />
+                <label asp-for="HasProjector" class="form-check-label">
+                    Имеется проектор
+                </label>
             </div>
+            <span asp-validation-for="HasProjector" class="text-danger"></span>
+
             <div class="mt-3 d-flex gap-2">
                 <button type="submit" class="btn btn-app-primary">Сохранить</button>
                 <a class="btn btn-app-outline" asp-controller="Classrooms" asp-action="List">Отмена</a>
@@ -60,44 +62,6 @@
     </div>
 </div>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const entities = @Html.Raw(JsonConvert.SerializeObject(ViewBag.ClassroomsList));
-        const idSelect = document.getElementById('Id');
-        function fillFields() {
-            const selected = entities.find(x => x.Id == idSelect.value);
-            if (!selected) return;
-            const elNumber = document.getElementById('Number');
-            if (elNumber) elNumber.value = selected.Number ?? '';
-            const elClassroomType = document.getElementById('ClassroomType');
-            if (elClassroomType) elClassroomType.value = selected.ClassroomType ?? '';
-            const elCapacity = document.getElementById('Capacity');
-            if (elCapacity) elCapacity.value = selected.Capacity ?? '';
-            const elNotUseInSchedule = document.getElementById('NotUseInSchedule');
-            if (elNotUseInSchedule) elNotUseInSchedule.value = selected.NotUseInSchedule ?? '';
-        }
-        if (idSelect) {
-            idSelect.addEventListener('change', fillFields);
-            fillFields();
-        }
-    });
-</script>
-
-@functions {
-    public string GetDisplayValue(object item)
-    {
-        var type = item.GetType();
-        foreach (var propName in new[] { "Name", "Title", "GroupName", "DisciplineName", "OrderNumber", "DepartmentPostTitle", "StudyPostTitle", "Cipher", "ShortName" })
-        {
-            var prop = type.GetProperty(propName);
-            var value = prop?.GetValue(item)?.ToString();
-            if (!string.IsNullOrWhiteSpace(value)) return value;
-        }
-        var firstName = type.GetProperty("FirstName")?.GetValue(item)?.ToString();
-        var lastName = type.GetProperty("LastName")?.GetValue(item)?.ToString();
-        if (!string.IsNullOrWhiteSpace(firstName) || !string.IsNullOrWhiteSpace(lastName))
-            return ($"{lastName} {firstName}").Trim();
-        return type.GetProperty("Id")?.GetValue(item)?.ToString() ?? string.Empty;
-    }
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
 }
-@section Scripts { <partial name="_ValidationScriptsPartial" /> }

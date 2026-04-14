@@ -1,4 +1,5 @@
 @using DepartmentContracts.ViewModels
+@using DepartmentDataModels.Enums
 
 @{
     ViewData["Title"] = "Сведения о приказах";
@@ -6,15 +7,32 @@
     var studentOrders = ViewBag.StudentOrdersList as List<StudentOrderViewModel> ?? new List<StudentOrderViewModel>();
     var studentOrderBlocks = ViewBag.StudentOrderBlocksList as List<StudentOrderBlockViewModel> ?? new List<StudentOrderBlockViewModel>();
     var blockStudents = ViewBag.StudentOrderBlockStudentsList as List<StudentOrderBlockStudentViewModel> ?? new List<StudentOrderBlockStudentViewModel>();
+
+    string GetOrderTypeName(StudentOrderType type) => type switch
+    {
+        StudentOrderType.Зачисление => "Зачисление",
+        StudentOrderType.Распределение => "Распределение",
+        StudentOrderType.Движение => "Движение",
+        StudentOrderType.ПереводНаКурс => "Перевод на курс",
+        StudentOrderType.ПереводВГруппу => "Перевод в группу",
+        StudentOrderType.ИзАкадема => "Выход из академического отпуска",
+        StudentOrderType.ВАкадем => "Академический отпуск",
+        StudentOrderType.ОтчислитьЗаНеуспевамость => "Отчисление за неуспеваемость",
+        StudentOrderType.ОтчислитьВСвязиСПереводом => "Отчисление в связи с переводом",
+        StudentOrderType.ОтчислитьПоСобственному => "Отчисление по собственному желанию",
+        StudentOrderType.ЗачислитьПоПереводу => "Зачисление переводом",
+        StudentOrderType.Восстановить => "Восстановление",
+        StudentOrderType.ОтчислитьПоЗавершению => "Отчисление в связи с завершением обучения",
+        StudentOrderType.ПродлАкадем => "Продление академического отпуска",
+        StudentOrderType.ОтчислитьЗаНевыходСАкадема => "Отчисление за невыход из академического отпуска",
+        _ => type.ToString()
+    };
 }
 
 <div class="list-shell">
     <div class="list-head">
         <div>
             <h2 class="list-title">Список приказов</h2>
-            <div class="list-sub">
-                Данные загружаются из 1С. Внутри приказа отображаются блоки, внутри блока — студенты.
-            </div>
         </div>
         <div class="d-flex gap-2">
             <form asp-controller="StudentOrders" asp-action="Sync" method="post" class="d-inline">
@@ -51,10 +69,10 @@
                     <div class="entity-content">
                         <div class="entity-main">
                             <h5 class="entity-title">Приказ №@order.OrderNumber</h5>
-                            <div class="entity-meta">
-                                <span class="meta-chip">Id: @order.Id</span>
-                                <span class="meta-chip">Тип: @order.StudentOrderType</span>
-                                <span class="meta-chip">Блоков: @orderBlocks.Count</span>
+
+                            <div class="entity-meta d-flex flex-column gap-1">
+                                <div><strong>Тип приказа:</strong> @GetOrderTypeName(order.StudentOrderType)</div>
+                                <div><strong>Количество блоков:</strong> @orderBlocks.Count</div>
                             </div>
                         </div>
                     </div>
@@ -62,18 +80,18 @@
                     <div class="entity-actions">
                         <div class="actions-stack">
                             <a class="btn btn-sm btn-app-outline"
-                               asp-controller="StudentOrders"
-                               asp-action="Details"
-                               asp-route-id="@order.Id">
+                       asp-controller="StudentOrders"
+                       asp-action="Details"
+                       asp-route-id="@order.Id">
                                 Подробнее
                             </a>
 
                             <button class="btn btn-sm btn-app-outline"
-                                    type="button"
-                                    data-bs-toggle="collapse"
-                                    data-bs-target="#@collapseId"
-                                    aria-expanded="false"
-                                    aria-controls="@collapseId">
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#@collapseId"
+                            aria-expanded="false"
+                            aria-controls="@collapseId">
                                 Показать блоки
                             </button>
                         </div>
@@ -87,75 +105,71 @@
                             @foreach (var block in orderBlocks)
                             {
                                 var currentBlockStudents = blockStudents
-                                    .Where(x => x.StudentOrderBlockId == block.Id)
-                                    .ToList();
+                                .Where(x => x.StudentOrderBlockId == block.Id)
+                                .ToList();
 
                                 <div class="order-block-card">
                                     <div class="order-block-head">
                                         <div class="order-block-info">
-                                            <div class="plan-record-title">
-                                                Блок приказа №@block.Id
-                                            </div>
-                                            <div class="entity-meta">
-                                                <span class="meta-chip">Тип блока: @block.StudentOrderType</span>
-                                                <span class="meta-chip">Направление: @block.EducationDirection</span>
-                                                <span class="meta-chip">Студентов: @currentBlockStudents.Count</span>
+                                            <div class="plan-record-title">Блок приказа</div>
+
+                                            <div class="entity-meta d-flex flex-column gap-1">
+                                                <div><strong>Тип блока:</strong> @GetOrderTypeName(block.StudentOrderType)</div>
+                                                <div><strong>Направление:</strong> @(string.IsNullOrWhiteSpace(block.EducationDirection) ? "—" : block.EducationDirection)</div>
+                                                <div><strong>Количество студентов:</strong> @currentBlockStudents.Count</div>
                                             </div>
                                         </div>
 
                                         <div class="plan-record-actions">
                                             <a class="btn btn-sm btn-app-outline"
-                                               asp-controller="StudentOrderBlocks"
-                                               asp-action="Details"
-                                               asp-route-id="@block.Id">
+                               asp-controller="StudentOrderBlocks"
+                               asp-action="Details"
+                               asp-route-id="@block.Id">
                                                 Подробнее
                                             </a>
                                         </div>
                                     </div>
 
-                                    <div class="student-list">
-                                        @if (currentBlockStudents.Count > 0)
-                                        {
-                                            @foreach (var blockStudent in currentBlockStudents)
-                                            {
-                                                <div class="student-item">
-                                                    <div class="student-item__main">
-                                                        <div class="student-item__title">
-                                                            @blockStudent.Student
-                                                        </div>
-
-                                                        <div class="entity-meta">
-                                                            <span class="meta-chip">Id записи: @blockStudent.Id</span>
-
-                                                            @if (!string.IsNullOrWhiteSpace(blockStudent.StudentGroupFrom))
-                                                            {
-                                                                <span class="meta-chip">Из группы: @blockStudent.StudentGroupFrom</span>
-                                                            }
-
-                                                            @if (!string.IsNullOrWhiteSpace(blockStudent.StudentGroupTo))
-                                                            {
-                                                                <span class="meta-chip">В группу: @blockStudent.StudentGroupTo</span>
-                                                            }
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="student-item__actions">
-                                                        <a class="btn btn-sm btn-app-outline"
-                                                           asp-controller="StudentOrderBlockStudents"
-                                                           asp-action="Details"
-                                                           asp-route-id="@blockStudent.Id">
-                                                            Подробнее
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            }
-                                        }
-                                        else
-                                        {
-                                            <div class="text-muted">
-                                                Для данного блока студенты отсутствуют.
-                                            </div>
-                                        }
+                                    <div class="table-responsive mt-3">
+                                        <table class="table table-app align-middle order-students-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Студент</th>
+                                                    <th>Из группы</th>
+                                                    <th>В группу</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @if (currentBlockStudents.Count > 0)
+                                                {
+                                                    @foreach (var blockStudent in currentBlockStudents)
+                                                    {
+                                                        <tr>
+                                                            <td>@(string.IsNullOrWhiteSpace(blockStudent.Student) ? "—" : blockStudent.Student)</td>
+                                                            <td>@(string.IsNullOrWhiteSpace(blockStudent.StudentGroupFrom) ? "—" : blockStudent.StudentGroupFrom)</td>
+                                                            <td>@(string.IsNullOrWhiteSpace(blockStudent.StudentGroupTo) ? "—" : blockStudent.StudentGroupTo)</td>
+                                                            <td class="text-end">
+                                                                <a class="btn btn-sm btn-app-outline"
+                                           asp-controller="StudentOrderBlockStudents"
+                                           asp-action="Details"
+                                           asp-route-id="@blockStudent.Id">
+                                                                    Подробнее
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <tr>
+                                                        <td colspan="4" class="text-muted">
+                                                            Для данного блока студенты отсутствуют.
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             }
@@ -185,13 +199,13 @@
             border-top: 1px solid var(--sky);
         }
 
-        .plan-block:first-of-type {
-            border-top: none;
-        }
+            .plan-block:first-of-type {
+                border-top: none;
+            }
 
-        .plan-block .entity-row {
-            border-top: none;
-        }
+            .plan-block .entity-row {
+                border-top: none;
+            }
 
         .plan-records-wrap {
             margin-left: 8px;
@@ -205,9 +219,9 @@
             border-bottom: 1px solid #e3eefb;
         }
 
-        .order-block-card:last-child {
-            border-bottom: none;
-        }
+            .order-block-card:last-child {
+                border-bottom: none;
+            }
 
         .order-block-head {
             display: flex;
@@ -233,44 +247,22 @@
             padding-top: 2px;
         }
 
-        .student-list {
-            margin-top: 12px;
-            padding-left: 12px;
-            border-left: 3px solid var(--sky);
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
+        .order-students-table {
+            margin-bottom: 0;
         }
 
-        .student-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 16px;
-            background: #fff;
-            border: 1px solid #e3eefb;
-            border-radius: 10px;
-            padding: 10px 12px;
-        }
+            .order-students-table thead th {
+                white-space: nowrap;
+                vertical-align: middle;
+            }
 
-        .student-item__main {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .student-item__title {
-            font-weight: 700;
-            color: var(--galaxy);
-            margin-bottom: 6px;
-        }
-
-        .student-item__actions {
-            flex-shrink: 0;
-        }
+            .order-students-table td {
+                vertical-align: middle;
+            }
     </style>
 }
 
-@section Scripts {
+    @section Scripts {
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const collapseElements = document.querySelectorAll('.collapse');

@@ -1,19 +1,35 @@
 @using DepartmentContracts.ViewModels
+@using DepartmentDataModels.Enums
 
 @{
     ViewData["Title"] = "StudentGroups";
 
     var groups = ViewBag.StudentGroupsList as List<StudentGroupViewModel> ?? new List<StudentGroupViewModel>();
     var students = ViewBag.StudentsList as List<StudentViewModel> ?? new List<StudentViewModel>();
+
+    string GetCourseName(AcademicCourse course) => course switch
+    {
+        AcademicCourse.Course_1 => "Первый курс",
+        AcademicCourse.Course_2 => "Второй курс",
+        AcademicCourse.Course_3 => "Третий курс",
+        AcademicCourse.Course_4 => "Четвёртый курс",
+        _ => course.ToString()
+    };
+
+    string GetStudentStateName(StudentState state) => state switch
+    {
+        StudentState.Учится => "Обучается",
+        StudentState.Академ => "Академический отпуск",
+        StudentState.Отчислен => "Отчислен",
+        StudentState.Завершил => "Выпустился",
+        _ => state.ToString()
+    };
 }
 
 <div class="list-shell">
     <div class="list-head">
         <div>
             <h2 class="list-title">Список учебных групп</h2>
-            <div class="list-sub">
-                Данные загружаются из 1С. Состав группы отображается внутри соответствующей записи.
-            </div>
         </div>
         <div class="d-flex gap-2">
             <form asp-controller="StudentGroups" asp-action="Sync" method="post" class="d-inline">
@@ -40,7 +56,13 @@
     {
         @foreach (var item in groups)
         {
-            var groupStudents = students.Where(x => x.StudentGroupId == item.Id).ToList();
+            var groupStudents = students
+            .Where(x => x.StudentGroupId == item.Id)
+            .OrderBy(x => x.LastName)
+            .ThenBy(x => x.FirstName)
+            .ThenBy(x => x.Patronymic)
+            .ToList();
+
             var collapseId = $"groupStudents_{item.Id}";
             var buttonId = $"toggleBtn_{item.Id}";
 
@@ -51,14 +73,15 @@
                     <div class="entity-content">
                         <div class="entity-main">
                             <h5 class="entity-title">@item.GroupName</h5>
-                            <div class="entity-meta">
-                                <span class="meta-chip">Id: @item.Id</span>
-                                <span class="meta-chip">@item.EducationDirection</span>
-                                <span class="meta-chip">@item.Course</span>
-                                <span class="meta-chip">Студентов: @groupStudents.Count</span>
+
+                            <div class="entity-meta d-flex flex-column gap-1">
+                                <div><strong>Направление:</strong> @item.EducationDirection</div>
+                                <div><strong>Курс:</strong> @GetCourseName(item.Course)</div>
+                                <div><strong>Количество студентов:</strong> @groupStudents.Count</div>
+
                                 @if (!string.IsNullOrWhiteSpace(item.Curator))
                                 {
-                                    <span class="meta-chip">@item.Curator</span>
+                                    <div><strong>Куратор:</strong> @item.Curator</div>
                                 }
                             </div>
                         </div>
@@ -97,17 +120,24 @@
                                         <div class="group-student-title">
                                             @student.LastName @student.FirstName @student.Patronymic
                                         </div>
-                                        <div class="entity-meta">
-                                            <span class="meta-chip">Id: @student.Id</span>
-                                            <span class="meta-chip">Зачетка: @student.NumberOfBook</span>
-                                            <span class="meta-chip">@student.StudentState</span>
+
+                                        <div class="entity-meta d-flex flex-column gap-1">
+                                            <div><strong>Номер зачётной книжки:</strong> @student.NumberOfBook</div>
+                                            <div><strong>Статус:</strong> @GetStudentStateName(student.StudentState)</div>
+
                                             @if (!string.IsNullOrWhiteSpace(student.Email))
                                             {
-                                                <span class="meta-chip">@student.Email</span>
+                                                <div><strong>Электронная почта:</strong> @student.Email</div>
                                             }
+
                                             @if (student.IsSteward)
                                             {
-                                                <span class="meta-chip">Староста</span>
+                                                <div><strong>Роль:</strong> Староста группы</div>
+                                            }
+
+                                            @if (!string.IsNullOrWhiteSpace(student.Description))
+                                            {
+                                                <div><strong>Примечание:</strong> @student.Description</div>
                                             }
                                         </div>
                                     </div>

@@ -1,4 +1,6 @@
+@using System.Linq
 @using DepartmentContracts.ViewModels
+@using DepartmentDataModels.Enums
 
 @{
     ViewData["Title"] = "Сведения об успеваемости";
@@ -7,15 +9,40 @@
     var disciplines = ViewBag.DisciplinesList as List<DisciplineViewModel> ?? new List<DisciplineViewModel>();
     var students = ViewBag.StudentsList as List<StudentViewModel> ?? new List<StudentViewModel>();
     var groups = ViewBag.StudentGroupsList as List<StudentGroupViewModel> ?? new List<StudentGroupViewModel>();
+
+    string GetCourseName(AcademicCourse course) => course switch
+    {
+        AcademicCourse.Course_1 => "Первый курс",
+        AcademicCourse.Course_2 => "Второй курс",
+        AcademicCourse.Course_3 => "Третий курс",
+        AcademicCourse.Course_4 => "Четвёртый курс",
+        _ => course.ToString()
+    };
+
+    string GetStudentStateName(StudentState state) => state switch
+    {
+        StudentState.Учится => "Обучается",
+        StudentState.Академ => "Академический отпуск",
+        StudentState.Отчислен => "Отчислен",
+        StudentState.Завершил => "Выпустился",
+        _ => state.ToString()
+    };
+
+    string GetMarkName(MarkType mark) => mark switch
+    {
+        MarkType.Отлично => "Отлично",
+        MarkType.Хорошо => "Хорошо",
+        MarkType.Удовлетворительно => "Удовлетворительно",
+        MarkType.Неудовлетворительно => "Неудовлетворительно",
+        MarkType.Неявка => "Неявка",
+        _ => mark.ToString()
+    };
 }
 
 <div class="list-shell">
     <div class="list-head">
         <div>
             <h2 class="list-title">Сведения об успеваемости</h2>
-            <div class="list-sub">
-                Студенты сгруппированы по учебным группам. В таблице по строкам идут студенты, по столбцам — дисциплины.
-            </div>
         </div>
         <div class="d-flex gap-2">
             <form asp-controller="DisciplineStudentRecords" asp-action="Sync" method="post" class="d-inline">
@@ -37,6 +64,17 @@
             @TempData["Error"]
         </div>
     }
+
+    <div class="p-3 pb-0">
+        <div class="row g-2">
+            <div class="col-md-6">
+                <input id="groupSearchInput"
+                       type="text"
+                       class="form-control"
+                       placeholder="Поиск по названию группы, например ПИбд-31" />
+            </div>
+        </div>
+    </div>
 
     @if (groups.Count > 0)
     {
@@ -68,21 +106,22 @@
             var collapseId = $"groupMarks_{group.Id}";
             var buttonId = $"toggleBtn_{group.Id}";
 
-            <div class="group-block">
+            <div class="group-block"
+         data-group-name="@group.GroupName.ToLowerInvariant()">
                 <div class="entity-row">
                     <div class="entity-accent"></div>
 
                     <div class="entity-content">
                         <div class="entity-main">
                             <h5 class="entity-title">@group.GroupName</h5>
-                            <div class="entity-meta">
-                                <span class="meta-chip">@group.EducationDirection</span>
-                                <span class="meta-chip">@group.Course</span>
-                                <span class="meta-chip">Студентов: @groupStudents.Count</span>
-                                <span class="meta-chip">Дисциплин: @groupDisciplines.Count</span>
+                            <div class="entity-meta d-flex flex-column gap-1">
+                                <div><strong>Направление:</strong> @group.EducationDirection</div>
+                                <div><strong>Курс:</strong> @GetCourseName(group.Course)</div>
+                                <div><strong>Количество студентов:</strong> @groupStudents.Count</div>
+                                <div><strong>Количество дисциплин:</strong> @groupDisciplines.Count</div>
                                 @if (!string.IsNullOrWhiteSpace(group.Curator))
                                 {
-                                    <span class="meta-chip">@group.Curator</span>
+                                    <div><strong>Куратор:</strong> @group.Curator</div>
                                 }
                             </div>
                         </div>
@@ -133,7 +172,9 @@
                                             <th class="student-col">Студент</th>
                                             @foreach (var discipline in groupDisciplines)
                                             {
-                                                <th class="discipline-col">@discipline.DisciplineShortName</th>
+                                                <th class="discipline-col" title="@discipline.DisciplineName">
+                                                    @discipline.DisciplineShortName
+                                                </th>
                                             }
                                         </tr>
                                     </thead>
@@ -147,11 +188,11 @@
                                                             @student.LastName @student.FirstName @student.Patronymic
                                                         </div>
                                                         <div class="student-meta">
-                                                            <span>Зачетка: @student.NumberOfBook</span>
-                                                            <span>@student.StudentState</span>
+                                                            <span>Зачётная книжка: @student.NumberOfBook</span>
+                                                            <span>Статус: @GetStudentStateName(student.StudentState)</span>
                                                             @if (student.IsSteward)
                                                             {
-                                                                <span>Староста</span>
+                                                                <span>Староста группы</span>
                                                             }
                                                         </div>
                                                     </div>
@@ -176,7 +217,7 @@
                                            asp-action="Details"
                                            asp-route-id="@record.Id"
                                            title="Семестр: @record.Semester | Вариант: @record.Variant | Подгруппа: @record.SubGroup">
-                                                                        @record.MarkType
+                                                                        @GetMarkName(record.MarkType)
                                                                     </a>
                                                                 }
                                                             </div>
@@ -346,6 +387,24 @@
                     }
                 });
             });
+
+            const groupSearchInput = document.getElementById('groupSearchInput');
+            const groupBlocks = document.querySelectorAll('.group-block');
+
+            function filterGroups() {
+                const search = (groupSearchInput?.value || '').trim().toLowerCase();
+
+                groupBlocks.forEach(block => {
+                    const groupName = block.dataset.groupName || '';
+                    const matches = !search || groupName.includes(search);
+
+                    block.style.display = matches ? '' : 'none';
+                });
+            }
+
+            if (groupSearchInput) {
+                groupSearchInput.addEventListener('input', filterGroups);
+            }
         });
     </script>
 }

@@ -95,7 +95,7 @@ namespace DepartmentDatabaseImplement.Implements
         {
             var vm = entity.GetViewModel;
             vm.AcademicPlan = entity.AcademicPlan == null ? string.Empty : entity.AcademicPlan.Id.ToString();
-            vm.Name = entity.Discipline == null ? string.Empty : entity.Discipline.Id.ToString();
+            vm.Name = entity.Discipline == null ? entity.Name : entity.Discipline.DisciplineName;
             return vm;
         }
     }
